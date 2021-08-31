@@ -1,0 +1,626 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>robin3.ResultProcessor &mdash; ROBIN3 0.1.0-dev documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+    <link rel="canonical" href="/robin3/pythonapi/generated/robin3.ResultProcessor.html" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="robin3.Plotter" href="robin3.Plotter.html" />
+    <link rel="prev" title="robin3.make_axiom_p_table" href="robin3.make_axiom_p_table.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> ROBIN3
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Install Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releasenotes/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usersguide/index.html">User’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../methods/index.html">Theory and Methodology</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Python API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../index.html#material-specification">Material specification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#run-simulation">Run Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#make-idyll-table">Make IDYLL Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#make-axiom-p-table">Make AXIOM-P Table</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#result-data-processing">Result Data Processing</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">robin3.ResultProcessor</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#input-model-and-result-visualization">Input Model and Result Visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#openmc-compatibility">OpenMC Compatibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#others">Others</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../command.html">Run in Command Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../io_formats/index.html">File Format Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License Agreement</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ROBIN3</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Python API</a> &raquo;</li>
+        
+      <li>robin3.ResultProcessor</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/pythonapi/generated/robin3.ResultProcessor.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="robin3-resultprocessor">
+<h1>robin3.ResultProcessor<a class="headerlink" href="#robin3-resultprocessor" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="robin3.ResultProcessor">
+<em class="property">class </em><code class="sig-prename descclassname">robin3.</code><code class="sig-name descname">ResultProcessor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">result_file</span></em><span class="sig-paren">)</span><a class="headerlink" href="#robin3.ResultProcessor" title="Permalink to this definition">¶</a></dt>
+<dd><p>A result processor used to collecting result data and doing some
+processing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>result_file</strong> (<em>str</em>) – The HDF5 format result file with path produced by robin3 simulation.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="robin3.ResultProcessor.result_file">
+<code class="sig-name descname">result_file</code><a class="headerlink" href="#robin3.ResultProcessor.result_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>The HDF5 format result file with path produced by robin3 simulation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="robin3.ResultProcessor.result_data">
+<code class="sig-name descname">result_data</code><a class="headerlink" href="#robin3.ResultProcessor.result_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>A python list which hold all the result data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="robin3.ResultProcessor.input_model">
+<code class="sig-name descname">input_model</code><a class="headerlink" href="#robin3.ResultProcessor.input_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>A python dict containing the input model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="robin3.ResultProcessor.is_macro_xs_case">
+<code class="sig-name descname">is_macro_xs_case</code><a class="headerlink" href="#robin3.ResultProcessor.is_macro_xs_case" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether is macro-xs case.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="robin3.ResultProcessor.is_case_matrix">
+<code class="sig-name descname">is_case_matrix</code><a class="headerlink" href="#robin3.ResultProcessor.is_case_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether is single assembly case matrix case.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="robin3.ResultProcessor.is_core_case">
+<code class="sig-name descname">is_core_case</code><a class="headerlink" href="#robin3.ResultProcessor.is_core_case" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether is core simulation case.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">robin3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">ResultProcessor</span><span class="p">(</span><span class="s1">&#39;mini_core.h5&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt id="robin3.ResultProcessor.assembly_power">
+<code class="sig-name descname">assembly_power</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">result_index</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#robin3.ResultProcessor.assembly_power" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the assembly power distribution at a certain burnup point.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>result_index</strong> (<em>int</em><em>, </em><em>optional</em>) – The index of the data interested in the result data list
+(0 by default).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">robin3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">ResultProcessor</span><span class="p">(</span><span class="s1">&#39;mini_core.h5&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">assembly_power</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">assembly_power</span><span class="p">(</span><span class="n">burnup</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="robin3.ResultProcessor.assembly_reaction_rate">
+<code class="sig-name descname">assembly_reaction_rate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">result_index</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">reaction_type</span><span class="o">=</span><span class="default_value">'assembly_vfis'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#robin3.ResultProcessor.assembly_reaction_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a certain type of assembly reaction rate distribution at a certain
+burnup point.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>result_index</strong> (<em>int</em><em>, </em><em>optional</em>) – The index of the data interested in the result data list
+(0 by default).</p></li>
+<li><p><strong>result_type</strong> (<em>str</em><em>, </em><em>optional</em>) – Which type of assembly reaction rate distribution to get, should be
+a choice of [‘assembly_vfis’, ‘assembly_fis’] (‘assembly_vfis’ by default).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">robin3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">ResultProcessor</span><span class="p">(</span><span class="s1">&#39;mini_core.h5&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">assembly_fis</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">assembly_reaction_rate</span><span class="p">(</span><span class="n">reaction_type</span><span class="o">=</span><span class="s1">&#39;assembly_fis&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="robin3.ResultProcessor.generate_plotter">
+<code class="sig-name descname">generate_plotter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">result_data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">generate_geometry_data</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">num_process</span><span class="o">=</span><span class="default_value">32</span></em><span class="sig-paren">)</span><a class="headerlink" href="#robin3.ResultProcessor.generate_plotter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a robin3.Plotter instance used to visualize the result data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>result_data</strong> (<em>list</em><em>, </em><em>optional</em>) – A list contain all the result data that we want to visualize.</p></li>
+<li><p><strong>num_process</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of process used to perform geometry computation. Note that
+geometry computations are parallelized in assembly level by
+multi-processing, which means this argument only works for core
+model ploting (number_of_processors_availabe by default).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="robin3.Plotter.html#robin3.Plotter" title="robin3.Plotter">robin3.Plotter</a></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">robin3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">ResultProcessor</span><span class="p">(</span><span class="s1">&#39;mini_core.h5&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plotter</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">generate_plotter</span><span class="p">(</span><span class="n">num_process</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plotter</span><span class="o">.</span><span class="n">plot_geometry</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="robin3.ResultProcessor.mesh_flux">
+<code class="sig-name descname">mesh_flux</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">result_index</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">group</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#robin3.ResultProcessor.mesh_flux" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the mesh flux distribution at a certain burnup point.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>result_index</strong> (<em>int</em><em>, </em><em>optional</em>) – The index of the data interested in the result data list
+(0 by default).</p></li>
+<li><p><strong>group</strong> (<em>int</em><em>, </em><em>optional</em>) – Which energy group of the pin flux distribution to get, should be
+a int number range in [1, config.NUM_EDIT_GROUPS]
+(1 by default).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">robin3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">ResultProcessor</span><span class="p">(</span><span class="s1">&#39;mini_core.h5&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mesh_flux</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">mesh_flux</span><span class="p">(</span><span class="n">burnup</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="robin3.ResultProcessor.mesh_reaction_rate">
+<code class="sig-name descname">mesh_reaction_rate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">result_index</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">reaction_type</span><span class="o">=</span><span class="default_value">'mesh_vfis'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#robin3.ResultProcessor.mesh_reaction_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a certain type of mesh reaction rate distribution at a certain
+burnup point.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>result_index</strong> (<em>int</em><em>, </em><em>optional</em>) – The index of the data interested in the result data list
+(0 by default).</p></li>
+<li><p><strong>result_type</strong> (<em>str</em><em>, </em><em>optional</em>) – Which type of mesh reaction rate distribution to get, should be
+a choice of [‘mesh_vfis’, ‘mesh_fis’] (‘mesh_vfis’ by default).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">robin3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">ResultProcessor</span><span class="p">(</span><span class="s1">&#39;mini_core.h5&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mesh_fis</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">mesh_reaction_rate</span><span class="p">(</span><span class="n">reaction_type</span><span class="o">=</span><span class="s1">&#39;mesh_fis&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="robin3.ResultProcessor.neutron_fluxes_in_tagged_regions">
+<code class="sig-name descname">neutron_fluxes_in_tagged_regions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">result_index</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#robin3.ResultProcessor.neutron_fluxes_in_tagged_regions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the neutron fluxes distribution with neutron energy in tagged
+regions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>result_index</strong> (<em>int</em><em>, </em><em>optional</em>) – The index of the data interested in the result data list
+(0 by default).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Pandas.DataFrame</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">robin3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">ResultProcessor</span><span class="p">(</span><span class="s1">&#39;mini_core.h5&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mesh_fis</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">neutron_fluxes_in_tagged_regions</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="robin3.ResultProcessor.pin_flux">
+<code class="sig-name descname">pin_flux</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">result_index</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">group</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#robin3.ResultProcessor.pin_flux" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the pin flux distribution at a certain burnup point.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>result_index</strong> (<em>int</em><em>, </em><em>optional</em>) – The index of the data interested in the result data list
+(0 by default).</p></li>
+<li><p><strong>group</strong> (<em>int</em><em>, </em><em>optional</em>) – Which energy group of the pin flux distribution to get, should be
+a int number range in [1, config.NUM_EDIT_GROUPS]
+(1 by default).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">robin3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">ResultProcessor</span><span class="p">(</span><span class="s1">&#39;mini_core.h5&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pin_flux</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">pin_flux</span><span class="p">(</span><span class="n">burnup</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="robin3.ResultProcessor.pin_power">
+<code class="sig-name descname">pin_power</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">result_index</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#robin3.ResultProcessor.pin_power" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the pin power distribution at a certain burnup point.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>result_index</strong> (<em>int</em><em>, </em><em>optional</em>) – The index of the data interested in the result data list
+(0 by default).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">robin3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">ResultProcessor</span><span class="p">(</span><span class="s1">&#39;mini_core.h5&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pin_power</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">pin_power</span><span class="p">(</span><span class="n">burnup</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="robin3.ResultProcessor.pin_reaction_rate">
+<code class="sig-name descname">pin_reaction_rate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">result_index</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">reaction_type</span><span class="o">=</span><span class="default_value">'pin_vfis'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#robin3.ResultProcessor.pin_reaction_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a certain type of pin reaction rate distribution at a certain
+burnup point.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>result_index</strong> (<em>int</em><em>, </em><em>optional</em>) – The index of the data interested in the result data list
+(0 by default).</p></li>
+<li><p><strong>result_type</strong> (<em>str</em><em>, </em><em>optional</em>) – Which type of pin reaction rate distribution to get, should be
+a choice of [‘pin_vfis’, ‘pin_fis’] (‘pin_vfis’ by default).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">robin3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">ResultProcessor</span><span class="p">(</span><span class="s1">&#39;mini_core.h5&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pin_fis</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">pin_reaction_rate</span><span class="p">(</span><span class="n">reaction_type</span><span class="o">=</span><span class="s1">&#39;pin_fis&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="robin3.ResultProcessor.summary">
+<code class="sig-name descname">summary</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#robin3.ResultProcessor.summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the summary of the result data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Pandas.DataFrame</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">robin3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">ResultProcessor</span><span class="p">(</span><span class="s1">&#39;mini_core.h5&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="robin3.Plotter.html" class="btn btn-neutral float-right" title="robin3.Plotter" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="robin3.make_axiom_p_table.html" class="btn btn-neutral float-left" title="robin3.make_axiom_p_table" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020-, ShangHai NuStar Nuclear Power Technology Co.Ltd.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+ 
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-30411614-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+</body>
+</html>

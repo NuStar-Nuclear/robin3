@@ -1,0 +1,7 @@
+﻿robin3.openmc_compatible.generate_xs_library
+============================================
+
+.. currentmodule:: robin3.openmc_compatible
+
+.. autoclass:: generate_xs_library
+    :members:

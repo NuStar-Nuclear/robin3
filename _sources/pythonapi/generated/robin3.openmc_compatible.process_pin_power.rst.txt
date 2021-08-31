@@ -1,0 +1,7 @@
+﻿robin3.openmc_compatible.process_pin_power
+==========================================
+
+.. currentmodule:: robin3.openmc_compatible
+
+.. autoclass:: process_pin_power
+    :members:

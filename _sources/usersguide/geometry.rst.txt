@@ -1,0 +1,23 @@
+.. _usersguide_geometry:
+
+
+===================
+Geometry Definition
+===================
+
+
+
+---------
+Pin Cells
+---------
+
+
+
+----------
+Assemblies
+----------
+
+
+---------
+Full Core
+---------

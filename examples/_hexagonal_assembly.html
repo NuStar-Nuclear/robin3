@@ -1,0 +1,410 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Modeling a Single Hexagonal Assembly &mdash; ROBIN3 0.1.0-dev documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+    <link rel="canonical" href="/robin3/examples/_hexagonal_assembly.html" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Modeling 2-D C5G7 Mini Core" href="_c5g7.html" />
+    <link rel="prev" title="Modeling a Single Square Assembly" href="_square_assembly.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ROBIN3
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Install Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releasenotes/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usersguide/index.html">User’s Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#by-pythonapi">By <span class="xref std std-ref">pythonapi</span></a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#by-command-line">By <span class="xref std std-ref">Command Line</span></a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="_pincell.html">Modeling a Pin-Cell</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_square_assembly.html">Modeling a Single Square Assembly</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Modeling a Single Hexagonal Assembly</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_c5g7.html">Modeling 2-D C5G7 Mini Core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_square_mini_core.html">Modeling a Square Mini Core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_vver.html">Modeling VVER 1/6 Core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_ap1000.html">Modeling AP1000 1/8 Core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_idyll_table_case.html">Making an IDYLL Table for a Square Assembly</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#openmc-compatibility">OpenMC Compatibility</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../methods/index.html">Theory and Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pythonapi/index.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../command.html">Run in Command Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../io_formats/index.html">File Format Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License Agreement</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ROBIN3</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Examples</a> &raquo;</li>
+        
+      <li>Modeling a Single Hexagonal Assembly</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/examples/_hexagonal_assembly.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="modeling-a-single-hexagonal-assembly">
+<span id="examples-hexagonal-assembly"></span><h1>Modeling a Single Hexagonal Assembly<a class="headerlink" href="#modeling-a-single-hexagonal-assembly" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">materials</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">UO2_360</span>
+  <span class="nt">elements</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">UO2_3.6</span><span class="p p-Indicator">]</span>
+  <span class="nt">weight_percents</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">1.0</span><span class="p p-Indicator">]</span>
+  <span class="nt">density</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10.3</span>
+<span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">UO2_400</span>
+  <span class="nt">elements</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">UO2_4.0</span><span class="p p-Indicator">]</span>
+  <span class="nt">weight_percents</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">1.0</span><span class="p p-Indicator">]</span>
+  <span class="nt">density</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10.3</span>
+<span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Gd_bearing_fuel</span>
+  <span class="nt">elements</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">UO2_3.3</span><span class="p p-Indicator">,</span> <span class="nv">GD2O3</span><span class="p p-Indicator">]</span>
+  <span class="nt">weight_percents</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">0.95</span><span class="p p-Indicator">,</span> <span class="nv">0.05</span><span class="p p-Indicator">]</span>
+  <span class="nt">density</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">9.4</span>
+
+<span class="nt">structures</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">GT</span>
+  <span class="nt">primitives</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">type</span><span class="p">:</span> <span class="nv">CIRCLE</span><span class="p p-Indicator">,</span><span class="nt"> radius</span><span class="p">:</span> <span class="nv">0.55</span><span class="p p-Indicator">}</span>
+  <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">type</span><span class="p">:</span> <span class="nv">CIRCLE</span><span class="p p-Indicator">,</span><span class="nt"> radius</span><span class="p">:</span> <span class="nv">0.65</span><span class="p p-Indicator">}</span>
+  <span class="nt">regions</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">material</span><span class="p">:</span> <span class="nv">MOD</span><span class="p p-Indicator">,</span><span class="nt"> space</span><span class="p">:</span> <span class="s">&#39;1&#39;</span><span class="p p-Indicator">}</span>
+  <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">material</span><span class="p">:</span> <span class="nv">ZIRLO</span><span class="p p-Indicator">,</span><span class="nt"> space</span><span class="p">:</span> <span class="nv">2-1</span><span class="p p-Indicator">}</span>
+<span class="p p-Indicator">-</span> <span class="nl">&amp;fuel_pin</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">F36</span>
+  <span class="nt">primitives</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">type</span><span class="p">:</span> <span class="nv">CIRCLE</span><span class="p p-Indicator">,</span><span class="nt"> radius</span><span class="p">:</span> <span class="nv">0.3785</span><span class="p p-Indicator">}</span>
+  <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">type</span><span class="p">:</span> <span class="nv">CIRCLE</span><span class="p p-Indicator">,</span><span class="nt"> radius</span><span class="p">:</span> <span class="nv">0.3865</span><span class="p p-Indicator">}</span>
+  <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">type</span><span class="p">:</span> <span class="nv">CIRCLE</span><span class="p p-Indicator">,</span><span class="nt"> radius</span><span class="p">:</span> <span class="nv">0.4550</span><span class="p p-Indicator">}</span>
+  <span class="nt">regions</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">material</span><span class="p">:</span> <span class="nv">UO2_360</span><span class="p p-Indicator">,</span><span class="nt"> space</span><span class="p">:</span> <span class="s">&#39;1&#39;</span><span class="p p-Indicator">}</span>
+  <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">material</span><span class="p">:</span> <span class="nv">HE</span><span class="p p-Indicator">,</span><span class="nt"> space</span><span class="p">:</span> <span class="nv">2-1</span><span class="p p-Indicator">}</span>
+  <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">material</span><span class="p">:</span> <span class="nv">ZIRLO</span><span class="p p-Indicator">,</span><span class="nt"> space</span><span class="p">:</span> <span class="nv">3-2</span><span class="p p-Indicator">}</span>
+<span class="p p-Indicator">-</span> <span class="nt">&lt;&lt;</span><span class="p">:</span> <span class="nv">*fuel_pin</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">F40</span>
+  <span class="nt">regions</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">material</span><span class="p">:</span> <span class="nv">UO2_400</span><span class="p p-Indicator">,</span><span class="nt"> space</span><span class="p">:</span> <span class="s">&#39;1&#39;</span><span class="p p-Indicator">}</span>
+  <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">material</span><span class="p">:</span> <span class="nv">HE</span><span class="p p-Indicator">,</span><span class="nt"> space</span><span class="p">:</span> <span class="nv">2-1</span><span class="p p-Indicator">}</span>
+  <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">material</span><span class="p">:</span> <span class="nv">ZIRLO</span><span class="p p-Indicator">,</span><span class="nt"> space</span><span class="p">:</span> <span class="nv">3-2</span><span class="p p-Indicator">}</span>
+<span class="p p-Indicator">-</span> <span class="nt">&lt;&lt;</span><span class="p">:</span> <span class="nv">*fuel_pin</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">B33</span>
+  <span class="nt">meshing</span><span class="p">:</span>
+    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">SECTORS</span>
+    <span class="nt">num_azimuths</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">6</span>
+    <span class="nt">radii</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">0.1197</span><span class="p p-Indicator">,</span> <span class="nv">0.1693</span><span class="p p-Indicator">,</span> <span class="nv">0.2073</span><span class="p p-Indicator">,</span> <span class="nv">0.2394</span><span class="p p-Indicator">,</span> <span class="nv">0.2676</span><span class="p p-Indicator">,</span> <span class="nv">0.2932</span><span class="p p-Indicator">,</span> <span class="nv">0.3167</span><span class="p p-Indicator">,</span> <span class="nv">0.3385</span><span class="p p-Indicator">,</span> <span class="nv">0.3590</span><span class="p p-Indicator">]</span>
+  <span class="nt">regions</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">material</span><span class="p">:</span> <span class="nv">Gd_bearing_fuel</span><span class="p p-Indicator">,</span><span class="nt"> space</span><span class="p">:</span> <span class="s">&#39;1&#39;</span><span class="p p-Indicator">}</span>
+  <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">material</span><span class="p">:</span> <span class="nv">HE</span><span class="p p-Indicator">,</span><span class="nt"> space</span><span class="p">:</span> <span class="nv">2-1</span><span class="p p-Indicator">}</span>
+  <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">material</span><span class="p">:</span> <span class="nv">ZIRLO</span><span class="p p-Indicator">,</span><span class="nt"> space</span><span class="p">:</span> <span class="nv">3-2</span><span class="p p-Indicator">}</span>
+<span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">plate</span>
+  <span class="nt">primitives</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">POLYGON</span>
+    <span class="nt">vertexes</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">x</span><span class="p">:</span> <span class="nv">-13.5100</span><span class="p p-Indicator">,</span><span class="nt"> y</span><span class="p">:</span>  <span class="nv">0.0</span><span class="p p-Indicator">}</span>
+    <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">x</span><span class="p">:</span>  <span class="nv">13.5100</span><span class="p p-Indicator">,</span><span class="nt"> y</span><span class="p">:</span>  <span class="nv">0.0</span><span class="p p-Indicator">}</span>
+    <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">x</span><span class="p">:</span>  <span class="nv">-6.7550</span><span class="p p-Indicator">,</span><span class="nt"> y</span><span class="p">:</span>  <span class="nv">11.7000</span><span class="p p-Indicator">}</span>
+    <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">x</span><span class="p">:</span>   <span class="nv">6.7550</span><span class="p p-Indicator">,</span><span class="nt"> y</span><span class="p">:</span>  <span class="nv">11.7000</span><span class="p p-Indicator">}</span>
+    <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">x</span><span class="p">:</span>  <span class="nv">-6.7550</span><span class="p p-Indicator">,</span><span class="nt"> y</span><span class="p">:</span> <span class="nv">-11.7000</span><span class="p p-Indicator">}</span>
+    <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">x</span><span class="p">:</span>   <span class="nv">6.7550</span><span class="p p-Indicator">,</span><span class="nt"> y</span><span class="p">:</span> <span class="nv">-11.7000</span><span class="p p-Indicator">}</span>
+  <span class="p p-Indicator">-</span> <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">POLYGON</span>
+    <span class="nt">vertexes</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">x</span><span class="p">:</span> <span class="nv">-13.3945</span><span class="p p-Indicator">,</span><span class="nt"> y</span><span class="p">:</span>  <span class="nv">0.0</span><span class="p p-Indicator">}</span>
+    <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">x</span><span class="p">:</span>  <span class="nv">13.3945</span><span class="p p-Indicator">,</span><span class="nt"> y</span><span class="p">:</span>  <span class="nv">0.0</span><span class="p p-Indicator">}</span>
+    <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">x</span><span class="p">:</span>  <span class="nv">-6.6973</span><span class="p p-Indicator">,</span><span class="nt"> y</span><span class="p">:</span>  <span class="nv">11.6000</span><span class="p p-Indicator">}</span>
+    <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">x</span><span class="p">:</span>   <span class="nv">6.6973</span><span class="p p-Indicator">,</span><span class="nt"> y</span><span class="p">:</span>  <span class="nv">11.6000</span><span class="p p-Indicator">}</span>
+    <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">x</span><span class="p">:</span>  <span class="nv">-6.6973</span><span class="p p-Indicator">,</span><span class="nt"> y</span><span class="p">:</span> <span class="nv">-11.6000</span><span class="p p-Indicator">}</span>
+    <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">x</span><span class="p">:</span>   <span class="nv">6.6973</span><span class="p p-Indicator">,</span><span class="nt"> y</span><span class="p">:</span> <span class="nv">-11.6000</span><span class="p p-Indicator">}</span>
+  <span class="p p-Indicator">-</span> <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">POLYGON</span>
+    <span class="nt">vertexes</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">x</span><span class="p">:</span> <span class="nv">-12.1316</span><span class="p p-Indicator">,</span><span class="nt"> y</span><span class="p">:</span>  <span class="nv">2.5875</span><span class="p p-Indicator">}</span>
+    <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">x</span><span class="p">:</span>  <span class="nv">-8.3066</span><span class="p p-Indicator">,</span><span class="nt"> y</span><span class="p">:</span>  <span class="nv">9.2125</span><span class="p p-Indicator">}</span>
+    <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">x</span><span class="p">:</span>  <span class="nv">12.1316</span><span class="p p-Indicator">,</span><span class="nt"> y</span><span class="p">:</span> <span class="nv">-2.5875</span><span class="p p-Indicator">}</span>
+    <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">x</span><span class="p">:</span>   <span class="nv">8.3066</span><span class="p p-Indicator">,</span><span class="nt"> y</span><span class="p">:</span> <span class="nv">-9.2125</span><span class="p p-Indicator">}</span>
+  <span class="p p-Indicator">-</span> <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">POLYGON</span>
+    <span class="nt">vertexes</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">x</span><span class="p">:</span>  <span class="nv">12.1316</span><span class="p p-Indicator">,</span><span class="nt"> y</span><span class="p">:</span>  <span class="nv">2.5875</span><span class="p p-Indicator">}</span>
+    <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">x</span><span class="p">:</span>   <span class="nv">8.3066</span><span class="p p-Indicator">,</span><span class="nt"> y</span><span class="p">:</span>  <span class="nv">9.2125</span><span class="p p-Indicator">}</span>
+    <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">x</span><span class="p">:</span> <span class="nv">-12.1316</span><span class="p p-Indicator">,</span><span class="nt"> y</span><span class="p">:</span> <span class="nv">-2.5875</span><span class="p p-Indicator">}</span>
+    <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">x</span><span class="p">:</span>  <span class="nv">-8.3066</span><span class="p p-Indicator">,</span><span class="nt"> y</span><span class="p">:</span> <span class="nv">-9.2125</span><span class="p p-Indicator">}</span>
+  <span class="p p-Indicator">-</span> <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">POLYGON</span>
+    <span class="nt">vertexes</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">x</span><span class="p">:</span> <span class="nv">-3.8250</span><span class="p p-Indicator">,</span><span class="nt"> y</span><span class="p">:</span>  <span class="nv">11.8000</span><span class="p p-Indicator">}</span>
+    <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">x</span><span class="p">:</span>  <span class="nv">3.8250</span><span class="p p-Indicator">,</span><span class="nt"> y</span><span class="p">:</span>  <span class="nv">11.8000</span><span class="p p-Indicator">}</span>
+    <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">x</span><span class="p">:</span> <span class="nv">-3.8250</span><span class="p p-Indicator">,</span><span class="nt"> y</span><span class="p">:</span> <span class="nv">-11.8000</span><span class="p p-Indicator">}</span>
+    <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">x</span><span class="p">:</span>  <span class="nv">3.8250</span><span class="p p-Indicator">,</span><span class="nt"> y</span><span class="p">:</span> <span class="nv">-11.8000</span><span class="p p-Indicator">}</span>
+  <span class="nt">regions</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">material</span><span class="p">:</span> <span class="nv">ZIRLO</span><span class="p p-Indicator">,</span><span class="nt"> space</span><span class="p">:</span> <span class="s">&#39;1-2-3-4-5&#39;</span><span class="p p-Indicator">,</span><span class="nt"> tag</span><span class="p">:</span> <span class="nv">grid</span><span class="p p-Indicator">}</span> 
+
+<span class="nt">assemblies</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">single_hexagonal_assembly</span>
+  <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">HEXAGON</span>  
+  <span class="nt">cell_pitch</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1.275</span>
+  <span class="nt">pitch</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">23.6</span>
+  <span class="nt">symmetry</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+  <span class="nt">boundary_condition</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">REFLECTIVE</span>
+  <span class="nt">cell_map</span><span class="p">:</span>  
+                               <span class="p p-Indicator">[</span><span class="nv">F36</span><span class="p p-Indicator">,</span><span class="nv">F36</span><span class="p p-Indicator">,</span><span class="nv">F36</span><span class="p p-Indicator">,</span><span class="nv">F36</span><span class="p p-Indicator">,</span><span class="nv">F36</span><span class="p p-Indicator">,</span><span class="nv">F36</span><span class="p p-Indicator">,</span><span class="nv">F36</span><span class="p p-Indicator">,</span><span class="nv">F36</span><span class="p p-Indicator">,</span><span class="nv">F36</span><span class="p p-Indicator">,</span><span class="nv">F36</span><span class="p p-Indicator">,</span><span class="nv">F36</span><span class="p p-Indicator">,</span>  
+                              <span class="nv">F36</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F36</span><span class="p p-Indicator">,</span>
+                            <span class="nv">F36</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">B33</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">B33</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F36</span><span class="p p-Indicator">,</span>  
+                          <span class="nv">F36</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F36</span><span class="p p-Indicator">,</span>  
+                        <span class="nv">F36</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span> <span class="nv">GT</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F36</span><span class="p p-Indicator">,</span>  
+                      <span class="nv">F36</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span> <span class="nv">GT</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span> <span class="nv">GT</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F36</span><span class="p p-Indicator">,</span>  
+                    <span class="nv">F36</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">B33</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F36</span><span class="p p-Indicator">,</span>  
+                  <span class="nv">F36</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span> <span class="nv">GT</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span> <span class="nv">GT</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span> <span class="nv">GT</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F36</span><span class="p p-Indicator">,</span>  
+                <span class="nv">F36</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span> <span class="nv">GT</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F36</span><span class="p p-Indicator">,</span>  
+              <span class="nv">F36</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span> <span class="nv">GT</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F36</span><span class="p p-Indicator">,</span>
+            <span class="nv">F36</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">B33</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span> <span class="nv">GT</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span> <span class="nv">GT</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span> <span class="nv">GT</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">B33</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F36</span><span class="p p-Indicator">,</span>
+              <span class="nv">F36</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">B33</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span> <span class="nv">GT</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F36</span><span class="p p-Indicator">,</span>
+                <span class="nv">F36</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span> <span class="nv">GT</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F36</span><span class="p p-Indicator">,</span>
+                  <span class="nv">F36</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span> <span class="nv">GT</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span> <span class="nv">GT</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">B33</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span> <span class="nv">GT</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F36</span><span class="p p-Indicator">,</span>  
+                    <span class="nv">F36</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F36</span><span class="p p-Indicator">,</span>  
+                      <span class="nv">F36</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span> <span class="nv">GT</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span> <span class="nv">GT</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F36</span><span class="p p-Indicator">,</span>  
+                        <span class="nv">F36</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span> <span class="nv">GT</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F36</span><span class="p p-Indicator">,</span>  
+                          <span class="nv">F36</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F36</span><span class="p p-Indicator">,</span>  
+                            <span class="nv">F36</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">B33</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">B33</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F36</span><span class="p p-Indicator">,</span>
+                              <span class="nv">F36</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F40</span><span class="p p-Indicator">,</span><span class="nv">F36</span><span class="p p-Indicator">,</span>
+                                <span class="nv">F36</span><span class="p p-Indicator">,</span><span class="nv">F36</span><span class="p p-Indicator">,</span><span class="nv">F36</span><span class="p p-Indicator">,</span><span class="nv">F36</span><span class="p p-Indicator">,</span><span class="nv">F36</span><span class="p p-Indicator">,</span><span class="nv">F36</span><span class="p p-Indicator">,</span><span class="nv">F36</span><span class="p p-Indicator">,</span><span class="nv">F36</span><span class="p p-Indicator">,</span><span class="nv">F36</span><span class="p p-Indicator">,</span><span class="nv">F36</span><span class="p p-Indicator">,</span><span class="nv">F36</span><span class="p p-Indicator">]</span>   
+  <span class="nt">structure_location</span><span class="p">:</span> 
+  <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">structure</span><span class="p">:</span> <span class="nv">plate</span><span class="p p-Indicator">,</span><span class="nt"> location</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="nt">x</span><span class="p">:</span> <span class="nv">0.0</span><span class="p p-Indicator">,</span><span class="nt"> y</span><span class="p">:</span> <span class="nv">0.0</span><span class="p p-Indicator">}}</span>
+
+<span class="nt">MOC_control_parameters</span><span class="p">:</span>
+  <span class="nt">distribution_converge_threshold</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0e-05</span>
+  <span class="nt">keff_converge_threshold</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0e-05</span>
+  <span class="nt">max_num_outer_iterations</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">500</span>
+<span class="nt">state_points</span><span class="p">:</span>
+  <span class="nt">boron_concentration</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">500.0</span>
+  <span class="nt">moderator_temperature</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">577.0</span>
+  <span class="nt">fuel_temperature</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">903.0</span>
+  <span class="nt">system_pressure</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">15.51</span>
+  <span class="nt">power_density</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">40.0</span>
+  <span class="nt">burnup_points</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">0.0</span><span class="p p-Indicator">,</span><span class="nv">0.03</span><span class="p p-Indicator">,</span><span class="nv">0.1</span><span class="p p-Indicator">,</span><span class="nv">0.5</span><span class="p p-Indicator">,</span><span class="nv">1</span><span class="p p-Indicator">,</span><span class="nv">2</span><span class="p p-Indicator">,</span><span class="nv">3</span><span class="p p-Indicator">,</span><span class="nv">4</span><span class="p p-Indicator">,</span><span class="nv">5</span><span class="p p-Indicator">,</span><span class="nv">6</span><span class="p p-Indicator">,</span><span class="nv">7</span><span class="p p-Indicator">,</span><span class="nv">8</span><span class="p p-Indicator">,</span><span class="nv">9</span><span class="p p-Indicator">,</span><span class="nv">10</span><span class="p p-Indicator">,</span><span class="nv">12</span><span class="p p-Indicator">,</span><span class="nv">14</span><span class="p p-Indicator">,</span><span class="nv">16</span><span class="p p-Indicator">,</span><span class="nv">18</span><span class="p p-Indicator">,</span><span class="nv">20</span><span class="p p-Indicator">,</span>
+                     <span class="nv">22</span><span class="p p-Indicator">,</span><span class="nv">24</span><span class="p p-Indicator">,</span><span class="nv">26</span><span class="p p-Indicator">,</span><span class="nv">28</span><span class="p p-Indicator">,</span><span class="nv">30</span><span class="p p-Indicator">,</span><span class="nv">32</span><span class="p p-Indicator">,</span><span class="nv">34</span><span class="p p-Indicator">,</span><span class="nv">36</span><span class="p p-Indicator">,</span><span class="nv">38</span><span class="p p-Indicator">,</span><span class="nv">40</span><span class="p p-Indicator">,</span><span class="nv">42</span><span class="p p-Indicator">,</span><span class="nv">44</span><span class="p p-Indicator">,</span><span class="nv">46</span><span class="p p-Indicator">,</span><span class="nv">48</span><span class="p p-Indicator">,</span><span class="nv">50</span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="_c5g7.html" class="btn btn-neutral float-right" title="Modeling 2-D C5G7 Mini Core" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="_square_assembly.html" class="btn btn-neutral float-left" title="Modeling a Single Square Assembly" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020-, ShangHai NuStar Nuclear Power Technology Co.Ltd.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+ 
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-30411614-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+</body>
+</html>

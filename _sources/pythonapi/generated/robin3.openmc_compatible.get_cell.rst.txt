@@ -1,0 +1,7 @@
+﻿robin3.openmc_compatible.get_cell
+=================================
+
+.. currentmodule:: robin3.openmc_compatible
+
+.. autoclass:: get_cell
+    :members:

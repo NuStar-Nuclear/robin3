@@ -1,0 +1,353 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>1. openmc_compatible dict &mdash; ROBIN3 0.1.0-dev documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+    <link rel="canonical" href="/robin3/io_formats/openmc.html" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="2. Volumes Result – volume.yaml" href="volume.html" />
+    <link rel="prev" title="4. Results Output File" href="output.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ROBIN3
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Install Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releasenotes/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usersguide/index.html">User’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../methods/index.html">Theory and Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pythonapi/index.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../command.html">Run in Command Line</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">File Format Specifications</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#robin3-files">ROBIN3 Files</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#openmc-compatibility-module-files">OpenMC Compatibility Module Files</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">1. <code class="docutils literal notranslate"><span class="pre">openmc_compatible</span></code> dict</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tallies-list">1.1. <code class="docutils literal notranslate"><span class="pre">tallies</span></code> list</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#optimize-option">1.2. <code class="docutils literal notranslate"><span class="pre">optimize</span></code> option</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#volume-option">1.3. <code class="docutils literal notranslate"><span class="pre">volume</span></code> option</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nuclide-density-option">1.4. <code class="docutils literal notranslate"><span class="pre">nuclide_density</span></code> option</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="volume.html">2. Volumes Result – volume.yaml</a></li>
+<li class="toctree-l3"><a class="reference internal" href="depletion.html">3. Depletion Specification – depletion.xml</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License Agreement</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ROBIN3</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">File Format Specifications</a> &raquo;</li>
+        
+      <li><span class="section-number">1. </span><code class="docutils literal notranslate"><span class="pre">openmc_compatible</span></code> dict</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/io_formats/openmc.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="openmc-compatible-dict">
+<span id="io-file-formats-openmc"></span><h1><span class="section-number">1. </span><code class="docutils literal notranslate"><span class="pre">openmc_compatible</span></code> dict<a class="headerlink" href="#openmc-compatible-dict" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">openmc_compatible</span></code> dictionary contains parameters used in conversion from ROBIN3
+model to OpenMC model. This dictionary should be added to <a class="reference internal" href="input.html#io-file-formats-input"><span class="std std-ref">ROBIN3 input model</span></a> with its key named “openmc_compatible” in input model dictionary.
+For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">materials</span><span class="p">:</span>
+  <span class="o">...</span>
+
+<span class="n">assemblies</span><span class="p">:</span>
+  <span class="o">...</span>
+
+<span class="n">structures</span><span class="p">:</span>
+  <span class="o">...</span>
+
+<span class="n">state_points</span><span class="p">:</span>
+  <span class="o">...</span>
+
+<span class="n">openmc_compatible</span><span class="p">:</span>
+  <span class="n">volume</span><span class="p">:</span> <span class="n">robin3</span>
+  <span class="n">tallies</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">current</span>
+  <span class="o">-</span> <span class="n">assembly</span><span class="o">-</span><span class="n">kappa</span>
+  <span class="n">optimize</span><span class="p">:</span> <span class="n">true</span>
+  <span class="n">nuclide_density</span><span class="p">:</span> <span class="n">openmc</span>
+</pre></div>
+</div>
+<div class="section" id="tallies-list">
+<h2><span class="section-number">1.1. </span><code class="docutils literal notranslate"><span class="pre">tallies</span></code> list<a class="headerlink" href="#tallies-list" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">tallies</span></code> is a list indicating which tallies should be generated in OpenMC model.
+<code class="docutils literal notranslate"><span class="pre">tallies</span></code> can contain following members:</p>
+<blockquote>
+<div><dl class="field-list simple">
+<dt class="field-odd">pin-power</dt>
+<dd class="field-odd"><p>If this string is contained in <code class="docutils literal notranslate"><span class="pre">tallies</span></code> list, <code class="docutils literal notranslate"><span class="pre">'kappa-fission'</span></code> of every pin cell
+will be tallied. Volumes of all cells filled by fissionable material will be calculated
+to deduce power density.</p>
+</dd>
+<dt class="field-even">flux</dt>
+<dd class="field-even"><p>If this string is contained in <code class="docutils literal notranslate"><span class="pre">tallies</span></code> list, <code class="docutils literal notranslate"><span class="pre">'flux'</span></code> of every tagged cell (converted
+from tagged region in ROBIN3 model) and <code class="docutils literal notranslate"><span class="pre">'heating-local'</span></code> accumulated in the whole model
+will be tallied. Volumes of all fissionable materials will be calculated, along with <code class="docutils literal notranslate"><span class="pre">'heating-local'</span></code>
+tallied, to deduce the <a class="reference external" href="https://docs.openmc.org/en/stable/usersguide/tallies.html#usersguide-tally-normalization" title="(in OpenMC v0.12)"><span class="xref std std-ref">normalization factor</span></a> for obtaining
+absolute flux.</p>
+</dd>
+<dt class="field-odd">current</dt>
+<dd class="field-odd"><p>If this string is contained in <code class="docutils literal notranslate"><span class="pre">tallies</span></code> list, <code class="docutils literal notranslate"><span class="pre">'current'</span></code> and <code class="docutils literal notranslate"><span class="pre">'flux'</span></code> on each
+surface of every square assembly in the core model will be tallied. Do not support
+hexgonal core because OpenMC has not implemented this functionality.</p>
+</dd>
+<dt class="field-even">assembly-kappa</dt>
+<dd class="field-even"><p>If this string is contained in <code class="docutils literal notranslate"><span class="pre">tallies</span></code> list, <code class="docutils literal notranslate"><span class="pre">'kappa-fission'</span></code> of each assembly
+will be tallied. Currently only works when the model is a square core. Hexgaonal core
+kappa fission will be implemented soon.</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>Default to empty (no tallies if no member in the <code class="docutils literal notranslate"><span class="pre">tallies</span></code> list).</p>
+</div>
+<div class="section" id="optimize-option">
+<h2><span class="section-number">1.2. </span><code class="docutils literal notranslate"><span class="pre">optimize</span></code> option<a class="headerlink" href="#optimize-option" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">optimize</span></code> option is a boolean. If this option is on, ROBIN3’s OpenMC Compatibility module
+will try to remove redundant boundaries and regions in conversion of geometry. Default to true.</p>
+</div>
+<div class="section" id="volume-option">
+<h2><span class="section-number">1.3. </span><code class="docutils literal notranslate"><span class="pre">volume</span></code> option<a class="headerlink" href="#volume-option" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">volume</span></code> option has either <code class="docutils literal notranslate"><span class="pre">'robin3'</span></code> or <code class="docutils literal notranslate"><span class="pre">'openmc'</span></code> as its value. It decides whether use
+OpenMC or ROBIN3 to calculate volumes. ROBIN3’s volume calculation is much faster and more precise
+than OpenMC. However, currently ROBIN3 can only calculate volumes before geometry pre-processing
+which may lead to totally wrong results because regions may be divided in pre-processing if crossing
+cell boundaries. Default to <code class="docutils literal notranslate"><span class="pre">'openmc'</span></code>.</p>
+</div>
+<div class="section" id="nuclide-density-option">
+<h2><span class="section-number">1.4. </span><code class="docutils literal notranslate"><span class="pre">nuclide_density</span></code> option<a class="headerlink" href="#nuclide-density-option" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">nuclide_density</span></code> option has whether <code class="docutils literal notranslate"><span class="pre">'robin3'</span></code> or <code class="docutils literal notranslate"><span class="pre">'openmc'</span></code> as its value. It decides whether
+use OpenMC data library or ROBIN3 data library to calculate nuclide densities of materials.
+If a ROBIN3 material contains sub material with S(α,β), this option must be assigned <code class="docutils literal notranslate"><span class="pre">'robin3'</span></code>, because
+<a class="reference external" href="https://docs.openmc.org/en/stable/pythonapi/generated/openmc.Material.html#openmc.Material.mix_materials" title="(in OpenMC v0.12)"><code class="docutils literal notranslate"><span class="pre">openmc.Material.mix_materials()</span></code></a> currently does not support mix materials with S(α,β).</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="volume.html" class="btn btn-neutral float-right" title="2. Volumes Result – volume.yaml" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="output.html" class="btn btn-neutral float-left" title="4. Results Output File" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020-, ShangHai NuStar Nuclear Power Technology Co.Ltd.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+ 
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-30411614-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+</body>
+</html>

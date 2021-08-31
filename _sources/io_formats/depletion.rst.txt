@@ -1,0 +1,68 @@
+.. _io_openmc_depletion:
+
+========================================
+Depletion Specification -- depletion.xml
+========================================
+
+Parameters of OpenMC depletion integrator are specified in the depletion.xml file.
+Designed for commandline users who are not familiar with Python API.
+
+-----------------------
+``<algorithm>`` Element
+-----------------------
+
+The algorithm of depletion.
+
+  *Default*: CECM
+
+-----------------------
+``<timesteps>`` Element
+-----------------------
+
+Time steps of depletion.
+
+----------------------------
+``<timeteps_units>`` Element
+----------------------------
+
+  *Default*: MWd/kg
+
+---------------------------
+``<power_density>`` Element
+---------------------------
+
+The ``<power_density>`` element indicate power density of the model that is used
+for normalizing reaction rate of depletable materials.
+
+  *Default*: 40
+
+--------------------
+``<solver>`` Element
+--------------------
+
+  *Default*: cram48
+
+----------------------
+``<operator>`` Element
+----------------------
+
+The ``<operator>`` element indicates the parameters of transport operator used to
+perform depletion using OpenMC. It has the following attributes:
+
+  :chain_file:
+    Path to the depletion chain XML file.
+  
+  :normalization_mode:
+    Indicate how tally results should be normalized. `energy-deposition`  
+    computes the total energy deposited in the system and uses the ratio of  
+    the power to the energy produced as a normalization factor.  
+    `fission-q` uses the fission Q values from the depletion chain to  
+    compute the total energy deposited.
+
+    *Default*: energy-deposition
+  
+  :diff_burnable_mats:
+    Whether to differentiate burnable materials with multiple instances.
+
+    *Default*: true
+

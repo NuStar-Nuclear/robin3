@@ -1,0 +1,7 @@
+﻿robin3.openmc_compatible.get_material
+=====================================
+
+.. currentmodule:: robin3.openmc_compatible
+
+.. autoclass:: get_material
+    :members:

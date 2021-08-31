@@ -1,0 +1,1776 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Modeling VVER 1/6 Core &mdash; ROBIN3 0.1.0-dev documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+    <link rel="canonical" href="/robin3/examples/vver.html" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Modeling HFTER Full Core" href="hfter.html" />
+    <link rel="prev" title="Modeling a Square Mini Core" href="square_mini_core.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ROBIN3
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Install Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releasenotes/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usersguide/index.html">User’s Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Examples</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#by-pythonapi">By <span class="xref std std-ref">pythonapi</span></a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="pincell.html">Modeling a Pin-Cell</a></li>
+<li class="toctree-l3"><a class="reference internal" href="square_assembly.html">Modeling a Single Square Assembly</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hexagonal_assembly.html">Modeling a Single Hexagonal Assembly</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hc_assembly.html">Modeling a Helical-Cruciform Fuel Rod Assembly</a></li>
+<li class="toctree-l3"><a class="reference internal" href="c5g7.html">Modeling 2-D C5G7 Mini Core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="square_mini_core.html">Modeling a Square Mini Core</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Modeling VVER 1/6 Core</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Defining-Materials">Defining Materials</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Defining-Pin-Structures">Defining Pin Structures</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Defining-Assemblies">Defining Assemblies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Defining-Core">Defining Core</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Defining-State-Points">Defining State Points</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Composing-a-Input-Model">Composing a Input Model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Visualizing-Input-Model">Visualizing Input Model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Run-ROBIN3">Run ROBIN3</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Result-Visualization">Result Visualization</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="hfter.html">Modeling HFTER Full Core</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#by-command-line">By <span class="xref std std-ref">Command Line</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#openmc-compatibility">OpenMC Compatibility</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../methods/index.html">Theory and Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pythonapi/index.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../command.html">Run in Command Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../io_formats/index.html">File Format Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License Agreement</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ROBIN3</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Examples</a> &raquo;</li>
+        
+      <li>Modeling VVER 1/6 Core</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/examples/vver.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container,
+div.nbinput.container div.prompt,
+div.nbinput.container div.input_area,
+div.nbinput.container div[class*=highlight],
+div.nbinput.container div[class*=highlight] pre,
+div.nboutput.container,
+div.nboutput.container div.prompt,
+div.nboutput.container div.output_area,
+div.nboutput.container div[class*=highlight],
+div.nboutput.container div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="Modeling-VVER-1/6-Core">
+<h1>Modeling VVER 1/6 Core<a class="headerlink" href="#Modeling-VVER-1/6-Core" title="Permalink to this headline">¶</a></h1>
+<p>This notebook is intended to demonstrate how to use ROBIN3’s <a class="reference internal" href="../pythonapi/index.html"><span class="doc">Python API</span></a> to simulate a 2-D VVER 1/6 core.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">robin3</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+<span class="n">robin3</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">USE_TQDM_NOTEBOOK</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="Defining-Materials">
+<h2>Defining Materials<a class="headerlink" href="#Defining-Materials" title="Permalink to this headline">¶</a></h2>
+<p>Use two functions to define different enrichments UO2 fuel materials and Gd-bearing fuel materials.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">uo2_fuel</span><span class="p">(</span><span class="n">enrichment</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;UO2_</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">enrichment</span><span class="p">),</span>
+        <span class="s2">&quot;elements&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;UO2_</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">enrichment</span><span class="p">)],</span>
+        <span class="s2">&quot;weight_percents&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">],</span>
+        <span class="s2">&quot;density&quot;</span><span class="p">:</span> <span class="mf">10.27</span>
+    <span class="p">}</span>
+
+<span class="k">def</span> <span class="nf">gd_bearing_fuel</span><span class="p">(</span><span class="n">enrichment</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;UO2_</span><span class="si">{}</span><span class="s2">_Gd&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">enrichment</span><span class="p">),</span>
+        <span class="s2">&quot;elements&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;UO2_</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">enrichment</span><span class="p">),</span> <span class="s2">&quot;GD2O3&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;weight_percents&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">],</span>
+        <span class="s2">&quot;density&quot;</span><span class="p">:</span> <span class="mf">9.4</span>
+    <span class="p">}</span>
+
+<span class="n">uo2_fuel_enrichments</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.3</span><span class="p">,</span> <span class="mf">2.2</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">4.4</span><span class="p">]</span>
+<span class="n">gd_bearing_fuel_enrichments</span> <span class="o">=</span> <span class="p">[</span><span class="mf">2.4</span><span class="p">,</span> <span class="mf">3.3</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">]</span>
+<span class="n">uo2_fuels</span> <span class="o">=</span> <span class="p">[</span><span class="n">uo2_fuel</span><span class="p">(</span><span class="n">enrichment</span><span class="p">)</span> <span class="k">for</span> <span class="n">enrichment</span> <span class="ow">in</span> <span class="n">uo2_fuel_enrichments</span><span class="p">]</span>
+<span class="n">gd_bearing_fuels</span> <span class="o">=</span> <span class="p">[</span><span class="n">gd_bearing_fuel</span><span class="p">(</span><span class="n">enrichment</span><span class="p">)</span> <span class="k">for</span> <span class="n">enrichment</span> <span class="ow">in</span> <span class="n">gd_bearing_fuel_enrichments</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<p>Defining a materials list, and put fuel materials defined above into this list, then append 2 alloy materials.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">materials</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">materials</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">uo2_fuels</span><span class="p">)</span>
+<span class="n">materials</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">gd_bearing_fuels</span><span class="p">)</span>
+<span class="n">materials</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;ALLOY_110&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;elements&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Zr-nat&quot;</span><span class="p">,</span> <span class="s2">&quot;Hf-nat&quot;</span><span class="p">,</span> <span class="s2">&quot;Nb-93&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;number_densities&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">4.2093E-2</span><span class="p">,</span> <span class="mf">6.5260E-6</span><span class="p">,</span> <span class="mf">4.1804E-4</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="n">materials</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;ALLOY_635&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;elements&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Zr-nat&quot;</span><span class="p">,</span> <span class="s2">&quot;Hf-nat&quot;</span><span class="p">,</span> <span class="s2">&quot;Nb-93&quot;</span><span class="p">,</span> <span class="s2">&quot;Fe-nat&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;number_densities&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">4.2061E-02</span><span class="p">,</span> <span class="mf">2.8711E-4</span><span class="p">,</span> <span class="mf">4.2442E-04</span><span class="p">,</span> <span class="mf">2.1182E-4</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="n">pprint</span><span class="p">(</span><span class="n">materials</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[{&#39;density&#39;: 10.27,
+  &#39;elements&#39;: [&#39;UO2_1.3&#39;],
+  &#39;name&#39;: &#39;UO2_1.3&#39;,
+  &#39;weight_percents&#39;: [1.0]},
+ {&#39;density&#39;: 10.27,
+  &#39;elements&#39;: [&#39;UO2_2.2&#39;],
+  &#39;name&#39;: &#39;UO2_2.2&#39;,
+  &#39;weight_percents&#39;: [1.0]},
+ {&#39;density&#39;: 10.27,
+  &#39;elements&#39;: [&#39;UO2_3.0&#39;],
+  &#39;name&#39;: &#39;UO2_3.0&#39;,
+  &#39;weight_percents&#39;: [1.0]},
+ {&#39;density&#39;: 10.27,
+  &#39;elements&#39;: [&#39;UO2_3.6&#39;],
+  &#39;name&#39;: &#39;UO2_3.6&#39;,
+  &#39;weight_percents&#39;: [1.0]},
+ {&#39;density&#39;: 10.27,
+  &#39;elements&#39;: [&#39;UO2_4.0&#39;],
+  &#39;name&#39;: &#39;UO2_4.0&#39;,
+  &#39;weight_percents&#39;: [1.0]},
+ {&#39;density&#39;: 10.27,
+  &#39;elements&#39;: [&#39;UO2_4.4&#39;],
+  &#39;name&#39;: &#39;UO2_4.4&#39;,
+  &#39;weight_percents&#39;: [1.0]},
+ {&#39;density&#39;: 9.4,
+  &#39;elements&#39;: [&#39;UO2_2.4&#39;, &#39;GD2O3&#39;],
+  &#39;name&#39;: &#39;UO2_2.4_Gd&#39;,
+  &#39;weight_percents&#39;: [0.95, 0.05]},
+ {&#39;density&#39;: 9.4,
+  &#39;elements&#39;: [&#39;UO2_3.3&#39;, &#39;GD2O3&#39;],
+  &#39;name&#39;: &#39;UO2_3.3_Gd&#39;,
+  &#39;weight_percents&#39;: [0.95, 0.05]},
+ {&#39;density&#39;: 9.4,
+  &#39;elements&#39;: [&#39;UO2_3.6&#39;, &#39;GD2O3&#39;],
+  &#39;name&#39;: &#39;UO2_3.6_Gd&#39;,
+  &#39;weight_percents&#39;: [0.95, 0.05]},
+ {&#39;elements&#39;: [&#39;Zr-nat&#39;, &#39;Hf-nat&#39;, &#39;Nb-93&#39;],
+  &#39;name&#39;: &#39;ALLOY_110&#39;,
+  &#39;number_densities&#39;: [0.042093, 6.526e-06, 0.00041804]},
+ {&#39;elements&#39;: [&#39;Zr-nat&#39;, &#39;Hf-nat&#39;, &#39;Nb-93&#39;, &#39;Fe-nat&#39;],
+  &#39;name&#39;: &#39;ALLOY_635&#39;,
+  &#39;number_densities&#39;: [0.042061, 0.00028711, 0.00042442, 0.00021182]}]
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Defining-Pin-Structures">
+<h2>Defining Pin Structures<a class="headerlink" href="#Defining-Pin-Structures" title="Permalink to this headline">¶</a></h2>
+<p>Here we define pin structures.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">fuel_pin</span><span class="p">(</span><span class="n">enrichment</span><span class="p">):</span>
+     <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;F</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">enrichment</span><span class="o">*</span><span class="mi">10</span><span class="p">)),</span>
+            <span class="s2">&quot;primitives&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CIRCLE&quot;</span><span class="p">,</span> <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="mf">0.3785</span><span class="p">},</span>
+                <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CIRCLE&quot;</span><span class="p">,</span> <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="mf">0.3865</span><span class="p">},</span>
+                <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CIRCLE&quot;</span><span class="p">,</span> <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="mf">0.4550</span><span class="p">},</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;regions&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span><span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="s2">&quot;UO2_</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">enrichment</span><span class="p">),</span> <span class="s2">&quot;space&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">},</span>
+                <span class="p">{</span><span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="s2">&quot;HE&quot;</span><span class="p">,</span> <span class="s2">&quot;space&quot;</span><span class="p">:</span> <span class="s2">&quot;2-1&quot;</span><span class="p">},</span>
+                <span class="p">{</span><span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="s2">&quot;ZIRLO&quot;</span><span class="p">,</span> <span class="s2">&quot;space&quot;</span><span class="p">:</span> <span class="s2">&quot;3-2&quot;</span><span class="p">},</span>
+            <span class="p">]}</span>
+
+<span class="k">def</span> <span class="nf">gd_bearing_pin</span><span class="p">(</span><span class="n">enrichment</span><span class="p">):</span>
+    <span class="n">pin</span> <span class="o">=</span> <span class="n">fuel_pin</span><span class="p">(</span><span class="n">enrichment</span><span class="p">)</span>
+    <span class="n">pin</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;B</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">enrichment</span><span class="o">*</span><span class="mi">10</span><span class="p">))</span>
+    <span class="n">pin</span><span class="p">[</span><span class="s2">&quot;regions&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;material&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;UO2_</span><span class="si">{}</span><span class="s2">_Gd&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">enrichment</span><span class="p">)</span>
+    <span class="n">pin</span><span class="p">[</span><span class="s2">&quot;meshing&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;SECTORS&quot;</span><span class="p">,</span>
+                     <span class="s2">&quot;num_azimuths&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+                     <span class="s2">&quot;radii&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">0.3785</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="mi">10</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">)]}</span>
+    <span class="k">return</span> <span class="n">pin</span>
+
+<span class="n">guide_tube</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;GT&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;primitives&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CIRCLE&quot;</span><span class="p">,</span> <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="mf">0.55</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CIRCLE&quot;</span><span class="p">,</span> <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="mf">0.65</span><span class="p">},</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;regions&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="s2">&quot;MOD&quot;</span><span class="p">,</span> <span class="s2">&quot;space&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="s2">&quot;ZIRLO&quot;</span><span class="p">,</span> <span class="s2">&quot;space&quot;</span><span class="p">:</span> <span class="s2">&quot;2-1&quot;</span><span class="p">},</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+
+<span class="n">instrument_tube</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">guide_tube</span><span class="p">)</span>
+<span class="n">instrument_tube</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;CT&quot;</span>
+
+<span class="n">structures</span> <span class="o">=</span> <span class="p">[</span><span class="n">guide_tube</span><span class="p">,</span> <span class="n">instrument_tube</span><span class="p">]</span>
+<span class="n">structures</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">fuel_pin</span><span class="p">(</span><span class="n">enrichment</span><span class="p">)</span> <span class="k">for</span> <span class="n">enrichment</span> <span class="ow">in</span> <span class="n">uo2_fuel_enrichments</span><span class="p">])</span>
+<span class="n">structures</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">gd_bearing_pin</span><span class="p">(</span><span class="n">enrichment</span><span class="p">)</span> <span class="k">for</span> <span class="n">enrichment</span> <span class="ow">in</span> <span class="n">gd_bearing_fuel_enrichments</span><span class="p">])</span>
+<span class="n">pprint</span><span class="p">(</span><span class="n">structures</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[{&#39;name&#39;: &#39;GT&#39;,
+  &#39;primitives&#39;: [{&#39;radius&#39;: 0.55, &#39;type&#39;: &#39;CIRCLE&#39;},
+                 {&#39;radius&#39;: 0.65, &#39;type&#39;: &#39;CIRCLE&#39;}],
+  &#39;regions&#39;: [{&#39;material&#39;: &#39;MOD&#39;, &#39;space&#39;: &#39;1&#39;},
+              {&#39;material&#39;: &#39;ZIRLO&#39;, &#39;space&#39;: &#39;2-1&#39;}]},
+ {&#39;name&#39;: &#39;CT&#39;,
+  &#39;primitives&#39;: [{&#39;radius&#39;: 0.55, &#39;type&#39;: &#39;CIRCLE&#39;},
+                 {&#39;radius&#39;: 0.65, &#39;type&#39;: &#39;CIRCLE&#39;}],
+  &#39;regions&#39;: [{&#39;material&#39;: &#39;MOD&#39;, &#39;space&#39;: &#39;1&#39;},
+              {&#39;material&#39;: &#39;ZIRLO&#39;, &#39;space&#39;: &#39;2-1&#39;}]},
+ {&#39;name&#39;: &#39;F13&#39;,
+  &#39;primitives&#39;: [{&#39;radius&#39;: 0.3785, &#39;type&#39;: &#39;CIRCLE&#39;},
+                 {&#39;radius&#39;: 0.3865, &#39;type&#39;: &#39;CIRCLE&#39;},
+                 {&#39;radius&#39;: 0.455, &#39;type&#39;: &#39;CIRCLE&#39;}],
+  &#39;regions&#39;: [{&#39;material&#39;: &#39;UO2_1.3&#39;, &#39;space&#39;: &#39;1&#39;},
+              {&#39;material&#39;: &#39;HE&#39;, &#39;space&#39;: &#39;2-1&#39;},
+              {&#39;material&#39;: &#39;ZIRLO&#39;, &#39;space&#39;: &#39;3-2&#39;}]},
+ {&#39;name&#39;: &#39;F22&#39;,
+  &#39;primitives&#39;: [{&#39;radius&#39;: 0.3785, &#39;type&#39;: &#39;CIRCLE&#39;},
+                 {&#39;radius&#39;: 0.3865, &#39;type&#39;: &#39;CIRCLE&#39;},
+                 {&#39;radius&#39;: 0.455, &#39;type&#39;: &#39;CIRCLE&#39;}],
+  &#39;regions&#39;: [{&#39;material&#39;: &#39;UO2_2.2&#39;, &#39;space&#39;: &#39;1&#39;},
+              {&#39;material&#39;: &#39;HE&#39;, &#39;space&#39;: &#39;2-1&#39;},
+              {&#39;material&#39;: &#39;ZIRLO&#39;, &#39;space&#39;: &#39;3-2&#39;}]},
+ {&#39;name&#39;: &#39;F30&#39;,
+  &#39;primitives&#39;: [{&#39;radius&#39;: 0.3785, &#39;type&#39;: &#39;CIRCLE&#39;},
+                 {&#39;radius&#39;: 0.3865, &#39;type&#39;: &#39;CIRCLE&#39;},
+                 {&#39;radius&#39;: 0.455, &#39;type&#39;: &#39;CIRCLE&#39;}],
+  &#39;regions&#39;: [{&#39;material&#39;: &#39;UO2_3.0&#39;, &#39;space&#39;: &#39;1&#39;},
+              {&#39;material&#39;: &#39;HE&#39;, &#39;space&#39;: &#39;2-1&#39;},
+              {&#39;material&#39;: &#39;ZIRLO&#39;, &#39;space&#39;: &#39;3-2&#39;}]},
+ {&#39;name&#39;: &#39;F36&#39;,
+  &#39;primitives&#39;: [{&#39;radius&#39;: 0.3785, &#39;type&#39;: &#39;CIRCLE&#39;},
+                 {&#39;radius&#39;: 0.3865, &#39;type&#39;: &#39;CIRCLE&#39;},
+                 {&#39;radius&#39;: 0.455, &#39;type&#39;: &#39;CIRCLE&#39;}],
+  &#39;regions&#39;: [{&#39;material&#39;: &#39;UO2_3.6&#39;, &#39;space&#39;: &#39;1&#39;},
+              {&#39;material&#39;: &#39;HE&#39;, &#39;space&#39;: &#39;2-1&#39;},
+              {&#39;material&#39;: &#39;ZIRLO&#39;, &#39;space&#39;: &#39;3-2&#39;}]},
+ {&#39;name&#39;: &#39;F40&#39;,
+  &#39;primitives&#39;: [{&#39;radius&#39;: 0.3785, &#39;type&#39;: &#39;CIRCLE&#39;},
+                 {&#39;radius&#39;: 0.3865, &#39;type&#39;: &#39;CIRCLE&#39;},
+                 {&#39;radius&#39;: 0.455, &#39;type&#39;: &#39;CIRCLE&#39;}],
+  &#39;regions&#39;: [{&#39;material&#39;: &#39;UO2_4.0&#39;, &#39;space&#39;: &#39;1&#39;},
+              {&#39;material&#39;: &#39;HE&#39;, &#39;space&#39;: &#39;2-1&#39;},
+              {&#39;material&#39;: &#39;ZIRLO&#39;, &#39;space&#39;: &#39;3-2&#39;}]},
+ {&#39;name&#39;: &#39;F44&#39;,
+  &#39;primitives&#39;: [{&#39;radius&#39;: 0.3785, &#39;type&#39;: &#39;CIRCLE&#39;},
+                 {&#39;radius&#39;: 0.3865, &#39;type&#39;: &#39;CIRCLE&#39;},
+                 {&#39;radius&#39;: 0.455, &#39;type&#39;: &#39;CIRCLE&#39;}],
+  &#39;regions&#39;: [{&#39;material&#39;: &#39;UO2_4.4&#39;, &#39;space&#39;: &#39;1&#39;},
+              {&#39;material&#39;: &#39;HE&#39;, &#39;space&#39;: &#39;2-1&#39;},
+              {&#39;material&#39;: &#39;ZIRLO&#39;, &#39;space&#39;: &#39;3-2&#39;}]},
+ {&#39;meshing&#39;: {&#39;num_azimuths&#39;: 6,
+              &#39;radii&#39;: [0.11969220943737316,
+                        0.1692703458967341,
+                        0.20731298801570539,
+                        0.23938441887474632,
+                        0.26763991667910825,
+                        0.2931848393079015,
+                        0.3166758200431476,
+                        0.3385406917934682,
+                        0.3590766283121195],
+              &#39;type&#39;: &#39;SECTORS&#39;},
+  &#39;name&#39;: &#39;B24&#39;,
+  &#39;primitives&#39;: [{&#39;radius&#39;: 0.3785, &#39;type&#39;: &#39;CIRCLE&#39;},
+                 {&#39;radius&#39;: 0.3865, &#39;type&#39;: &#39;CIRCLE&#39;},
+                 {&#39;radius&#39;: 0.455, &#39;type&#39;: &#39;CIRCLE&#39;}],
+  &#39;regions&#39;: [{&#39;material&#39;: &#39;UO2_2.4_Gd&#39;, &#39;space&#39;: &#39;1&#39;},
+              {&#39;material&#39;: &#39;HE&#39;, &#39;space&#39;: &#39;2-1&#39;},
+              {&#39;material&#39;: &#39;ZIRLO&#39;, &#39;space&#39;: &#39;3-2&#39;}]},
+ {&#39;meshing&#39;: {&#39;num_azimuths&#39;: 6,
+              &#39;radii&#39;: [0.11969220943737316,
+                        0.1692703458967341,
+                        0.20731298801570539,
+                        0.23938441887474632,
+                        0.26763991667910825,
+                        0.2931848393079015,
+                        0.3166758200431476,
+                        0.3385406917934682,
+                        0.3590766283121195],
+              &#39;type&#39;: &#39;SECTORS&#39;},
+  &#39;name&#39;: &#39;B33&#39;,
+  &#39;primitives&#39;: [{&#39;radius&#39;: 0.3785, &#39;type&#39;: &#39;CIRCLE&#39;},
+                 {&#39;radius&#39;: 0.3865, &#39;type&#39;: &#39;CIRCLE&#39;},
+                 {&#39;radius&#39;: 0.455, &#39;type&#39;: &#39;CIRCLE&#39;}],
+  &#39;regions&#39;: [{&#39;material&#39;: &#39;UO2_3.3_Gd&#39;, &#39;space&#39;: &#39;1&#39;},
+              {&#39;material&#39;: &#39;HE&#39;, &#39;space&#39;: &#39;2-1&#39;},
+              {&#39;material&#39;: &#39;ZIRLO&#39;, &#39;space&#39;: &#39;3-2&#39;}]},
+ {&#39;meshing&#39;: {&#39;num_azimuths&#39;: 6,
+              &#39;radii&#39;: [0.11969220943737316,
+                        0.1692703458967341,
+                        0.20731298801570539,
+                        0.23938441887474632,
+                        0.26763991667910825,
+                        0.2931848393079015,
+                        0.3166758200431476,
+                        0.3385406917934682,
+                        0.3590766283121195],
+              &#39;type&#39;: &#39;SECTORS&#39;},
+  &#39;name&#39;: &#39;B36&#39;,
+  &#39;primitives&#39;: [{&#39;radius&#39;: 0.3785, &#39;type&#39;: &#39;CIRCLE&#39;},
+                 {&#39;radius&#39;: 0.3865, &#39;type&#39;: &#39;CIRCLE&#39;},
+                 {&#39;radius&#39;: 0.455, &#39;type&#39;: &#39;CIRCLE&#39;}],
+  &#39;regions&#39;: [{&#39;material&#39;: &#39;UO2_3.6_Gd&#39;, &#39;space&#39;: &#39;1&#39;},
+              {&#39;material&#39;: &#39;HE&#39;, &#39;space&#39;: &#39;2-1&#39;},
+              {&#39;material&#39;: &#39;ZIRLO&#39;, &#39;space&#39;: &#39;3-2&#39;}]}]
+</pre></div></div>
+</div>
+<p>Defining the plate structure to model the stiffening plates in the corners. <img alt="stiffening plates" src="../_images/vver_stiffening_plates.png" /></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">plate</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;plate&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;primitives&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;POLYGON&quot;</span><span class="p">,</span>
+         <span class="s2">&quot;vertexes&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">13.5100</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>  <span class="mf">0.0</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span>  <span class="mf">13.5100</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>  <span class="mf">0.0</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span>  <span class="o">-</span><span class="mf">6.7550</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>  <span class="mf">11.7000</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span>   <span class="mf">6.7550</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>  <span class="mf">11.7000</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span>  <span class="o">-</span><span class="mf">6.7550</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">11.7000</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span>   <span class="mf">6.7550</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">11.7000</span><span class="p">},</span>
+        <span class="p">]},</span>
+        <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;POLYGON&quot;</span><span class="p">,</span>
+         <span class="s2">&quot;vertexes&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">13.3945</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>  <span class="mf">0.0</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span>  <span class="mf">13.3945</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>  <span class="mf">0.0</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span>  <span class="o">-</span><span class="mf">6.6973</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>  <span class="mf">11.6000</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span>   <span class="mf">6.6973</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>  <span class="mf">11.6000</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span>  <span class="o">-</span><span class="mf">6.6973</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">11.6000</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span>   <span class="mf">6.6973</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">11.6000</span><span class="p">},</span>
+        <span class="p">]},</span>
+        <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;POLYGON&quot;</span><span class="p">,</span>
+         <span class="s2">&quot;vertexes&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">12.1316</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>  <span class="mf">2.5875</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span>  <span class="o">-</span><span class="mf">8.3066</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>  <span class="mf">9.2125</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span>  <span class="mf">12.1316</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">2.5875</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span>   <span class="mf">8.3066</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">9.2125</span><span class="p">},</span>
+        <span class="p">]},</span>
+        <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;POLYGON&quot;</span><span class="p">,</span>
+         <span class="s2">&quot;vertexes&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span>  <span class="mf">12.1316</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>  <span class="mf">2.5875</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span>   <span class="mf">8.3066</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>  <span class="mf">9.2125</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">12.1316</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">2.5875</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span>  <span class="o">-</span><span class="mf">8.3066</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">9.2125</span><span class="p">},</span>
+        <span class="p">]},</span>
+        <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;POLYGON&quot;</span><span class="p">,</span>
+         <span class="s2">&quot;vertexes&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">3.8250</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>  <span class="mf">11.8000</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span>  <span class="mf">3.8250</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>  <span class="mf">11.8000</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">3.8250</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">11.8000</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span>  <span class="mf">3.8250</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">11.8000</span><span class="p">},</span>
+        <span class="p">]},</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;regions&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="s2">&quot;ZIRLO&quot;</span><span class="p">,</span> <span class="s2">&quot;space&quot;</span><span class="p">:</span> <span class="s1">&#39;1-2-3-4-5&#39;</span><span class="p">,</span> <span class="s2">&quot;tag&quot;</span><span class="p">:</span> <span class="s2">&quot;plates&quot;</span><span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+<span class="n">structures</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">plate</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Note here we tag the stiffening plate regions as “plates”.</p>
+</div>
+<div class="section" id="Defining-Assemblies">
+<h2>Defining Assemblies<a class="headerlink" href="#Defining-Assemblies" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">assembly</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">ps</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;HEXAGON&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;symmetry&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s2">&quot;pitch&quot;</span><span class="p">:</span> <span class="mf">23.6</span><span class="p">,</span>
+            <span class="s2">&quot;cell_pitch&quot;</span><span class="p">:</span> <span class="mf">1.275</span><span class="p">,</span>
+            <span class="s2">&quot;cell_map&quot;</span><span class="p">:</span>                  <span class="p">[</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                       <span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                    <span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                 <span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                              <span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;GT&quot;</span><span class="p">,</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                           <span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;GT&quot;</span><span class="p">,</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;GT&quot;</span><span class="p">,</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                        <span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                     <span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;GT&quot;</span><span class="p">,</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;GT&quot;</span><span class="p">,</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;GT&quot;</span><span class="p">,</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                  <span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;GT&quot;</span><span class="p">,</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+               <span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;GT&quot;</span><span class="p">,</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;GT&quot;</span><span class="p">,</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;CT&quot;</span><span class="p">,</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;GT&quot;</span><span class="p">,</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+               <span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;GT&quot;</span><span class="p">,</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                  <span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;GT&quot;</span><span class="p">,</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                     <span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;GT&quot;</span><span class="p">,</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;GT&quot;</span><span class="p">,</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;GT&quot;</span><span class="p">,</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                        <span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                           <span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;GT&quot;</span><span class="p">,</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;GT&quot;</span><span class="p">,</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                              <span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;GT&quot;</span><span class="p">,</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                 <span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                    <span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                       <span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                          <span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
+            <span class="s2">&quot;structure_location&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;structure&quot;</span><span class="p">:</span> <span class="s2">&quot;plate&quot;</span><span class="p">,</span> <span class="s2">&quot;location&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">}}]</span>
+         <span class="p">}</span>
+
+<span class="n">assembly_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;13AU&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span> <span class="s2">&quot;30AV5&quot;</span><span class="p">,</span> <span class="s2">&quot;39AWU&quot;</span><span class="p">,</span> <span class="s2">&quot;390GO&quot;</span><span class="p">]</span>
+<span class="n">pin_positions</span> <span class="o">=</span> <span class="p">[[</span><span class="s2">&quot;F13&quot;</span><span class="p">]</span><span class="o">*</span><span class="mi">6</span><span class="p">,</span>
+                 <span class="p">[</span><span class="s2">&quot;F22&quot;</span><span class="p">]</span><span class="o">*</span><span class="mi">6</span><span class="p">,</span>
+                 <span class="p">[</span><span class="s2">&quot;F30&quot;</span><span class="p">,</span> <span class="s2">&quot;F30&quot;</span><span class="p">,</span> <span class="s2">&quot;F30&quot;</span><span class="p">,</span> <span class="s2">&quot;B24&quot;</span><span class="p">,</span> <span class="s2">&quot;B24&quot;</span><span class="p">,</span> <span class="s2">&quot;F30&quot;</span><span class="p">],</span>
+                 <span class="p">[</span><span class="s2">&quot;F36&quot;</span><span class="p">,</span> <span class="s2">&quot;F40&quot;</span><span class="p">,</span> <span class="s2">&quot;F40&quot;</span><span class="p">,</span> <span class="s2">&quot;B33&quot;</span><span class="p">,</span> <span class="s2">&quot;B33&quot;</span><span class="p">,</span> <span class="s2">&quot;F40&quot;</span><span class="p">],</span>
+                 <span class="p">[</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span> <span class="s2">&quot;F40&quot;</span><span class="p">,</span> <span class="s2">&quot;F44&quot;</span><span class="p">,</span> <span class="s2">&quot;F44&quot;</span><span class="p">,</span> <span class="s2">&quot;B36&quot;</span><span class="p">,</span> <span class="s2">&quot;B36&quot;</span><span class="p">]]</span>
+<span class="n">assemblies</span> <span class="o">=</span> <span class="p">[</span><span class="n">assembly</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">ps</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">ps</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">assembly_names</span><span class="p">,</span> <span class="n">pin_positions</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Defining-Core">
+<h2>Defining Core<a class="headerlink" href="#Defining-Core" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">core</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;VVER&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;HEXAGON&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;symmetry&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+    <span class="s2">&quot;assembly_map&quot;</span><span class="p">:</span>                         <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;390GO&quot;</span><span class="p">,</span><span class="s2">&quot;39AWU&quot;</span><span class="p">,</span><span class="s2">&quot;39AWU&quot;</span><span class="p">,</span><span class="s2">&quot;39AWU&quot;</span><span class="p">,</span><span class="s2">&quot;39AWU&quot;</span><span class="p">,</span><span class="s2">&quot;390GO&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+                                     <span class="s2">&quot;390GO&quot;</span><span class="p">,</span><span class="s2">&quot;30AV5&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span><span class="s2">&quot;30AV5&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span><span class="s2">&quot;30AV5&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span><span class="s2">&quot;30AV5&quot;</span><span class="p">,</span><span class="s2">&quot;390GO&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;39AWU&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span><span class="s2">&quot;39AWU&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;39AWU&quot;</span><span class="p">,</span><span class="s2">&quot;30AV5&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span><span class="s2">&quot;30AV5&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span><span class="s2">&quot;30AV5&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span><span class="s2">&quot;30AV5&quot;</span><span class="p">,</span><span class="s2">&quot;39AWU&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;39AWU&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span><span class="s2">&quot;30AV5&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span><span class="s2">&quot;30AV5&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span><span class="s2">&quot;39AWU&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;39AWU&quot;</span><span class="p">,</span><span class="s2">&quot;30AV5&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span><span class="s2">&quot;30AV5&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span><span class="s2">&quot;30AV5&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span><span class="s2">&quot;30AV5&quot;</span><span class="p">,</span><span class="s2">&quot;39AWU&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;390GO&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span><span class="s2">&quot;30AV5&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span><span class="s2">&quot;30AV5&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span><span class="s2">&quot;390GO&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;&quot;</span><span class="p">,</span>  <span class="s2">&quot;30AV5&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span><span class="s2">&quot;30AV5&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span><span class="s2">&quot;30AV5&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span><span class="s2">&quot;30AV5&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span><span class="s2">&quot;30AV5&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;390GO&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span><span class="s2">&quot;30AV5&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span><span class="s2">&quot;30AV5&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span><span class="s2">&quot;390GO&quot;</span><span class="p">,</span>
+                     <span class="s2">&quot;39AWU&quot;</span><span class="p">,</span><span class="s2">&quot;30AV5&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span><span class="s2">&quot;30AV5&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span><span class="s2">&quot;30AV5&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span><span class="s2">&quot;30AV5&quot;</span><span class="p">,</span><span class="s2">&quot;39AWU&quot;</span><span class="p">,</span>
+                         <span class="s2">&quot;39AWU&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span><span class="s2">&quot;30AV5&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span><span class="s2">&quot;30AV5&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span><span class="s2">&quot;39AWU&quot;</span><span class="p">,</span>
+                             <span class="s2">&quot;39AWU&quot;</span><span class="p">,</span><span class="s2">&quot;30AV5&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span><span class="s2">&quot;30AV5&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span><span class="s2">&quot;30AV5&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span><span class="s2">&quot;30AV5&quot;</span><span class="p">,</span><span class="s2">&quot;39AWU&quot;</span><span class="p">,</span>
+                                 <span class="s2">&quot;39AWU&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span> <span class="s2">&quot;13AU&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span><span class="s2">&quot;39AWU&quot;</span><span class="p">,</span>
+                                     <span class="s2">&quot;390GO&quot;</span><span class="p">,</span><span class="s2">&quot;30AV5&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span><span class="s2">&quot;30AV5&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span><span class="s2">&quot;30AV5&quot;</span><span class="p">,</span> <span class="s2">&quot;22AU&quot;</span><span class="p">,</span><span class="s2">&quot;30AV5&quot;</span><span class="p">,</span><span class="s2">&quot;390GO&quot;</span><span class="p">,</span>
+                                            <span class="s2">&quot;&quot;</span><span class="p">,</span><span class="s2">&quot;390GO&quot;</span><span class="p">,</span><span class="s2">&quot;39AWU&quot;</span><span class="p">,</span><span class="s2">&quot;39AWU&quot;</span><span class="p">,</span><span class="s2">&quot;39AWU&quot;</span><span class="p">,</span><span class="s2">&quot;39AWU&quot;</span><span class="p">,</span><span class="s2">&quot;390GO&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;reflector&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;primitives&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CIRCLE&quot;</span><span class="p">,</span> <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="mf">3.8</span><span class="p">,</span> <span class="s2">&quot;center&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="mf">159.0</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>  <span class="mf">36.0</span><span class="p">}},</span>
+            <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CIRCLE&quot;</span><span class="p">,</span> <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="mf">3.8</span><span class="p">,</span> <span class="s2">&quot;center&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="mf">159.0</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>  <span class="mf">45.0</span><span class="p">}},</span>
+            <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CIRCLE&quot;</span><span class="p">,</span> <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="mf">3.8</span><span class="p">,</span> <span class="s2">&quot;center&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="mf">147.5</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>  <span class="mf">56.7</span><span class="p">}},</span>
+            <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CIRCLE&quot;</span><span class="p">,</span> <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="mf">3.8</span><span class="p">,</span> <span class="s2">&quot;center&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="mf">156.2</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>  <span class="mf">56.7</span><span class="p">}},</span>
+            <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CIRCLE&quot;</span><span class="p">,</span> <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="mf">3.8</span><span class="p">,</span> <span class="s2">&quot;center&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="mf">147.5</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>  <span class="mf">65.6</span><span class="p">}},</span>
+            <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CIRCLE&quot;</span><span class="p">,</span> <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="mf">3.8</span><span class="p">,</span> <span class="s2">&quot;center&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="mf">135.5</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>  <span class="mf">77.3</span><span class="p">}},</span>
+            <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CIRCLE&quot;</span><span class="p">,</span> <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="mf">3.8</span><span class="p">,</span> <span class="s2">&quot;center&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="mf">144.6</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>  <span class="mf">77.3</span><span class="p">}},</span>
+            <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CIRCLE&quot;</span><span class="p">,</span> <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="mf">3.8</span><span class="p">,</span> <span class="s2">&quot;center&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="mf">135.5</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>  <span class="mf">86.3</span><span class="p">}},</span>
+            <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CIRCLE&quot;</span><span class="p">,</span> <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="mf">3.8</span><span class="p">,</span> <span class="s2">&quot;center&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="mf">144.6</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>  <span class="mf">86.3</span><span class="p">}},</span>
+            <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CIRCLE&quot;</span><span class="p">,</span> <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="mf">3.8</span><span class="p">,</span> <span class="s2">&quot;center&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="mf">123.7</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>  <span class="mf">97.4</span><span class="p">}},</span>
+            <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CIRCLE&quot;</span><span class="p">,</span> <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="mf">3.8</span><span class="p">,</span> <span class="s2">&quot;center&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="mf">132.8</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>  <span class="mf">97.4</span><span class="p">}},</span>
+            <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CIRCLE&quot;</span><span class="p">,</span> <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="mf">3.8</span><span class="p">,</span> <span class="s2">&quot;center&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="mf">123.7</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="mf">106.6</span><span class="p">}},</span>
+            <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CIRCLE&quot;</span><span class="p">,</span> <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="mf">3.8</span><span class="p">,</span> <span class="s2">&quot;center&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="mf">118.8</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="mf">115.4</span><span class="p">}},</span>
+            <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CIRCLE&quot;</span><span class="p">,</span> <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="mf">3.8</span><span class="p">,</span> <span class="s2">&quot;center&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="mf">110.9</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="mf">119.6</span><span class="p">}},</span>
+            <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CIRCLE&quot;</span><span class="p">,</span> <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="mf">5.0</span><span class="p">,</span> <span class="s2">&quot;center&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="mf">163.0</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>   <span class="mf">0.0</span><span class="p">}},</span>
+            <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CIRCLE&quot;</span><span class="p">,</span> <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="mf">6.0</span><span class="p">,</span> <span class="s2">&quot;center&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="mf">163.0</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>   <span class="mf">0.0</span><span class="p">}},</span>
+            <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CIRCLE&quot;</span><span class="p">,</span> <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="mf">7.0</span><span class="p">,</span> <span class="s2">&quot;center&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="mf">163.0</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>   <span class="mf">0.0</span><span class="p">}},</span>
+            <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CIRCLE&quot;</span><span class="p">,</span> <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="mf">5.0</span><span class="p">,</span> <span class="s2">&quot;center&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span>  <span class="mf">81.5</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="mf">141.2</span><span class="p">}},</span>
+            <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CIRCLE&quot;</span><span class="p">,</span> <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="mf">6.0</span><span class="p">,</span> <span class="s2">&quot;center&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span>  <span class="mf">81.5</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="mf">141.2</span><span class="p">}},</span>
+            <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CIRCLE&quot;</span><span class="p">,</span> <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="mf">7.0</span><span class="p">,</span> <span class="s2">&quot;center&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span>  <span class="mf">81.5</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="mf">141.2</span><span class="p">}},</span>
+            <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CIRCLE&quot;</span><span class="p">,</span> <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="mf">173.2</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CIRCLE&quot;</span><span class="p">,</span> <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="mf">174.8</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CIRCLE&quot;</span><span class="p">,</span> <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="mf">180.0</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CIRCLE&quot;</span><span class="p">,</span> <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="mf">208.0</span><span class="p">}</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;regions&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="s2">&quot;MOD&quot;</span><span class="p">,</span> <span class="s2">&quot;space&quot;</span><span class="p">:</span>  <span class="s1">&#39;1&#39;</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="s2">&quot;MOD&quot;</span><span class="p">,</span> <span class="s2">&quot;space&quot;</span><span class="p">:</span>  <span class="s1">&#39;2&#39;</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="s2">&quot;MOD&quot;</span><span class="p">,</span> <span class="s2">&quot;space&quot;</span><span class="p">:</span>  <span class="s1">&#39;3&#39;</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="s2">&quot;MOD&quot;</span><span class="p">,</span> <span class="s2">&quot;space&quot;</span><span class="p">:</span>  <span class="s1">&#39;4&#39;</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="s2">&quot;MOD&quot;</span><span class="p">,</span> <span class="s2">&quot;space&quot;</span><span class="p">:</span>  <span class="s1">&#39;5&#39;</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="s2">&quot;MOD&quot;</span><span class="p">,</span> <span class="s2">&quot;space&quot;</span><span class="p">:</span>  <span class="s1">&#39;6&#39;</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="s2">&quot;MOD&quot;</span><span class="p">,</span> <span class="s2">&quot;space&quot;</span><span class="p">:</span>  <span class="s1">&#39;7&#39;</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="s2">&quot;MOD&quot;</span><span class="p">,</span> <span class="s2">&quot;space&quot;</span><span class="p">:</span>  <span class="s1">&#39;8&#39;</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="s2">&quot;MOD&quot;</span><span class="p">,</span> <span class="s2">&quot;space&quot;</span><span class="p">:</span>  <span class="s1">&#39;9&#39;</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="s2">&quot;MOD&quot;</span><span class="p">,</span> <span class="s2">&quot;space&quot;</span><span class="p">:</span> <span class="s1">&#39;10&#39;</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="s2">&quot;MOD&quot;</span><span class="p">,</span> <span class="s2">&quot;space&quot;</span><span class="p">:</span> <span class="s1">&#39;11&#39;</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="s2">&quot;MOD&quot;</span><span class="p">,</span> <span class="s2">&quot;space&quot;</span><span class="p">:</span> <span class="s1">&#39;12&#39;</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="s2">&quot;MOD&quot;</span><span class="p">,</span> <span class="s2">&quot;space&quot;</span><span class="p">:</span> <span class="s1">&#39;13&#39;</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="s2">&quot;MOD&quot;</span><span class="p">,</span> <span class="s2">&quot;space&quot;</span><span class="p">:</span> <span class="s1">&#39;14&#39;</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="s2">&quot;MOD&quot;</span><span class="p">,</span> <span class="s2">&quot;space&quot;</span><span class="p">:</span> <span class="s1">&#39;15&#39;</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="s2">&quot;SS304&quot;</span><span class="p">,</span> <span class="s2">&quot;space&quot;</span><span class="p">:</span> <span class="s1">&#39;16-15&#39;</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="s2">&quot;MOD&quot;</span><span class="p">,</span> <span class="s2">&quot;space&quot;</span><span class="p">:</span> <span class="s1">&#39;17-16&#39;</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="s2">&quot;MOD&quot;</span><span class="p">,</span> <span class="s2">&quot;space&quot;</span><span class="p">:</span> <span class="s1">&#39;18&#39;</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="s2">&quot;SS304&quot;</span><span class="p">,</span> <span class="s2">&quot;space&quot;</span><span class="p">:</span> <span class="s1">&#39;19-18&#39;</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="s2">&quot;MOD&quot;</span><span class="p">,</span> <span class="s2">&quot;space&quot;</span><span class="p">:</span> <span class="s1">&#39;20-19&#39;</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="s2">&quot;SS304&quot;</span><span class="p">,</span> <span class="s2">&quot;space&quot;</span><span class="p">:</span> <span class="s1">&#39;21-1-2-3-4-5-6-7-8-9-10-11-12-13-14-17-20&#39;</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="s2">&quot;MOD&quot;</span><span class="p">,</span> <span class="s2">&quot;space&quot;</span><span class="p">:</span> <span class="s1">&#39;22-21&#39;</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="s2">&quot;SS304&quot;</span><span class="p">,</span> <span class="s2">&quot;space&quot;</span><span class="p">:</span> <span class="s1">&#39;23-22&#39;</span><span class="p">,</span> <span class="s2">&quot;tag&quot;</span><span class="p">:</span> <span class="s2">&quot;bucket&quot;</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="s2">&quot;MOD&quot;</span><span class="p">,</span> <span class="s2">&quot;space&quot;</span><span class="p">:</span> <span class="s1">&#39;24-23&#39;</span><span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>Note here we tag the bucket region as “bucket”.</p>
+</div>
+<div class="section" id="Defining-State-Points">
+<h2>Defining State Points<a class="headerlink" href="#Defining-State-Points" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">state_points</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;boron_concentration&quot;</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
+    <span class="s2">&quot;moderator_temperature&quot;</span><span class="p">:</span> <span class="mi">577</span><span class="p">,</span>
+    <span class="s2">&quot;fuel_temperature&quot;</span><span class="p">:</span> <span class="mi">903</span><span class="p">,</span>
+    <span class="s2">&quot;system_pressure&quot;</span><span class="p">:</span> <span class="mf">15.51</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Composing-a-Input-Model">
+<h2>Composing a Input Model<a class="headerlink" href="#Composing-a-Input-Model" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">model</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;materials&quot;</span><span class="p">:</span> <span class="n">materials</span><span class="p">,</span>
+    <span class="s2">&quot;structures&quot;</span><span class="p">:</span> <span class="n">structures</span><span class="p">,</span>
+    <span class="s2">&quot;assemblies&quot;</span><span class="p">:</span> <span class="n">assemblies</span><span class="p">,</span>
+    <span class="s2">&quot;core&quot;</span><span class="p">:</span> <span class="n">core</span><span class="p">,</span>
+    <span class="s2">&quot;state_points&quot;</span><span class="p">:</span> <span class="n">state_points</span><span class="p">,</span>
+    <span class="s2">&quot;quadratures&quot;</span><span class="p">:</span> <span class="p">[{</span>
+        <span class="s2">&quot;num_azimuths&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+        <span class="s2">&quot;num_polars&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="s2">&quot;track_density&quot;</span><span class="p">:</span> <span class="mf">0.1</span>
+    <span class="p">}]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Visualizing-Input-Model">
+<h2>Visualizing Input Model<a class="headerlink" href="#Visualizing-Input-Model" title="Permalink to this headline">¶</a></h2>
+<p>Displaying different kinds of assemblies with fine meshes one by one by using <a class="reference internal" href="../pythonapi/generated/robin3.Plotter.html"><span class="doc">robin3.Plotter</span></a>:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">for</span> <span class="n">assembly</span> <span class="ow">in</span> <span class="n">assembly_names</span><span class="p">:</span>
+    <span class="n">plotter</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">Plotter</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">assembly</span><span class="o">=</span><span class="n">assembly</span><span class="p">)</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plotter</span><span class="o">.</span><span class="n">plot_geometry</span><span class="p">(</span><span class="n">show_meshes</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "6063d12fbd8f417d93250adfa12f7ae1", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "8dbc40452e244fcf99936affa27e65d1", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "c9b81e7505cf42a383927245e4c79681", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_vver_25_3.png" src="../_images/examples_vver_25_3.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "db2c0b9efa2f4b89b45e6b3fc8417f4c", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "12d20c2a528b4c8fbd4cccdbe9f0b16a", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_vver_25_6.png" src="../_images/examples_vver_25_6.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "dc1f61efe3b945e4b12739182f121fca", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "b25fa3156d5f485b92b7f1176e062092", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_vver_25_9.png" src="../_images/examples_vver_25_9.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "48ce08bd42034dd28bda6391189ecae9", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "87398ba91c5f455dba4844addef62454", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_vver_25_12.png" src="../_images/examples_vver_25_12.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "da3fa800388449f4b0525a4269bb09dd", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "a1f707098d7a41b7ac77fd3b38bd94d1", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_vver_25_15.png" src="../_images/examples_vver_25_15.png" />
+</div>
+</div>
+<p>Displaying the 1/6 core with reflector.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">plotter</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">Plotter</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plotter</span><span class="o">.</span><span class="n">plot_geometry</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "e4df163c7c884f86be6180fec45c569d", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_vver_28_1.png" src="../_images/examples_vver_28_1.png" />
+</div>
+</div>
+<p>Displaying the tagged regions, here the tagged regions include stiffening plates and the bucket.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plotter</span><span class="o">.</span><span class="n">plot_tagged_regions</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "808677a23ea14c9ea36f84fd13cbf8c7", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_vver_30_1.png" src="../_images/examples_vver_30_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Run-ROBIN3">
+<h2>Run ROBIN3<a class="headerlink" href="#Run-ROBIN3" title="Permalink to this headline">¶</a></h2>
+<p>Running ROBIN3 from Python can be done using the <a class="reference internal" href="../pythonapi/generated/robin3.run.html"><span class="doc">robin3.run()</span></a> function. This function allows you to use GPU by setting use_GPU=True if it needed, GPU will significantly reduce the running time.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">result</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">use_gpu</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "1a8d439339be4b5597e87972d4267636", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;robin3.result_process.ResultProcessor object at 0x7f63a67ebbe0&gt;
+</pre></div></div>
+</div>
+<p>The <a class="reference internal" href="../pythonapi/generated/robin3.run.html"><span class="doc">robin3.run()</span></a> function return a <a class="reference internal" href="../pythonapi/generated/robin3.ResultProcessor.html"><span class="doc">robin3.ResultProcessor</span></a> instance which can be initialized from the result file as well. All the result data can be accessed by the result_data attribute, and the result data are saved by a HDF5 file named by result_file attribute, summary result data such as keff can be inspected by method summary which return a pandas DataFrame.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">result</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">ResultProcessor</span><span class="p">(</span><span class="s1">&#39;VVER.h5&#39;</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   burnup    tmo    tfu    bor      keff  peak_pin_power  std_pin_power
+0     0.0  577.0  903.0  500.0  1.088009        1.510534       0.512926
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Result-Visualization">
+<h2>Result Visualization<a class="headerlink" href="#Result-Visualization" title="Permalink to this headline">¶</a></h2>
+<p>Result visualization from Python can be done using a <a class="reference internal" href="../pythonapi/generated/robin3.Plotter.html"><span class="doc">robin3.Plotter</span></a> instance generate by <a class="reference internal" href="../pythonapi/generated/robin3.ResultProcessor.html"><span class="doc">ResultProcessor</span></a>’s method generate_plotter.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">plotter</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">generate_plotter</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>From the output file, many result items can be displayed by the <a class="reference internal" href="../pythonapi/generated/robin3.Plotter.html"><span class="doc">robin3.Plotter</span></a> Class. Here we display the pin power distribution.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plotter</span><span class="o">.</span><span class="n">plot_pin_power</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_vver_40_0.png" src="../_images/examples_vver_40_0.png" />
+</div>
+</div>
+<p>We can plot the pin flux distribution of energy group 1 (fast group) and 2 (thermal group).</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]:</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plotter</span><span class="o">.</span><span class="n">plot_pin_flux</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">g</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_vver_42_0.png" src="../_images/examples_vver_42_0.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_vver_42_1.png" src="../_images/examples_vver_42_1.png" />
+</div>
+</div>
+<p>If we want to inspect the distribution in fine mesh level, fine mesh fluxes are accessible as well.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]:</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plotter</span><span class="o">.</span><span class="n">plot_mesh_flux</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">g</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "edd92b2e6fb94392bcfc4d5c9d4f1a79", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "7d61fe025c0e42a9b1544a7990a9a50b", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_vver_44_2.png" src="../_images/examples_vver_44_2.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_vver_44_3.png" src="../_images/examples_vver_44_3.png" />
+</div>
+</div>
+<p>We can get the neutron fluxes with energy in the tagged regions and plot them.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">result</span><span class="o">.</span><span class="n">neutron_fluxes_in_tagged_regions</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>average</th>
+      <th>bucket</th>
+      <th>plates</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1.000000e+07</th>
+      <td>0.862725</td>
+      <td>0.018519</td>
+      <td>1.519433</td>
+    </tr>
+    <tr>
+      <th>6.065500e+06</th>
+      <td>3.449780</td>
+      <td>0.065754</td>
+      <td>6.055151</td>
+    </tr>
+    <tr>
+      <th>3.679000e+06</th>
+      <td>7.437541</td>
+      <td>0.189852</td>
+      <td>13.093528</td>
+    </tr>
+    <tr>
+      <th>2.231000e+06</th>
+      <td>8.241624</td>
+      <td>0.346675</td>
+      <td>14.610110</td>
+    </tr>
+    <tr>
+      <th>1.353000e+06</th>
+      <td>7.889872</td>
+      <td>0.553905</td>
+      <td>13.968904</td>
+    </tr>
+    <tr>
+      <th>8.210000e+05</th>
+      <td>8.675397</td>
+      <td>0.821452</td>
+      <td>15.358304</td>
+    </tr>
+    <tr>
+      <th>5.000000e+05</th>
+      <td>5.723820</td>
+      <td>0.627266</td>
+      <td>10.161429</td>
+    </tr>
+    <tr>
+      <th>3.025000e+05</th>
+      <td>5.303986</td>
+      <td>0.442579</td>
+      <td>9.479875</td>
+    </tr>
+    <tr>
+      <th>1.830000e+05</th>
+      <td>4.077659</td>
+      <td>0.465172</td>
+      <td>7.290922</td>
+    </tr>
+    <tr>
+      <th>1.110000e+05</th>
+      <td>3.322122</td>
+      <td>0.344611</td>
+      <td>5.975011</td>
+    </tr>
+    <tr>
+      <th>6.734000e+04</th>
+      <td>2.835673</td>
+      <td>0.263147</td>
+      <td>5.115830</td>
+    </tr>
+    <tr>
+      <th>4.085000e+04</th>
+      <td>2.598079</td>
+      <td>0.286792</td>
+      <td>4.714602</td>
+    </tr>
+    <tr>
+      <th>2.478000e+04</th>
+      <td>2.359272</td>
+      <td>0.149481</td>
+      <td>4.312151</td>
+    </tr>
+    <tr>
+      <th>1.503000e+04</th>
+      <td>2.261279</td>
+      <td>0.207720</td>
+      <td>4.109968</td>
+    </tr>
+    <tr>
+      <th>9.118000e+03</th>
+      <td>2.169247</td>
+      <td>0.163488</td>
+      <td>3.965271</td>
+    </tr>
+    <tr>
+      <th>5.530000e+03</th>
+      <td>1.931964</td>
+      <td>0.186088</td>
+      <td>3.516098</td>
+    </tr>
+    <tr>
+      <th>3.519100e+03</th>
+      <td>1.865091</td>
+      <td>0.126033</td>
+      <td>3.411875</td>
+    </tr>
+    <tr>
+      <th>2.239450e+03</th>
+      <td>1.883642</td>
+      <td>0.225420</td>
+      <td>3.415220</td>
+    </tr>
+    <tr>
+      <th>1.425100e+03</th>
+      <td>1.831283</td>
+      <td>0.169382</td>
+      <td>3.342035</td>
+    </tr>
+    <tr>
+      <th>9.068979e+02</th>
+      <td>3.550099</td>
+      <td>0.285733</td>
+      <td>6.504688</td>
+    </tr>
+    <tr>
+      <th>3.672620e+02</th>
+      <td>3.434060</td>
+      <td>0.344132</td>
+      <td>6.258180</td>
+    </tr>
+    <tr>
+      <th>1.487280e+02</th>
+      <td>2.473327</td>
+      <td>0.253017</td>
+      <td>4.533559</td>
+    </tr>
+    <tr>
+      <th>7.550140e+01</th>
+      <td>1.607588</td>
+      <td>0.166396</td>
+      <td>2.948587</td>
+    </tr>
+    <tr>
+      <th>4.805200e+01</th>
+      <td>1.846977</td>
+      <td>0.199231</td>
+      <td>3.414097</td>
+    </tr>
+    <tr>
+      <th>2.770000e+01</th>
+      <td>1.731217</td>
+      <td>0.194204</td>
+      <td>3.218412</td>
+    </tr>
+    <tr>
+      <th>1.596800e+01</th>
+      <td>1.572425</td>
+      <td>0.164172</td>
+      <td>2.868688</td>
+    </tr>
+    <tr>
+      <th>9.877000e+00</th>
+      <td>2.571239</td>
+      <td>0.287550</td>
+      <td>4.793741</td>
+    </tr>
+    <tr>
+      <th>4.000000e+00</th>
+      <td>0.592863</td>
+      <td>0.060015</td>
+      <td>1.077925</td>
+    </tr>
+    <tr>
+      <th>3.300000e+00</th>
+      <td>0.732659</td>
+      <td>0.071810</td>
+      <td>1.331976</td>
+    </tr>
+    <tr>
+      <th>2.600000e+00</th>
+      <td>0.667200</td>
+      <td>0.061009</td>
+      <td>1.211370</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>9.960000e-01</th>
+      <td>0.078900</td>
+      <td>0.006608</td>
+      <td>0.144035</td>
+    </tr>
+    <tr>
+      <th>9.720000e-01</th>
+      <td>0.074344</td>
+      <td>0.006196</td>
+      <td>0.135669</td>
+    </tr>
+    <tr>
+      <th>9.500000e-01</th>
+      <td>0.140526</td>
+      <td>0.011609</td>
+      <td>0.256400</td>
+    </tr>
+    <tr>
+      <th>9.100000e-01</th>
+      <td>0.224344</td>
+      <td>0.018152</td>
+      <td>0.409284</td>
+    </tr>
+    <tr>
+      <th>8.500000e-01</th>
+      <td>0.285271</td>
+      <td>0.022312</td>
+      <td>0.520670</td>
+    </tr>
+    <tr>
+      <th>7.800000e-01</th>
+      <td>0.751820</td>
+      <td>0.054582</td>
+      <td>1.372643</td>
+    </tr>
+    <tr>
+      <th>6.250000e-01</th>
+      <td>0.795888</td>
+      <td>0.057409</td>
+      <td>1.457779</td>
+    </tr>
+    <tr>
+      <th>5.000000e-01</th>
+      <td>0.858398</td>
+      <td>0.057837</td>
+      <td>1.574136</td>
+    </tr>
+    <tr>
+      <th>4.000000e-01</th>
+      <td>0.575614</td>
+      <td>0.037422</td>
+      <td>1.057643</td>
+    </tr>
+    <tr>
+      <th>3.500000e-01</th>
+      <td>0.426805</td>
+      <td>0.026823</td>
+      <td>0.785068</td>
+    </tr>
+    <tr>
+      <th>3.200000e-01</th>
+      <td>0.333568</td>
+      <td>0.020435</td>
+      <td>0.613772</td>
+    </tr>
+    <tr>
+      <th>3.000000e-01</th>
+      <td>0.386620</td>
+      <td>0.023127</td>
+      <td>0.711023</td>
+    </tr>
+    <tr>
+      <th>2.800000e-01</th>
+      <td>0.715007</td>
+      <td>0.041213</td>
+      <td>1.312455</td>
+    </tr>
+    <tr>
+      <th>2.500000e-01</th>
+      <td>0.943280</td>
+      <td>0.051781</td>
+      <td>1.726118</td>
+    </tr>
+    <tr>
+      <th>2.200000e-01</th>
+      <td>1.787376</td>
+      <td>0.092941</td>
+      <td>3.261981</td>
+    </tr>
+    <tr>
+      <th>1.800000e-01</th>
+      <td>2.676837</td>
+      <td>0.130910</td>
+      <td>4.883229</td>
+    </tr>
+    <tr>
+      <th>1.400000e-01</th>
+      <td>3.899264</td>
+      <td>0.178082</td>
+      <td>7.133927</td>
+    </tr>
+    <tr>
+      <th>1.000000e-01</th>
+      <td>2.448948</td>
+      <td>0.104608</td>
+      <td>4.502575</td>
+    </tr>
+    <tr>
+      <th>7.999998e-02</th>
+      <td>1.734347</td>
+      <td>0.070049</td>
+      <td>3.203241</td>
+    </tr>
+    <tr>
+      <th>6.699997e-02</th>
+      <td>1.239187</td>
+      <td>0.047752</td>
+      <td>2.298208</td>
+    </tr>
+    <tr>
+      <th>5.800000e-02</th>
+      <td>1.104666</td>
+      <td>0.040751</td>
+      <td>2.057141</td>
+    </tr>
+    <tr>
+      <th>5.000000e-02</th>
+      <td>1.081059</td>
+      <td>0.038003</td>
+      <td>2.022991</td>
+    </tr>
+    <tr>
+      <th>4.200000e-02</th>
+      <td>0.901768</td>
+      <td>0.030016</td>
+      <td>1.697326</td>
+    </tr>
+    <tr>
+      <th>3.500000e-02</th>
+      <td>0.603265</td>
+      <td>0.019041</td>
+      <td>1.142251</td>
+    </tr>
+    <tr>
+      <th>3.000000e-02</th>
+      <td>0.555909</td>
+      <td>0.016631</td>
+      <td>1.059190</td>
+    </tr>
+    <tr>
+      <th>2.500000e-02</th>
+      <td>0.494766</td>
+      <td>0.013872</td>
+      <td>0.950212</td>
+    </tr>
+    <tr>
+      <th>2.000000e-02</th>
+      <td>0.417975</td>
+      <td>0.010802</td>
+      <td>0.811226</td>
+    </tr>
+    <tr>
+      <th>1.500000e-02</th>
+      <td>0.323417</td>
+      <td>0.007505</td>
+      <td>0.637095</td>
+    </tr>
+    <tr>
+      <th>1.000000e-02</th>
+      <td>0.209037</td>
+      <td>0.004145</td>
+      <td>0.421646</td>
+    </tr>
+    <tr>
+      <th>4.999999e-03</th>
+      <td>0.073090</td>
+      <td>0.001099</td>
+      <td>0.154970</td>
+    </tr>
+  </tbody>
+</table>
+<p>69 rows × 3 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plotter</span><span class="o">.</span><span class="n">plot_neutron_fluxes_in_tagged_regions</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_vver_47_0.png" src="../_images/examples_vver_47_0.png" />
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="hfter.html" class="btn btn-neutral float-right" title="Modeling HFTER Full Core" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="square_mini_core.html" class="btn btn-neutral float-left" title="Modeling a Square Mini Core" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020-, ShangHai NuStar Nuclear Power Technology Co.Ltd.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+ 
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-30411614-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+</body>
+</html>

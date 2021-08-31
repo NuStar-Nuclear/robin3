@@ -1,0 +1,126 @@
+.. _pythonapi:
+
+==========
+Python API
+==========
+
+ROBIN3 offers not only command line user interface but also Python API that 
+enables programmatic pre- and post-processing. The easiest way to begin 
+using the API is to take a look at the :ref:`examples`.
+
+.. tip:: Users are strongly encouraged to use the Python API to generate input
+         files and analyze results.
+
+
+Material specification
+----------------------
+
+.. autosummary::
+   :toctree: generated
+   :nosignatures:
+   :template: myfunction.rst
+
+   robin3.get_predefined_materials
+
+
+.. autosummary::
+   :toctree: generated
+   :nosignatures:
+   :template: myclass.rst
+
+   robin3.Material
+   robin3.Moderator
+
+
+Run Simulation
+--------------
+
+.. autosummary::
+   :toctree: generated
+   :nosignatures:
+   :template: myfunction.rst
+
+   robin3.run
+
+
+Make IDYLL Table
+----------------
+
+.. autosummary::
+   :toctree: generated
+   :nosignatures:
+   :template: myfunction.rst
+
+   robin3.make_idyll_table
+   robin3.use_multi_gpu_make_idyll_tables
+
+
+Make AXIOM-P Table
+------------------
+
+.. autosummary::
+   :toctree: generated
+   :nosignatures:
+   :template: myfunction.rst
+
+   robin3.make_axiom_p_table
+
+
+Result Data Processing
+----------------------
+
+.. autosummary::
+   :toctree: generated
+   :nosignatures:
+   :template: myclass.rst
+
+   robin3.ResultProcessor
+
+
+Input Model and Result Visualization
+------------------------------------
+
+.. autosummary::
+   :toctree: generated
+   :nosignatures:
+   :template: myclass.rst
+
+   robin3.Plotter
+
+
+OpenMC Compatibility
+---------------------
+
+.. autosummary::
+   :toctree: generated
+   :nosignatures:
+   :template: myclass.rst
+
+   robin3.openmc_compatible.get_material
+   robin3.openmc_compatible.get_XSdata
+   robin3.openmc_compatible.get_mgxs_materials
+   robin3.openmc_compatible.get_region
+   robin3.openmc_compatible.get_cell
+   robin3.openmc_compatible.get_pin_universe
+   robin3.openmc_compatible.get_assembly_universe
+   robin3.openmc_compatible.get_core_universe
+   robin3.openmc_compatible.get_model
+   robin3.openmc_compatible.get_moderator
+   robin3.openmc_compatible.get_depletion_integrator
+   robin3.openmc_compatible.set_robin3_material_databank
+   robin3.openmc_compatible.robin3_to_openmc
+   robin3.openmc_compatible.depletion_integrator_from_xml
+   robin3.openmc_compatible.generate_xs_library
+   robin3.openmc_compatible.process_pin_power
+   robin3.openmc_compatible.process_flux
+
+
+Others
+------
+
+.. autosummary::
+   :toctree: generated
+   :nosignatures:
+   :template: myfunction.rst
+
+   robin3.query_GPU

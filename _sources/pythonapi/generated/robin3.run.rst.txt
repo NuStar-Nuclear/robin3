@@ -1,0 +1,6 @@
+robin3.run
+==========
+
+.. currentmodule:: robin3
+
+.. autofunction:: run

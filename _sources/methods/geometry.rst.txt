@@ -1,0 +1,9 @@
+.. _methods_geometry:
+
+========
+Geometry
+========
+
+---------------------------
+Constructive Solid Geometry
+---------------------------

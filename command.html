@@ -1,0 +1,2416 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Run in Command Line &mdash; ROBIN3 0.1.0-dev documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+    <link rel="canonical" href="/robin3/command.html" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="File Format Specifications" href="io_formats/index.html" />
+    <link rel="prev" title="robin3.query_GPU" href="pythonapi/generated/robin3.query_GPU.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ROBIN3
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releasenotes/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usersguide/index.html">User’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="methods/index.html">Theory and Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pythonapi/index.html">Python API</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Run in Command Line</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#robin3-run">robin3 run</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#robin3-plot-geometry">robin3 plot-geometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#robin3-plot-flat-source-regions">robin3 plot-flat-source-regions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#robin3-plot-resonance-regions">robin3 plot-resonance-regions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#robin3-plot-tracks">robin3 plot-tracks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#robin3-plot-assembly-power">robin3 plot-assembly-power</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#robin3-plot-assembly-reaction-rate">robin3 plot-assembly-reaction-rate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#robin3-plot-pin-power">robin3 plot-pin-power</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#robin3-plot-pin-reaction-rate">robin3 plot-pin-reaction-rate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#robin3-plot-pin-flux">robin3 plot-pin-flux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#robin3-plot-mesh-flux">robin3 plot_mesh_flux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#robin3-plot-mesh-reaction-rate">robin3 plot-mesh-reaction-rate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#robin3-plot-neutron-fluxes">robin3 plot-neutron-fluxes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#robin3-plot-nuclide-number-density">robin3 plot-nuclide-number-density</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#robin3-make-axiom-p-table">robin3 make-axiom-p-table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#robin3-make-idyll-table">robin3 make-idyll-table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#robin3-use-multi-gpu-make-idyll-tables">robin3 use-multi-gpu-make-idyll-tables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#robin3-make-reflector-idyll-tables">robin3 make-reflector-idyll-tables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#robin3-r2-to-r3">robin3 r2-to-r3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#robin3-r3-to-openmc">robin3 r3-to-openmc</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="io_formats/index.html">File Format Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License Agreement</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ROBIN3</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Run in Command Line</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/command.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="run-in-command-line">
+<span id="command"></span><h1>Run in Command Line<a class="headerlink" href="#run-in-command-line" title="Permalink to this headline">¶</a></h1>
+<p>ROBIN3 click-based application contains various commands that allow user to run
+simulation, plot geometry, interact with other nuclear programs, etc. Command line format is:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>robin3 COMMAND <span class="o">[</span>ARGS<span class="o">]</span>
+</pre></div>
+</div>
+<div class="section" id="robin3-run">
+<h2>robin3 run<a class="headerlink" href="#robin3-run" title="Permalink to this headline">¶</a></h2>
+<p>Main command of robin3. Run a ROBIN3 simulation.</p>
+<p>INPUT_FILE is the name of file with path in which the model defined, both
+yaml or json format are acceptable.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>robin3 run <span class="o">[</span>OPTIONS<span class="o">]</span> INPUT_FILE
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt id="cmdoption-robin3-run-library">
+<code class="sig-name descname">--library</code><code class="sig-prename descclassname"> &lt;library&gt;</code><a class="headerlink" href="#cmdoption-robin3-run-library" title="Permalink to this definition">¶</a></dt>
+<dd><p>The nuclear data library file name with path, only used by micro-xs cases. Nuclear data library file installed in package will be used as default.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-run-material-databank">
+<code class="sig-name descname">--material-databank</code><code class="sig-prename descclassname"> &lt;material_databank&gt;</code><a class="headerlink" href="#cmdoption-robin3-run-material-databank" title="Permalink to this definition">¶</a></dt>
+<dd><p>The material databank file name with path, only used by micro-xs cases. Material databank file installed in sys.path will be used as default.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-run-assembly">
+<code class="sig-name descname">--assembly</code><code class="sig-prename descclassname"> &lt;assembly&gt;</code><a class="headerlink" href="#cmdoption-robin3-run-assembly" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of target assembly which you want to simulate, only used when you want to perform a single assembly calculation defined in a whole core model input file.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-run-cyclic-track">
+<code class="sig-name descname">--cyclic-track</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-cyclic-track</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-run-cyclic-track" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to use cyclic track, only used for single assembly cases. Cyclic track will accelerate simulation by reduce the total number of MOC iteration, but only works on CPU without OpenMP multi-threads parallelization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-run-use-gpu">
+<code class="sig-name descname">--use-gpu</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-use-gpu</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-run-use-gpu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to use GPU, GPU will significantly accelerate simulation by parallel the MOC tracking calculation. If –use-gpu but none of GPU avaiable on the platform, CPU with OpenMP multi-threads parallelization will be used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-run-device-id">
+<code class="sig-name descname">--device-id</code><code class="sig-prename descclassname"> &lt;device_id&gt;</code><a class="headerlink" href="#cmdoption-robin3-run-device-id" title="Permalink to this definition">¶</a></dt>
+<dd><p>The device id of which GPU used, only works if –use-gpu.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-run-num-thread-blocks">
+<code class="sig-name descname">--num-thread-blocks</code><code class="sig-prename descclassname"> &lt;num_thread_blocks&gt;</code><a class="headerlink" href="#cmdoption-robin3-run-num-thread-blocks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Total number of thread blocks used, only works if –use-gpu.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>128</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-run-num-threads-per-block">
+<code class="sig-name descname">--num-threads-per-block</code><code class="sig-prename descclassname"> &lt;num_threads_per_block&gt;</code><a class="headerlink" href="#cmdoption-robin3-run-num-threads-per-block" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of threads per block used, only works if –use-gpu, should be a multiple of 32.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>128</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-run-number-groups-edit">
+<code class="sig-name descname">--number-groups-edit</code><code class="sig-prename descclassname"> &lt;number_groups_edit&gt;</code><a class="headerlink" href="#cmdoption-robin3-run-number-groups-edit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of energy groups used to edit calculation result, only works for micro-xs cases.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>2</p>
+</dd>
+<dt class="field-even">Options</dt>
+<dd class="field-even"><p>2|3|4|8</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-run-output-file">
+<code class="sig-name descname">--output-file</code><code class="sig-prename descclassname"> &lt;output_file&gt;</code><a class="headerlink" href="#cmdoption-robin3-run-output-file" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of output file with path, the model name (assembly name or core name) with current directory will be used as default.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-run-logger-file">
+<code class="sig-name descname">--logger-file</code><code class="sig-prename descclassname"> &lt;logger_file&gt;</code><a class="headerlink" href="#cmdoption-robin3-run-logger-file" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of rotating logger file use to store logger info.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>/home/yuejin/Cloud/robin3/docs/robin3.log</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-run-logger-level">
+<code class="sig-name descname">--logger-level</code><code class="sig-prename descclassname"> &lt;logger_level&gt;</code><a class="headerlink" href="#cmdoption-robin3-run-logger-level" title="Permalink to this definition">¶</a></dt>
+<dd><p>The logger level used to output logger info.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>info</p>
+</dd>
+<dt class="field-even">Options</dt>
+<dd class="field-even"><p>debug|info|warn|error</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-run-verbose">
+<code class="sig-name descname">--verbose</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-verbose</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-run-verbose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to print iteration info to the logger, a progress bar will be used if verbose is False, only works for single assembly micro-xs cases.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>True</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-run-profile-mode">
+<code class="sig-name descname">--profile-mode</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-profile-mode</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-run-profile-mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to turn on profile mode, if profile mode turns on, a profile file will be generated.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-run-write-json-debug">
+<code class="sig-name descname">--write-json-debug</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-write-json-debug</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-run-write-json-debug" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to write a json file for cpp debugging.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>True</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt id="cmdoption-robin3-run-arg-INPUT_FILE">
+<code class="sig-name descname">INPUT_FILE</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-run-arg-INPUT_FILE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</div>
+<p>All the output files will be placed in a subfolder with the same name as the input
+file (no filename extension).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you’re using the Python API, <a class="reference internal" href="pythonapi/generated/robin3.run.html#robin3.run" title="robin3.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">robin3.run()</span></code></a> is equivalent to
+running <code class="docutils literal notranslate"><span class="pre">robin3</span> <span class="pre">run</span></code> from the command line.</p>
+</div>
+<div class="section" id="robin3-plot-geometry">
+<h2>robin3 plot-geometry<a class="headerlink" href="#robin3-plot-geometry" title="Permalink to this headline">¶</a></h2>
+<p>Plots a 2D surface of the materials in the geometry by a model input
+file.</p>
+<p>The geometry and material data of the model should be defined in the
+input file, ROBIN3 will perform geometrical computation such as volume
+calculation before plotting.</p>
+<p>FILENAME is the name of file with path in which the model defined, both yaml
+and json format are acceptable.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>robin3 plot-geometry <span class="o">[</span>OPTIONS<span class="o">]</span> FILENAME
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-geometry-assembly">
+<code class="sig-name descname">--assembly</code><code class="sig-prename descclassname"> &lt;assembly&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot-geometry-assembly" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of target assembly which you want to plot, only used when you want to plot a single assembly defined in a whole core model input file.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-geometry-show-meshes">
+<code class="sig-name descname">--show-meshes</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-show-meshes</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-geometry-show-meshes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to show fine meshes–flat source regions used by MOC.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-geometry-show-edge">
+<code class="sig-name descname">--show-edge</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-show-edge</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-geometry-show-edge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to show the mesh edge.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>True</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-geometry-save-fig">
+<code class="sig-name descname">--save-fig</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-save-fig</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-geometry-save-fig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to save the plotting figure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-geometry-num-process">
+<code class="sig-name descname">--num-process</code><code class="sig-prename descclassname"> &lt;num_process&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot-geometry-num-process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of process used to perform geometry computation. Note that geometry computations are parallelized in assembly level by multi-processing, which means this argument only works for core model ploting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>32</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-geometry-arg-FILENAME">
+<code class="sig-name descname">FILENAME</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-geometry-arg-FILENAME" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</div>
+<div class="section" id="robin3-plot-flat-source-regions">
+<h2>robin3 plot-flat-source-regions<a class="headerlink" href="#robin3-plot-flat-source-regions" title="Permalink to this headline">¶</a></h2>
+<p>Plots a 2D surface of the flat source regions in the geometry by a
+model input file.</p>
+<p>Flat source regions are used by method of characteristics (MOC), neutron
+source in a flat source region assumed to be constant. The geometry and
+flat source regions data of the model should be defined in the input
+file, ROBIN3 will perform geometrical computation such as volume
+calculation before plotting.</p>
+<p>FILENAME is the name of file with path in which the model defined, both yaml
+and json format are acceptable.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>robin3 plot-flat-source-regions <span class="o">[</span>OPTIONS<span class="o">]</span> FILENAME
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-flat-source-regions-assembly">
+<code class="sig-name descname">--assembly</code><code class="sig-prename descclassname"> &lt;assembly&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot-flat-source-regions-assembly" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of target assembly which you want to plot, only used when you want to plot a single assembly defined in a whole core model input file.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-flat-source-regions-show-edge">
+<code class="sig-name descname">--show-edge</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-show-edge</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-flat-source-regions-show-edge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to show the mesh edge.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-flat-source-regions-save-fig">
+<code class="sig-name descname">--save-fig</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-save-fig</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-flat-source-regions-save-fig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to save the plotting figure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-flat-source-regions-num-process">
+<code class="sig-name descname">--num-process</code><code class="sig-prename descclassname"> &lt;num_process&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot-flat-source-regions-num-process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of process used to perform geometry computation. Note that geometry computations are parallelized in assembly level by multi-processing, which means this argument only works for core model ploting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>32</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-flat-source-regions-arg-FILENAME">
+<code class="sig-name descname">FILENAME</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-flat-source-regions-arg-FILENAME" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</div>
+<div class="section" id="robin3-plot-resonance-regions">
+<h2>robin3 plot-resonance-regions<a class="headerlink" href="#robin3-plot-resonance-regions" title="Permalink to this headline">¶</a></h2>
+<p>Plots a 2D surface of the resonance regions in the geometry from
+a single assembly micro-xs calculation output file in HDF5 format.</p>
+<p>Resonance regions are used by resonance calculation, unlike the geometry,
+ROBIN3 does not kown which material should be treated as resonance material
+until nuclear data library loaded, so it use output file to plot the
+resonance regions, ROBIN3 will perform geometrical computation such as
+volume calculation before plotting.</p>
+<p>FILENAME is the name of output file in HDF5 format with path.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>robin3 plot-resonance-regions <span class="o">[</span>OPTIONS<span class="o">]</span> FILENAME
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-resonance-regions-show-edge">
+<code class="sig-name descname">--show-edge</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-show-edge</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-resonance-regions-show-edge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to show the mesh edge.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-resonance-regions-save-fig">
+<code class="sig-name descname">--save-fig</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-save-fig</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-resonance-regions-save-fig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to save the plotting figure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-resonance-regions-num-process">
+<code class="sig-name descname">--num-process</code><code class="sig-prename descclassname"> &lt;num_process&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot-resonance-regions-num-process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of process used to perform geometry computation. Note that geometry computations are parallelized in assembly level by multi-processing, which means this argument only works for core model ploting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>32</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-resonance-regions-arg-FILENAME">
+<code class="sig-name descname">FILENAME</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-resonance-regions-arg-FILENAME" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</div>
+<div class="section" id="robin3-plot-tracks">
+<h2>robin3 plot-tracks<a class="headerlink" href="#robin3-plot-tracks" title="Permalink to this headline">¶</a></h2>
+<p>Plots a 2D surface of the materials and tracks in the geometry by a
+model input file.</p>
+<p>The geometry, material and quadrature data of the model should be
+defined in the input file, ROBIN3 will perform geometrical computation
+and track generation before plotting.</p>
+<p>FILENAME is the name of file with path in which the model defined, both yaml
+and json format are acceptable.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>robin3 plot-tracks <span class="o">[</span>OPTIONS<span class="o">]</span> FILENAME
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-tracks-assembly">
+<code class="sig-name descname">--assembly</code><code class="sig-prename descclassname"> &lt;assembly&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot-tracks-assembly" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of target assembly which you want to plot, only used when you want to plot a single assembly defined in a whole core model input file.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-tracks-cyclic">
+<code class="sig-name descname">--cyclic</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-cyclic</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-tracks-cyclic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to create a cyclic track animation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-tracks-quadrature">
+<code class="sig-name descname">--quadrature</code><code class="sig-prename descclassname"> &lt;quadrature&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot-tracks-quadrature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name of quadrature used to show tracks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>ALL</p>
+</dd>
+<dt class="field-even">Options</dt>
+<dd class="field-even"><p>ALL|FAST|THERMAL|EPITHERMAL</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-tracks-interval">
+<code class="sig-name descname">--interval</code><code class="sig-prename descclassname"> &lt;interval&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot-tracks-interval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Azimuth interval to plot the tracks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-tracks-polar">
+<code class="sig-name descname">--polar</code><code class="sig-prename descclassname"> &lt;polar&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot-tracks-polar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use which polar of quadrature to show tracks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-tracks-track-width">
+<code class="sig-name descname">--track-width</code><code class="sig-prename descclassname"> &lt;track_width&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot-tracks-track-width" title="Permalink to this definition">¶</a></dt>
+<dd><p>Line width to plot the tracks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>0.3</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-tracks-show-edge">
+<code class="sig-name descname">--show-edge</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-show-edge</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-tracks-show-edge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to show the mesh edge.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-tracks-save-fig">
+<code class="sig-name descname">--save-fig</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-save-fig</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-tracks-save-fig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to save the plotting figure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-tracks-save-animation-to">
+<code class="sig-name descname">--save-animation-to</code><code class="sig-prename descclassname"> &lt;save_animation_to&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot-tracks-save-animation-to" title="Permalink to this definition">¶</a></dt>
+<dd><p>File name to save the animation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>cyclic_track.gif</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-tracks-num-process">
+<code class="sig-name descname">--num-process</code><code class="sig-prename descclassname"> &lt;num_process&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot-tracks-num-process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of process used to perform geometry computation. Note that geometry computations are parallelized in assembly level by multi-processing, which means this argument only works for core model ploting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>32</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-tracks-arg-FILENAME">
+<code class="sig-name descname">FILENAME</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-tracks-arg-FILENAME" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</div>
+<div class="section" id="robin3-plot-assembly-power">
+<h2>robin3 plot-assembly-power<a class="headerlink" href="#robin3-plot-assembly-power" title="Permalink to this headline">¶</a></h2>
+<p>Plots a 2D heatmap of assembly power distribution in the geometry by an
+output file in HDF5 format.</p>
+<p>FILENAME is the name of output file in HDF5 format with path.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>robin3 plot-assembly-power <span class="o">[</span>OPTIONS<span class="o">]</span> FILENAME
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-assembly-power-burnup-animation">
+<code class="sig-name descname">--burnup-animation</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-burnup-animation</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-assembly-power-burnup-animation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to create an animation to show the heatmap vary with burnup.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-assembly-power-burnup">
+<code class="sig-name descname">--burnup</code><code class="sig-prename descclassname"> &lt;burnup&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot-assembly-power-burnup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Burnup point at which the result to show.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>0.0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-assembly-power-render-to-html">
+<code class="sig-name descname">--render-to-html</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-render-to-html</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-assembly-power-render-to-html" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to render the plot to a html file for interactive visualization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-assembly-power-show-peak-value">
+<code class="sig-name descname">--show-peak-value</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-show-peak-value</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-assembly-power-show-peak-value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to show the peak value in the heatmap.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>True</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-assembly-power-save-fig">
+<code class="sig-name descname">--save-fig</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-save-fig</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-assembly-power-save-fig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to save the plotting figure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-assembly-power-save-animation-to">
+<code class="sig-name descname">--save-animation-to</code><code class="sig-prename descclassname"> &lt;save_animation_to&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot-assembly-power-save-animation-to" title="Permalink to this definition">¶</a></dt>
+<dd><p>File name to save the animation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>burnup_animation.gif</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-assembly-power-num-process">
+<code class="sig-name descname">--num-process</code><code class="sig-prename descclassname"> &lt;num_process&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot-assembly-power-num-process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of process used to perform geometry computation. Note that geometry computations are parallelized in assembly level by multi-processing, which means this argument only works for core model ploting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>32</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-assembly-power-arg-FILENAME">
+<code class="sig-name descname">FILENAME</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-assembly-power-arg-FILENAME" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</div>
+<div class="section" id="robin3-plot-assembly-reaction-rate">
+<h2>robin3 plot-assembly-reaction-rate<a class="headerlink" href="#robin3-plot-assembly-reaction-rate" title="Permalink to this headline">¶</a></h2>
+<p>Plots a 2D heatmap of assembly reaction rate distribution in the geometry by
+an output file in HDF5 format.</p>
+<p>FILENAME is the name of output file in HDF5 format with path.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>robin3 plot-assembly-reaction-rate <span class="o">[</span>OPTIONS<span class="o">]</span> FILENAME
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-assembly-reaction-rate-key">
+<code class="sig-name descname">--key</code><code class="sig-prename descclassname"> &lt;key&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot-assembly-reaction-rate-key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Which type of pin reaction rate distribution to show.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>assembly_vfis</p>
+</dd>
+<dt class="field-even">Options</dt>
+<dd class="field-even"><p>assembly_vfis|assembly_fis</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-assembly-reaction-rate-burnup-animation">
+<code class="sig-name descname">--burnup-animation</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-burnup-animation</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-assembly-reaction-rate-burnup-animation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to create an animation to show the heatmap vary with burnup.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-assembly-reaction-rate-burnup">
+<code class="sig-name descname">--burnup</code><code class="sig-prename descclassname"> &lt;burnup&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot-assembly-reaction-rate-burnup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Burnup point at which the result to show.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>0.0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-assembly-reaction-rate-render-to-html">
+<code class="sig-name descname">--render-to-html</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-render-to-html</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-assembly-reaction-rate-render-to-html" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to render the plot to a html file for interactive visualization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-assembly-reaction-rate-show-edge">
+<code class="sig-name descname">--show-edge</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-show-edge</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-assembly-reaction-rate-show-edge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to show the mesh edge.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-assembly-reaction-rate-show-peak-value">
+<code class="sig-name descname">--show-peak-value</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-show-peak-value</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-assembly-reaction-rate-show-peak-value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to show the peak value in the heatmap.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>True</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-assembly-reaction-rate-save-fig">
+<code class="sig-name descname">--save-fig</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-save-fig</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-assembly-reaction-rate-save-fig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to save the plotting figure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-assembly-reaction-rate-save-animation-to">
+<code class="sig-name descname">--save-animation-to</code><code class="sig-prename descclassname"> &lt;save_animation_to&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot-assembly-reaction-rate-save-animation-to" title="Permalink to this definition">¶</a></dt>
+<dd><p>File name to save the animation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>burnup_animation.gif</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-assembly-reaction-rate-num-process">
+<code class="sig-name descname">--num-process</code><code class="sig-prename descclassname"> &lt;num_process&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot-assembly-reaction-rate-num-process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of process used to perform geometry computation. Note that geometry computations are parallelized in assembly level by multi-processing, which means this argument only works for core model ploting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>32</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-assembly-reaction-rate-arg-FILENAME">
+<code class="sig-name descname">FILENAME</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-assembly-reaction-rate-arg-FILENAME" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</div>
+<div class="section" id="robin3-plot-pin-power">
+<h2>robin3 plot-pin-power<a class="headerlink" href="#robin3-plot-pin-power" title="Permalink to this headline">¶</a></h2>
+<p>Plots a 2D heatmap of pin power distribution in the geometry by an
+output file in HDF5 format.</p>
+<p>FILENAME is the name of output file in HDF5 format with path.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>robin3 plot-pin-power <span class="o">[</span>OPTIONS<span class="o">]</span> FILENAME
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-pin-power-burnup-animation">
+<code class="sig-name descname">--burnup-animation</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-burnup-animation</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-pin-power-burnup-animation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to create an animation to show the heatmap vary with burnup.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-pin-power-burnup">
+<code class="sig-name descname">--burnup</code><code class="sig-prename descclassname"> &lt;burnup&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot-pin-power-burnup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Burnup point at which the result to show.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>0.0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-pin-power-render-to-html">
+<code class="sig-name descname">--render-to-html</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-render-to-html</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-pin-power-render-to-html" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to render the plot to a html file for interactive visualization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-pin-power-show-peak-value">
+<code class="sig-name descname">--show-peak-value</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-show-peak-value</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-pin-power-show-peak-value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to show the peak value in the heatmap.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>True</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-pin-power-save-fig">
+<code class="sig-name descname">--save-fig</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-save-fig</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-pin-power-save-fig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to save the plotting figure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-pin-power-save-animation-to">
+<code class="sig-name descname">--save-animation-to</code><code class="sig-prename descclassname"> &lt;save_animation_to&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot-pin-power-save-animation-to" title="Permalink to this definition">¶</a></dt>
+<dd><p>File name to save the animation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>burnup_animation.gif</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-pin-power-num-process">
+<code class="sig-name descname">--num-process</code><code class="sig-prename descclassname"> &lt;num_process&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot-pin-power-num-process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of process used to perform geometry computation. Note that geometry computations are parallelized in assembly level by multi-processing, which means this argument only works for core model ploting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>32</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-pin-power-arg-FILENAME">
+<code class="sig-name descname">FILENAME</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-pin-power-arg-FILENAME" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</div>
+<div class="section" id="robin3-plot-pin-reaction-rate">
+<h2>robin3 plot-pin-reaction-rate<a class="headerlink" href="#robin3-plot-pin-reaction-rate" title="Permalink to this headline">¶</a></h2>
+<p>Plots a 2D heatmap of pin reaction rate distribution in the geometry by
+an output file in HDF5 format.</p>
+<p>FILENAME is the name of output file in HDF5 format with path.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>robin3 plot-pin-reaction-rate <span class="o">[</span>OPTIONS<span class="o">]</span> FILENAME
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-pin-reaction-rate-key">
+<code class="sig-name descname">--key</code><code class="sig-prename descclassname"> &lt;key&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot-pin-reaction-rate-key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Which type of pin reaction rate distribution to show.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>pin_vfis</p>
+</dd>
+<dt class="field-even">Options</dt>
+<dd class="field-even"><p>pin_vfis|pin_fis</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-pin-reaction-rate-burnup-animation">
+<code class="sig-name descname">--burnup-animation</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-burnup-animation</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-pin-reaction-rate-burnup-animation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to create an animation to show the heatmap vary with burnup.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-pin-reaction-rate-burnup">
+<code class="sig-name descname">--burnup</code><code class="sig-prename descclassname"> &lt;burnup&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot-pin-reaction-rate-burnup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Burnup point at which the result to show.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>0.0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-pin-reaction-rate-render-to-html">
+<code class="sig-name descname">--render-to-html</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-render-to-html</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-pin-reaction-rate-render-to-html" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to render the plot to a html file for interactive visualization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-pin-reaction-rate-show-edge">
+<code class="sig-name descname">--show-edge</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-show-edge</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-pin-reaction-rate-show-edge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to show the mesh edge.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-pin-reaction-rate-show-peak-value">
+<code class="sig-name descname">--show-peak-value</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-show-peak-value</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-pin-reaction-rate-show-peak-value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to show the peak value in the heatmap.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>True</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-pin-reaction-rate-save-fig">
+<code class="sig-name descname">--save-fig</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-save-fig</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-pin-reaction-rate-save-fig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to save the plotting figure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-pin-reaction-rate-save-animation-to">
+<code class="sig-name descname">--save-animation-to</code><code class="sig-prename descclassname"> &lt;save_animation_to&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot-pin-reaction-rate-save-animation-to" title="Permalink to this definition">¶</a></dt>
+<dd><p>File name to save the animation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>burnup_animation.gif</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-pin-reaction-rate-num-process">
+<code class="sig-name descname">--num-process</code><code class="sig-prename descclassname"> &lt;num_process&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot-pin-reaction-rate-num-process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of process used to perform geometry computation. Note that geometry computations are parallelized in assembly level by multi-processing, which means this argument only works for core model ploting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>32</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-pin-reaction-rate-arg-FILENAME">
+<code class="sig-name descname">FILENAME</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-pin-reaction-rate-arg-FILENAME" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</div>
+<div class="section" id="robin3-plot-pin-flux">
+<h2>robin3 plot-pin-flux<a class="headerlink" href="#robin3-plot-pin-flux" title="Permalink to this headline">¶</a></h2>
+<p>Plots a 2D heatmap of pin flux distribution in the geometry by an
+output file in HDF5 format.</p>
+<p>FILENAME is the name of output file in HDF5 format with path.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>robin3 plot-pin-flux <span class="o">[</span>OPTIONS<span class="o">]</span> FILENAME
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-pin-flux-burnup-animation">
+<code class="sig-name descname">--burnup-animation</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-burnup-animation</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-pin-flux-burnup-animation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to create an animation to show the heatmap vary with burnup.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-pin-flux-burnup">
+<code class="sig-name descname">--burnup</code><code class="sig-prename descclassname"> &lt;burnup&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot-pin-flux-burnup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Burnup point at which the result to show.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>0.0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-pin-flux-group">
+<code class="sig-name descname">--group</code><code class="sig-prename descclassname"> &lt;group&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot-pin-flux-group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Which energy group of the pin flux distribution to show.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-pin-flux-render-to-html">
+<code class="sig-name descname">--render-to-html</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-render-to-html</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-pin-flux-render-to-html" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to render the plot to a html file for interactive visualization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-pin-flux-show-edge">
+<code class="sig-name descname">--show-edge</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-show-edge</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-pin-flux-show-edge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to show the mesh edge.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-pin-flux-show-peak-value">
+<code class="sig-name descname">--show-peak-value</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-show-peak-value</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-pin-flux-show-peak-value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to show the peak value in the heatmap.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>True</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-pin-flux-save-fig">
+<code class="sig-name descname">--save-fig</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-save-fig</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-pin-flux-save-fig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to save the plotting figure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-pin-flux-save-animation-to">
+<code class="sig-name descname">--save-animation-to</code><code class="sig-prename descclassname"> &lt;save_animation_to&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot-pin-flux-save-animation-to" title="Permalink to this definition">¶</a></dt>
+<dd><p>File name to save the animation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>burnup_animation.gif</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-pin-flux-num-process">
+<code class="sig-name descname">--num-process</code><code class="sig-prename descclassname"> &lt;num_process&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot-pin-flux-num-process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of process used to perform geometry computation. Note that geometry computations are parallelized in assembly level by multi-processing, which means this argument only works for core model ploting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>32</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-pin-flux-arg-FILENAME">
+<code class="sig-name descname">FILENAME</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-pin-flux-arg-FILENAME" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</div>
+<div class="section" id="robin3-plot-mesh-flux">
+<h2>robin3 plot_mesh_flux<a class="headerlink" href="#robin3-plot-mesh-flux" title="Permalink to this headline">¶</a></h2>
+<p>Plots a 2D heatmap of mesh flux distribution in the geometry by an
+output file in HDF5 format.</p>
+<p>FILENAME is the name of output file in HDF5 format with path.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>robin3 plot_mesh_flux <span class="o">[</span>OPTIONS<span class="o">]</span> FILENAME
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt id="cmdoption-robin3-plot_mesh_flux-burnup-animation">
+<code class="sig-name descname">--burnup-animation</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-burnup-animation</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot_mesh_flux-burnup-animation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to create an animation to show the heatmap vary with burnup.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot_mesh_flux-burnup">
+<code class="sig-name descname">--burnup</code><code class="sig-prename descclassname"> &lt;burnup&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot_mesh_flux-burnup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Burnup point at which the result to show.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>0.0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot_mesh_flux-group">
+<code class="sig-name descname">--group</code><code class="sig-prename descclassname"> &lt;group&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot_mesh_flux-group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Which energy group of the mesh flux distribution to show.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot_mesh_flux-render-to-html">
+<code class="sig-name descname">--render-to-html</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-render-to-html</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot_mesh_flux-render-to-html" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to render the plot to a html file for interactive visualization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot_mesh_flux-show-edge">
+<code class="sig-name descname">--show-edge</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-show-edge</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot_mesh_flux-show-edge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to show the mesh edge.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot_mesh_flux-show-peak-value">
+<code class="sig-name descname">--show-peak-value</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-show-peak-value</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot_mesh_flux-show-peak-value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to show the peak value in the heatmap.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>True</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot_mesh_flux-save-fig">
+<code class="sig-name descname">--save-fig</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-save-fig</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot_mesh_flux-save-fig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to save the plotting figure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot_mesh_flux-save-animation-to">
+<code class="sig-name descname">--save-animation-to</code><code class="sig-prename descclassname"> &lt;save_animation_to&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot_mesh_flux-save-animation-to" title="Permalink to this definition">¶</a></dt>
+<dd><p>File name to save the animation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>burnup_animation.gif</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot_mesh_flux-num-process">
+<code class="sig-name descname">--num-process</code><code class="sig-prename descclassname"> &lt;num_process&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot_mesh_flux-num-process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of process used to perform geometry computation. Note that geometry computations are parallelized in assembly level by multi-processing, which means this argument only works for core model ploting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>32</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt id="cmdoption-robin3-plot_mesh_flux-arg-FILENAME">
+<code class="sig-name descname">FILENAME</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot_mesh_flux-arg-FILENAME" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</div>
+<div class="section" id="robin3-plot-mesh-reaction-rate">
+<h2>robin3 plot-mesh-reaction-rate<a class="headerlink" href="#robin3-plot-mesh-reaction-rate" title="Permalink to this headline">¶</a></h2>
+<p>Plots a 2D heatmap of mesh reaction rate distribution in the geometry by
+an output file in HDF5 format.</p>
+<p>FILENAME is the name of output file in HDF5 format with path.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>robin3 plot-mesh-reaction-rate <span class="o">[</span>OPTIONS<span class="o">]</span> FILENAME
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-mesh-reaction-rate-key">
+<code class="sig-name descname">--key</code><code class="sig-prename descclassname"> &lt;key&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot-mesh-reaction-rate-key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Which type of mesh reaction rate distribution to show.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>mesh_pin_power</p>
+</dd>
+<dt class="field-even">Options</dt>
+<dd class="field-even"><p>mesh_vfis|mesh_fis</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-mesh-reaction-rate-burnup-animation">
+<code class="sig-name descname">--burnup-animation</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-burnup-animation</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-mesh-reaction-rate-burnup-animation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to create an animation to show the heatmap vary with burnup.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-mesh-reaction-rate-burnup">
+<code class="sig-name descname">--burnup</code><code class="sig-prename descclassname"> &lt;burnup&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot-mesh-reaction-rate-burnup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Burnup point at which the result to show.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>0.0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-mesh-reaction-rate-render-to-html">
+<code class="sig-name descname">--render-to-html</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-render-to-html</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-mesh-reaction-rate-render-to-html" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to render the plot to a html file for interactive visualization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-mesh-reaction-rate-show-edge">
+<code class="sig-name descname">--show-edge</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-show-edge</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-mesh-reaction-rate-show-edge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to show the mesh edge.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-mesh-reaction-rate-show-peak-value">
+<code class="sig-name descname">--show-peak-value</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-show-peak-value</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-mesh-reaction-rate-show-peak-value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to show the peak value in the heatmap.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>True</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-mesh-reaction-rate-save-fig">
+<code class="sig-name descname">--save-fig</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-save-fig</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-mesh-reaction-rate-save-fig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to save the plotting figure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-mesh-reaction-rate-save-animation-to">
+<code class="sig-name descname">--save-animation-to</code><code class="sig-prename descclassname"> &lt;save_animation_to&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot-mesh-reaction-rate-save-animation-to" title="Permalink to this definition">¶</a></dt>
+<dd><p>File name to save the animation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>burnup_animation.gif</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-mesh-reaction-rate-num-process">
+<code class="sig-name descname">--num-process</code><code class="sig-prename descclassname"> &lt;num_process&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot-mesh-reaction-rate-num-process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of process used to perform geometry computation. Note that geometry computations are parallelized in assembly level by multi-processing, which means this argument only works for core model ploting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>32</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-mesh-reaction-rate-arg-FILENAME">
+<code class="sig-name descname">FILENAME</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-mesh-reaction-rate-arg-FILENAME" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</div>
+<div class="section" id="robin3-plot-neutron-fluxes">
+<h2>robin3 plot-neutron-fluxes<a class="headerlink" href="#robin3-plot-neutron-fluxes" title="Permalink to this headline">¶</a></h2>
+<p>Plots neutron fluxes distribution with neutron enerygy in tagged regions
+by an output file in HDF5 format.</p>
+<p>FILENAME is the name of output file in HDF5 format with path.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>robin3 plot-neutron-fluxes <span class="o">[</span>OPTIONS<span class="o">]</span> FILENAME
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-neutron-fluxes-burnup-animation">
+<code class="sig-name descname">--burnup-animation</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-burnup-animation</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-neutron-fluxes-burnup-animation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to create an animation to show the plot vary with burnup.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-neutron-fluxes-burnup">
+<code class="sig-name descname">--burnup</code><code class="sig-prename descclassname"> &lt;burnup&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot-neutron-fluxes-burnup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Burnup point at which the result to show.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>0.0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-neutron-fluxes-save-fig">
+<code class="sig-name descname">--save-fig</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-save-fig</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-neutron-fluxes-save-fig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to save the plotting figure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-neutron-fluxes-save-animation-to">
+<code class="sig-name descname">--save-animation-to</code><code class="sig-prename descclassname"> &lt;save_animation_to&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot-neutron-fluxes-save-animation-to" title="Permalink to this definition">¶</a></dt>
+<dd><p>File name to save the animation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>burnup_animation.gif</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-neutron-fluxes-arg-FILENAME">
+<code class="sig-name descname">FILENAME</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-neutron-fluxes-arg-FILENAME" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</div>
+<div class="section" id="robin3-plot-nuclide-number-density">
+<h2>robin3 plot-nuclide-number-density<a class="headerlink" href="#robin3-plot-nuclide-number-density" title="Permalink to this headline">¶</a></h2>
+<p>Plots a 2D heatmap of nuclide number density distribution in the geometry by
+an output file in HDF5 format.</p>
+<p>FILENAME is the name of output file in HDF5 format with path.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>robin3 plot-nuclide-number-density <span class="o">[</span>OPTIONS<span class="o">]</span> FILENAME
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-nuclide-number-density-nuclide">
+<code class="sig-name descname">--nuclide</code><code class="sig-prename descclassname"> &lt;nuclide&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot-nuclide-number-density-nuclide" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Required</strong> The number density distribution of which nuclide to show, should be a nuclide name in the nuclear data library.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-nuclide-number-density-burnup-animation">
+<code class="sig-name descname">--burnup-animation</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-burnup-animation</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-nuclide-number-density-burnup-animation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to create an animation to show the heatmap vary with burnup.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-nuclide-number-density-burnup">
+<code class="sig-name descname">--burnup</code><code class="sig-prename descclassname"> &lt;burnup&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot-nuclide-number-density-burnup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Burnup point at which the result to show.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>0.0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-nuclide-number-density-render-to-html">
+<code class="sig-name descname">--render-to-html</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-render-to-html</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-nuclide-number-density-render-to-html" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to render the plot to a html file for interactive visualization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-nuclide-number-density-show-edge">
+<code class="sig-name descname">--show-edge</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-show-edge</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-nuclide-number-density-show-edge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to show the mesh edge.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-nuclide-number-density-show-peak-value">
+<code class="sig-name descname">--show-peak-value</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-show-peak-value</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-nuclide-number-density-show-peak-value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to show the peak value in the heatmap.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>True</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-nuclide-number-density-save-fig">
+<code class="sig-name descname">--save-fig</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-save-fig</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-nuclide-number-density-save-fig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to save the plotting figure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-nuclide-number-density-save-animation-to">
+<code class="sig-name descname">--save-animation-to</code><code class="sig-prename descclassname"> &lt;save_animation_to&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot-nuclide-number-density-save-animation-to" title="Permalink to this definition">¶</a></dt>
+<dd><p>File name to save the animation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>burnup_animation.gif</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-nuclide-number-density-num-process">
+<code class="sig-name descname">--num-process</code><code class="sig-prename descclassname"> &lt;num_process&gt;</code><a class="headerlink" href="#cmdoption-robin3-plot-nuclide-number-density-num-process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of process used to perform geometry computation. Note that geometry computations are parallelized in assembly level by multi-processing, which means this argument only works for core model ploting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>32</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt id="cmdoption-robin3-plot-nuclide-number-density-arg-FILENAME">
+<code class="sig-name descname">FILENAME</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-plot-nuclide-number-density-arg-FILENAME" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</div>
+<div class="section" id="robin3-make-axiom-p-table">
+<h2>robin3 make-axiom-p-table<a class="headerlink" href="#robin3-make-axiom-p-table" title="Permalink to this headline">¶</a></h2>
+<p>Run ROBIN3 to make table for AXIOM-P.</p>
+<p>INPUT_FILE is the name of file with path in which the model defined, both
+yaml or json format are acceptable.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>robin3 make-axiom-p-table <span class="o">[</span>OPTIONS<span class="o">]</span> INPUT_FILE
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt id="cmdoption-robin3-make-axiom-p-table-min-enrichment">
+<code class="sig-name descname">--min-enrichment</code><code class="sig-prename descclassname"> &lt;min_enrichment&gt;</code><a class="headerlink" href="#cmdoption-robin3-make-axiom-p-table-min-enrichment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Minimum enrichment used to make AXIOM-P table.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-axiom-p-table-max-enrichment">
+<code class="sig-name descname">--max-enrichment</code><code class="sig-prename descclassname"> &lt;max_enrichment&gt;</code><a class="headerlink" href="#cmdoption-robin3-make-axiom-p-table-max-enrichment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maximum enrichment used to make AXIOM-P table.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-axiom-p-table-enrichment-interval">
+<code class="sig-name descname">--enrichment-interval</code><code class="sig-prename descclassname"> &lt;enrichment_interval&gt;</code><a class="headerlink" href="#cmdoption-robin3-make-axiom-p-table-enrichment-interval" title="Permalink to this definition">¶</a></dt>
+<dd><p>The interval of enrichments used to make AXIOM-P table.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-axiom-p-table-table-file">
+<code class="sig-name descname">--table-file</code><code class="sig-prename descclassname"> &lt;table_file&gt;</code><a class="headerlink" href="#cmdoption-robin3-make-axiom-p-table-table-file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Table file path to output.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-axiom-p-table-library">
+<code class="sig-name descname">--library</code><code class="sig-prename descclassname"> &lt;library&gt;</code><a class="headerlink" href="#cmdoption-robin3-make-axiom-p-table-library" title="Permalink to this definition">¶</a></dt>
+<dd><p>The nuclear data library file name with path, only used by micro-xs cases. Nuclear data library file installed in package will be used as default.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-axiom-p-table-material-databank">
+<code class="sig-name descname">--material-databank</code><code class="sig-prename descclassname"> &lt;material_databank&gt;</code><a class="headerlink" href="#cmdoption-robin3-make-axiom-p-table-material-databank" title="Permalink to this definition">¶</a></dt>
+<dd><p>The material databank file name with path, only used by micro-xs cases. Material databank file installed in sys.path will be used as default.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-axiom-p-table-assembly">
+<code class="sig-name descname">--assembly</code><code class="sig-prename descclassname"> &lt;assembly&gt;</code><a class="headerlink" href="#cmdoption-robin3-make-axiom-p-table-assembly" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of target assembly which you want to simulate, only used when you want to perform a single assembly calculation defined in a whole core model input file.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-axiom-p-table-cyclic-track">
+<code class="sig-name descname">--cyclic-track</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-cyclic-track</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-make-axiom-p-table-cyclic-track" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to use cyclic track, only used for single assembly cases. Cyclic track will accelerate simulation by reduce the total number of MOC iteration, but only works on CPU without OpenMP multi-threads parallelization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-axiom-p-table-use-gpu">
+<code class="sig-name descname">--use-gpu</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-use-gpu</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-make-axiom-p-table-use-gpu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to use GPU, GPU will significantly accelerate simulation by parallel the MOC tracking calculation. If –use-gpu but none of GPU avaiable on the platform, CPU with OpenMP multi-threads parallelization will be used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-axiom-p-table-device-id">
+<code class="sig-name descname">--device-id</code><code class="sig-prename descclassname"> &lt;device_id&gt;</code><a class="headerlink" href="#cmdoption-robin3-make-axiom-p-table-device-id" title="Permalink to this definition">¶</a></dt>
+<dd><p>The device id of which GPU used, only works if –use-gpu.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-axiom-p-table-num-thread-blocks">
+<code class="sig-name descname">--num-thread-blocks</code><code class="sig-prename descclassname"> &lt;num_thread_blocks&gt;</code><a class="headerlink" href="#cmdoption-robin3-make-axiom-p-table-num-thread-blocks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Total number of thread blocks used, only works if –use-gpu.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>128</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-axiom-p-table-num-threads-per-block">
+<code class="sig-name descname">--num-threads-per-block</code><code class="sig-prename descclassname"> &lt;num_threads_per_block&gt;</code><a class="headerlink" href="#cmdoption-robin3-make-axiom-p-table-num-threads-per-block" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of threads per block used, only works if –use-gpu, should be a multiple of 32.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>128</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-axiom-p-table-number-groups-edit">
+<code class="sig-name descname">--number-groups-edit</code><code class="sig-prename descclassname"> &lt;number_groups_edit&gt;</code><a class="headerlink" href="#cmdoption-robin3-make-axiom-p-table-number-groups-edit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of energy groups used to edit calculation result, only works for micro-xs cases.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>2</p>
+</dd>
+<dt class="field-even">Options</dt>
+<dd class="field-even"><p>2|3|4|8</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-axiom-p-table-output-file">
+<code class="sig-name descname">--output-file</code><code class="sig-prename descclassname"> &lt;output_file&gt;</code><a class="headerlink" href="#cmdoption-robin3-make-axiom-p-table-output-file" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of output file with path, the model name (assembly name or core name) with current directory will be used as default.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-axiom-p-table-logger-file">
+<code class="sig-name descname">--logger-file</code><code class="sig-prename descclassname"> &lt;logger_file&gt;</code><a class="headerlink" href="#cmdoption-robin3-make-axiom-p-table-logger-file" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of rotating logger file use to store logger info.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>/home/yuejin/Cloud/robin3/docs/robin3.log</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-axiom-p-table-logger-level">
+<code class="sig-name descname">--logger-level</code><code class="sig-prename descclassname"> &lt;logger_level&gt;</code><a class="headerlink" href="#cmdoption-robin3-make-axiom-p-table-logger-level" title="Permalink to this definition">¶</a></dt>
+<dd><p>The logger level used to output logger info.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>info</p>
+</dd>
+<dt class="field-even">Options</dt>
+<dd class="field-even"><p>debug|info|warn|error</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-axiom-p-table-verbose">
+<code class="sig-name descname">--verbose</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-verbose</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-make-axiom-p-table-verbose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to print iteration info to the logger, a progress bar will be used if verbose=False, only works for single assembly micro-xs cases.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>True</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-axiom-p-table-profile-mode">
+<code class="sig-name descname">--profile-mode</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-profile-mode</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-make-axiom-p-table-profile-mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to turn on profile mode, if profile mode turns on, a profile file will be generated.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-axiom-p-table-write-json-debug">
+<code class="sig-name descname">--write-json-debug</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-write-json-debug</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-make-axiom-p-table-write-json-debug" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to write a json file for cpp debugging.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>True</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt id="cmdoption-robin3-make-axiom-p-table-arg-INPUT_FILE">
+<code class="sig-name descname">INPUT_FILE</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-make-axiom-p-table-arg-INPUT_FILE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</div>
+<div class="section" id="robin3-make-idyll-table">
+<h2>robin3 make-idyll-table<a class="headerlink" href="#robin3-make-idyll-table" title="Permalink to this headline">¶</a></h2>
+<p>Command to make idyll table.</p>
+<p>Perform a single assembly case matrix calculation and then use idyll to
+make a cross section table.</p>
+<p>INPUT_FILE is the name of file with path in which the model defined, both
+yaml or json format are acceptable.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>robin3 make-idyll-table <span class="o">[</span>OPTIONS<span class="o">]</span> INPUT_FILE
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt id="cmdoption-robin3-make-idyll-table-output-dir">
+<code class="sig-name descname">--output-dir</code><code class="sig-prename descclassname"> &lt;output_dir&gt;</code><a class="headerlink" href="#cmdoption-robin3-make-idyll-table-output-dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>The directory used to output table file, the current directory will be used as default.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-idyll-table-idyll-addtional-data">
+<code class="sig-name descname">--idyll-addtional-data</code><code class="sig-prename descclassname"> &lt;idyll_addtional_data&gt;</code><a class="headerlink" href="#cmdoption-robin3-make-idyll-table-idyll-addtional-data" title="Permalink to this definition">¶</a></dt>
+<dd><p>A yaml file with data which will be added to the attributes of the idyll table file.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-idyll-table-fitting">
+<code class="sig-name descname">--fitting</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-fitting</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-make-idyll-table-fitting" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to use fitting for cross section table making, use fitting can reduce the total number of state points that needed to compute.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>True</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-idyll-table-library">
+<code class="sig-name descname">--library</code><code class="sig-prename descclassname"> &lt;library&gt;</code><a class="headerlink" href="#cmdoption-robin3-make-idyll-table-library" title="Permalink to this definition">¶</a></dt>
+<dd><p>The nuclear data library file name with path, nuclear data library file installed in package will be used as default.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-idyll-table-material-databank">
+<code class="sig-name descname">--material-databank</code><code class="sig-prename descclassname"> &lt;material_databank&gt;</code><a class="headerlink" href="#cmdoption-robin3-make-idyll-table-material-databank" title="Permalink to this definition">¶</a></dt>
+<dd><p>The material databank file name with path, only used by micro-xs cases. Material databank file installed in package will be used as default.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-idyll-table-assembly">
+<code class="sig-name descname">--assembly</code><code class="sig-prename descclassname"> &lt;assembly&gt;</code><a class="headerlink" href="#cmdoption-robin3-make-idyll-table-assembly" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of target assembly which you want to simulate, only used when you want to perform a single assembly calculation defined in a whole core model input file.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-idyll-table-cyclic-track">
+<code class="sig-name descname">--cyclic-track</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-cyclic-track</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-make-idyll-table-cyclic-track" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to use cyclic track, only used for single assembly cases. Cyclic track will accelerate simulation by reduce the total number of MOC iteration, but only works on CPU without OpenMP multi-threads parallelization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-idyll-table-use-gpu">
+<code class="sig-name descname">--use-gpu</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-use-gpu</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-make-idyll-table-use-gpu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to use GPU, GPU will significantly accelerate simulation by parallel the MOC tracking calculation. If –use-gpu but none of GPU avaiable on the platform, CPU with OpenMP multi-threads parallelization will be used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-idyll-table-device-id">
+<code class="sig-name descname">--device-id</code><code class="sig-prename descclassname"> &lt;device_id&gt;</code><a class="headerlink" href="#cmdoption-robin3-make-idyll-table-device-id" title="Permalink to this definition">¶</a></dt>
+<dd><p>The device id of which GPU used, only works if –use-gpu.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-idyll-table-num-thread-blocks">
+<code class="sig-name descname">--num-thread-blocks</code><code class="sig-prename descclassname"> &lt;num_thread_blocks&gt;</code><a class="headerlink" href="#cmdoption-robin3-make-idyll-table-num-thread-blocks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Total number of thread blocks used, only works if –use-gpu.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>128</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-idyll-table-num-threads-per-block">
+<code class="sig-name descname">--num-threads-per-block</code><code class="sig-prename descclassname"> &lt;num_threads_per_block&gt;</code><a class="headerlink" href="#cmdoption-robin3-make-idyll-table-num-threads-per-block" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of threads per block used, only works if –use-gpu, should be a multiple of 32.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>128</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-idyll-table-number-groups-edit">
+<code class="sig-name descname">--number-groups-edit</code><code class="sig-prename descclassname"> &lt;number_groups_edit&gt;</code><a class="headerlink" href="#cmdoption-robin3-make-idyll-table-number-groups-edit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of energy groups used to edit calculation result, only works for micro-xs cases.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>2</p>
+</dd>
+<dt class="field-even">Options</dt>
+<dd class="field-even"><p>2|3|4|8</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-idyll-table-output-file">
+<code class="sig-name descname">--output-file</code><code class="sig-prename descclassname"> &lt;output_file&gt;</code><a class="headerlink" href="#cmdoption-robin3-make-idyll-table-output-file" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of output file with path, the model name (assembly name or core name) with current directory will be used as default.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-idyll-table-logger-file">
+<code class="sig-name descname">--logger-file</code><code class="sig-prename descclassname"> &lt;logger_file&gt;</code><a class="headerlink" href="#cmdoption-robin3-make-idyll-table-logger-file" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of rotating logger file use to store logger info.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>/home/yuejin/Cloud/robin3/docs/robin3.log</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-idyll-table-logger-level">
+<code class="sig-name descname">--logger-level</code><code class="sig-prename descclassname"> &lt;logger_level&gt;</code><a class="headerlink" href="#cmdoption-robin3-make-idyll-table-logger-level" title="Permalink to this definition">¶</a></dt>
+<dd><p>The logger level used to output logger info.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>info</p>
+</dd>
+<dt class="field-even">Options</dt>
+<dd class="field-even"><p>debug|info|warn|error</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-idyll-table-verbose">
+<code class="sig-name descname">--verbose</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-verbose</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-make-idyll-table-verbose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to print iteration info to the logger, a progress bar will be used if False.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>True</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-idyll-table-profile-mode">
+<code class="sig-name descname">--profile-mode</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-profile-mode</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-make-idyll-table-profile-mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to turn on profile mode, if profile mode turns on, a profile file will be generated.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-idyll-table-write-json-debug">
+<code class="sig-name descname">--write-json-debug</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-write-json-debug</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-make-idyll-table-write-json-debug" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to write a json file for cpp debugging.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>True</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt id="cmdoption-robin3-make-idyll-table-arg-INPUT_FILE">
+<code class="sig-name descname">INPUT_FILE</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-make-idyll-table-arg-INPUT_FILE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</div>
+<div class="section" id="robin3-use-multi-gpu-make-idyll-tables">
+<h2>robin3 use-multi-gpu-make-idyll-tables<a class="headerlink" href="#robin3-use-multi-gpu-make-idyll-tables" title="Permalink to this headline">¶</a></h2>
+<p>Use multi-GPU and multi-processing to make idyll tables.</p>
+<p>INPUT_DIR is the directory contains the input files, both robin2’s .inp
+and robin3’s yaml or json format are acceptable.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>robin3 use-multi-gpu-make-idyll-tables <span class="o">[</span>OPTIONS<span class="o">]</span> INPUT_DIR
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt id="cmdoption-robin3-use-multi-gpu-make-idyll-tables-output-dir">
+<code class="sig-name descname">--output-dir</code><code class="sig-prename descclassname"> &lt;output_dir&gt;</code><a class="headerlink" href="#cmdoption-robin3-use-multi-gpu-make-idyll-tables-output-dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>The directory used to output table file, input directory will be used if None.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-use-multi-gpu-make-idyll-tables-idyll-addtional-data">
+<code class="sig-name descname">--idyll-addtional-data</code><code class="sig-prename descclassname"> &lt;idyll_addtional_data&gt;</code><a class="headerlink" href="#cmdoption-robin3-use-multi-gpu-make-idyll-tables-idyll-addtional-data" title="Permalink to this definition">¶</a></dt>
+<dd><p>A yaml file with data which will be added to the attributes of the idyll table file.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-use-multi-gpu-make-idyll-tables-from-robin2-inp">
+<code class="sig-name descname">--from-robin2-inp</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-from-robin2-inp</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-use-multi-gpu-make-idyll-tables-from-robin2-inp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether making table from robin2’s .inp format input file, robin3 will translate robin2’s .inp format file to .yaml input file before making idyll tables if True.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-use-multi-gpu-make-idyll-tables-library">
+<code class="sig-name descname">--library</code><code class="sig-prename descclassname"> &lt;library&gt;</code><a class="headerlink" href="#cmdoption-robin3-use-multi-gpu-make-idyll-tables-library" title="Permalink to this definition">¶</a></dt>
+<dd><p>The nuclear data library file name with path, nuclear data library file installed in package will be used as default.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-use-multi-gpu-make-idyll-tables-verbose">
+<code class="sig-name descname">--verbose</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-verbose</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-use-multi-gpu-make-idyll-tables-verbose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to print iteration info to the logger, a progress bar will be used if False.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>True</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt id="cmdoption-robin3-use-multi-gpu-make-idyll-tables-arg-INPUT_DIR">
+<code class="sig-name descname">INPUT_DIR</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-use-multi-gpu-make-idyll-tables-arg-INPUT_DIR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</div>
+<div class="section" id="robin3-make-reflector-idyll-tables">
+<h2>robin3 make-reflector-idyll-tables<a class="headerlink" href="#robin3-make-reflector-idyll-tables" title="Permalink to this headline">¶</a></h2>
+<p>Command to make reflector idyll tables.</p>
+<p>Perform a whole core case matrix calculation and then use IDYLL to make
+cross section tables for reflector.</p>
+<p>INPUT_FILE is the name of file with path in which the model defined, both
+yaml or json format are acceptable.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>robin3 make-reflector-idyll-tables <span class="o">[</span>OPTIONS<span class="o">]</span> INPUT_FILE
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt id="cmdoption-robin3-make-reflector-idyll-tables-output-dir">
+<code class="sig-name descname">--output-dir</code><code class="sig-prename descclassname"> &lt;output_dir&gt;</code><a class="headerlink" href="#cmdoption-robin3-make-reflector-idyll-tables-output-dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>The directory used to output table files, the current directory will be used as default.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-reflector-idyll-tables-idyll-addtional-data">
+<code class="sig-name descname">--idyll-addtional-data</code><code class="sig-prename descclassname"> &lt;idyll_addtional_data&gt;</code><a class="headerlink" href="#cmdoption-robin3-make-reflector-idyll-tables-idyll-addtional-data" title="Permalink to this definition">¶</a></dt>
+<dd><p>A yaml file with data which will be added to the attributes of the idyll table file.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-reflector-idyll-tables-fitting">
+<code class="sig-name descname">--fitting</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-fitting</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-make-reflector-idyll-tables-fitting" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to use fitting for cross section table making, use fitting can reduce the total number of state points that needed to compute.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>True</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-reflector-idyll-tables-library">
+<code class="sig-name descname">--library</code><code class="sig-prename descclassname"> &lt;library&gt;</code><a class="headerlink" href="#cmdoption-robin3-make-reflector-idyll-tables-library" title="Permalink to this definition">¶</a></dt>
+<dd><p>The nuclear data library file name with path, nuclear data library file installed in package will be used as default.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-reflector-idyll-tables-material-databank">
+<code class="sig-name descname">--material-databank</code><code class="sig-prename descclassname"> &lt;material_databank&gt;</code><a class="headerlink" href="#cmdoption-robin3-make-reflector-idyll-tables-material-databank" title="Permalink to this definition">¶</a></dt>
+<dd><p>The material databank file name with path, only used by micro-xs cases. Material databank file installed in package will be used as default.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-reflector-idyll-tables-cyclic-track">
+<code class="sig-name descname">--cyclic-track</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-cyclic-track</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-make-reflector-idyll-tables-cyclic-track" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to use cyclic track, only used for single assembly cases. Cyclic track will accelerate simulation by reduce the total number of MOC iteration, but only works on CPU without OpenMP multi-threads parallelization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-reflector-idyll-tables-use-gpu">
+<code class="sig-name descname">--use-gpu</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-use-gpu</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-make-reflector-idyll-tables-use-gpu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to use GPU, GPU will significantly accelerate simulation by parallel the MOC tracking calculation. If –use-gpu but none of GPU avaiable on the platform, CPU with OpenMP multi-threads parallelization will be used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-reflector-idyll-tables-device-id">
+<code class="sig-name descname">--device-id</code><code class="sig-prename descclassname"> &lt;device_id&gt;</code><a class="headerlink" href="#cmdoption-robin3-make-reflector-idyll-tables-device-id" title="Permalink to this definition">¶</a></dt>
+<dd><p>The device id of which GPU used, only works if –use-gpu.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-reflector-idyll-tables-num-thread-blocks">
+<code class="sig-name descname">--num-thread-blocks</code><code class="sig-prename descclassname"> &lt;num_thread_blocks&gt;</code><a class="headerlink" href="#cmdoption-robin3-make-reflector-idyll-tables-num-thread-blocks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Total number of thread blocks used, only works if –use-gpu.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>128</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-reflector-idyll-tables-num-threads-per-block">
+<code class="sig-name descname">--num-threads-per-block</code><code class="sig-prename descclassname"> &lt;num_threads_per_block&gt;</code><a class="headerlink" href="#cmdoption-robin3-make-reflector-idyll-tables-num-threads-per-block" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of threads per block used, only works if –use-gpu, should be a multiple of 32.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>128</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-reflector-idyll-tables-number-groups-edit">
+<code class="sig-name descname">--number-groups-edit</code><code class="sig-prename descclassname"> &lt;number_groups_edit&gt;</code><a class="headerlink" href="#cmdoption-robin3-make-reflector-idyll-tables-number-groups-edit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of energy groups used to edit calculation result, only works for micro-xs cases.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>2</p>
+</dd>
+<dt class="field-even">Options</dt>
+<dd class="field-even"><p>2|3|4|8</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-reflector-idyll-tables-output-file">
+<code class="sig-name descname">--output-file</code><code class="sig-prename descclassname"> &lt;output_file&gt;</code><a class="headerlink" href="#cmdoption-robin3-make-reflector-idyll-tables-output-file" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of output file with path, the model name (assembly name or core name) with current directory will be used as default.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-reflector-idyll-tables-logger-file">
+<code class="sig-name descname">--logger-file</code><code class="sig-prename descclassname"> &lt;logger_file&gt;</code><a class="headerlink" href="#cmdoption-robin3-make-reflector-idyll-tables-logger-file" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of rotating logger file use to store logger info.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>/home/yuejin/Cloud/robin3/docs/robin3.log</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-reflector-idyll-tables-logger-level">
+<code class="sig-name descname">--logger-level</code><code class="sig-prename descclassname"> &lt;logger_level&gt;</code><a class="headerlink" href="#cmdoption-robin3-make-reflector-idyll-tables-logger-level" title="Permalink to this definition">¶</a></dt>
+<dd><p>The logger level used to output logger info.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>info</p>
+</dd>
+<dt class="field-even">Options</dt>
+<dd class="field-even"><p>debug|info|warn|error</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-make-reflector-idyll-tables-write-json-debug">
+<code class="sig-name descname">--write-json-debug</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-write-json-debug</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-make-reflector-idyll-tables-write-json-debug" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to write a json file for cpp debugging.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>True</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt id="cmdoption-robin3-make-reflector-idyll-tables-arg-INPUT_FILE">
+<code class="sig-name descname">INPUT_FILE</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-make-reflector-idyll-tables-arg-INPUT_FILE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</div>
+<div class="section" id="robin3-r2-to-r3">
+<h2>robin3 r2-to-r3<a class="headerlink" href="#robin3-r2-to-r3" title="Permalink to this headline">¶</a></h2>
+<p>Translate a ROBIN2 .inp file into a ROBIN3 .yaml file.</p>
+<p>FILENAME is the name of ROBIN2 .inp file with path.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>robin3 r2-to-r3 <span class="o">[</span>OPTIONS<span class="o">]</span> FILENAME
+</pre></div>
+</div>
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt id="cmdoption-robin3-r2-to-r3-arg-FILENAME">
+<code class="sig-name descname">FILENAME</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-r2-to-r3-arg-FILENAME" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</div>
+<div class="section" id="robin3-r3-to-openmc">
+<h2>robin3 r3-to-openmc<a class="headerlink" href="#robin3-r3-to-openmc" title="Permalink to this headline">¶</a></h2>
+<p>Translate a ROBIN3 .yaml input file into OpenMC xml input files.
+If ROBIN3 input contains depletion, a depletion python
+script named ‘deplete.py’ will be created in the same path.</p>
+<p>FILENAME is the path to the ROBIN3 .yaml file.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>robin3 r3-to-openmc <span class="o">[</span>OPTIONS<span class="o">]</span> FILENAME
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt id="cmdoption-robin3-r3-to-openmc-material-databank">
+<code class="sig-name descname">--material-databank</code><code class="sig-prename descclassname"> &lt;material_databank&gt;</code><a class="headerlink" href="#cmdoption-robin3-r3-to-openmc-material-databank" title="Permalink to this definition">¶</a></dt>
+<dd><p>The material databank file name with path, used to convert ROBIN3 material to OpenMC material in micro-xs cases. Material databank file installed in sys.path will be used as default.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-r3-to-openmc-no-tally">
+<code class="sig-name descname">--no-tally</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-r3-to-openmc-no-tally" title="Permalink to this definition">¶</a></dt>
+<dd><p>With this option, conversion from ROBIN3 model to OpenMC will not generate tallies.xml.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-r3-to-openmc-m">
+<code class="sig-name descname">-m</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--material-assimulation</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-material-assimulation</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-r3-to-openmc-m" title="Permalink to this definition">¶</a></dt>
+<dd><p>Indicate whether materials of OpenMC model assimulates with ROBIN3’s.If true, nuclide densities of materials are given by ROBIN3, not calculatedby OpenMC’s nuclear data library.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-r3-to-openmc-o">
+<code class="sig-name descname">-o</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--optimize</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-optimize</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-r3-to-openmc-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether the generated OpenMC input is optimized. Turn this option on can simplify OpenMC input generated and decrease simulation time.However, the optimization algorithm is still under test. If error is raised during simulation or pre/post-processing, retry with thisoption off.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>True</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-robin3-r3-to-openmc-v">
+<code class="sig-name descname">-v</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--volume</code><code class="sig-prename descclassname"> &lt;volume&gt;</code><a class="headerlink" href="#cmdoption-robin3-r3-to-openmc-v" title="Permalink to this definition">¶</a></dt>
+<dd><p>Choose whether use OpenMC or ROBIN3 to calculate volumes. Currently, results of volume given by ROBIN3 are calculated before geometry pre-processing and thus may not be correct. However, volume calculation of ROBIN3 is much faster than OpenMC.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>openmc</p>
+</dd>
+<dt class="field-even">Options</dt>
+<dd class="field-even"><p>openmc|robin3</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt id="cmdoption-robin3-r3-to-openmc-arg-FILENAME">
+<code class="sig-name descname">FILENAME</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-robin3-r3-to-openmc-arg-FILENAME" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="io_formats/index.html" class="btn btn-neutral float-right" title="File Format Specifications" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="pythonapi/generated/robin3.query_GPU.html" class="btn btn-neutral float-left" title="robin3.query_GPU" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020-, ShangHai NuStar Nuclear Power Technology Co.Ltd.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+ 
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-30411614-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,8 @@
+.. _examples_vver:
+
+======================
+Modeling VVER 1/6 Core
+======================
+
+.. literalinclude:: ../../../examples/core/vver.yaml
+    :language: yaml

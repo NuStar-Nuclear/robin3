@@ -1,0 +1,30 @@
+.. _io_file_formats:
+
+==========================
+File Format Specifications
+==========================
+
+------------
+ROBIN3 Files
+------------
+
+.. toctree::
+   :numbered:
+   :maxdepth: 1
+
+   nuclearlib
+   materialdb
+   input
+   output
+
+---------------------------------
+OpenMC Compatibility Module Files
+---------------------------------
+
+.. toctree::
+   :numbered:
+   :maxdepth: 1
+
+   openmc
+   volume
+   depletion

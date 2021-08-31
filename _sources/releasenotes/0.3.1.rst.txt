@@ -1,0 +1,32 @@
+===================
+What's New in 0.3.1
+===================
+
+------------
+New Features
+------------
+
+- Integrated libGenDF to edit discontinuous factors of reflector for Egret.
+- Ability to make reflector idyll tables by one command.
+- Added some features to complile ROBIN3 successfully without CUDA.
+- Support Docker containerization installaltion.
+- Used Rlib-1.04ct7 as the default multi-group nuclear data library.
+
+|
+
+---------
+Bug Fixes
+---------
+- Fixed bug in cases that HEXAGON and CYLINDER assemblies compose core together.
+- Fixed bug that edgecolor not updated in animate.
+- Fixed bug that printGPUInfo cannot be print repeated.
+- Fixed bug in making logger duplicated.
+- Fixed bug that material name cannot contain '.'.
+- Fixed memery leakage accurred using dep_reg_for_restart.
+- Fixed bug that inconsistent array length of data_to_plot and patches.
+- Fixed bug that pad_width in hexagon assembly is not enough to cover the whole assembly.
+- Fixed bug that keyError accurred if the intersection is a sg.Point.
+- Fixed bug that can not display non-value regions such as GT in plot_spatial_result.
+- Fixed bug that incorrect coordinate in baffle geometry building.
+- Fixed bug that bad peak and static values when data-to-plot has -np.inf.
+- Fixed bug that update progress bar at non-critical omp block.

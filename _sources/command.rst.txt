@@ -1,0 +1,100 @@
+.. _command:
+
+
+===================
+Run in Command Line
+===================
+
+ROBIN3 click-based application contains various commands that allow user to run 
+simulation, plot geometry, interact with other nuclear programs, etc. Command line format is:
+
+.. code-block:: sh
+
+    robin3 COMMAND [ARGS]
+
+
+.. click:: robin3.cli:run
+    :prog: robin3 run
+    :nested: full
+
+All the output files will be placed in a subfolder with the same name as the input
+file (no filename extension).
+
+.. note:: If you're using the Python API, :func:`robin3.run` is equivalent to 
+          running ``robin3 run`` from the command line.
+
+.. click:: robin3.cli:plot_geometry
+    :prog: robin3 plot-geometry
+    :nested: full
+
+.. click:: robin3.cli:plot_flat_source_regions
+    :prog: robin3 plot-flat-source-regions
+    :nested: full
+
+.. click:: robin3.cli:plot_resonance_regions
+    :prog: robin3 plot-resonance-regions
+    :nested: full
+
+.. click:: robin3.cli:plot_tracks
+    :prog: robin3 plot-tracks
+    :nested: full
+
+.. click:: robin3.cli:plot_assembly_power
+    :prog: robin3 plot-assembly-power
+    :nested: full
+
+.. click:: robin3.cli:plot_assembly_reaction_rate
+    :prog: robin3 plot-assembly-reaction-rate
+    :nested: full
+
+.. click:: robin3.cli:plot_pin_power
+    :prog: robin3 plot-pin-power
+    :nested: full
+
+.. click:: robin3.cli:plot_pin_reaction_rate
+    :prog: robin3 plot-pin-reaction-rate
+    :nested: full
+
+.. click:: robin3.cli:plot_pin_flux
+    :prog: robin3 plot-pin-flux
+    :nested: full
+
+.. click:: robin3.cli:plot_mesh_flux
+    :prog: robin3 plot_mesh_flux
+    :nested: full
+
+.. click:: robin3.cli:plot_mesh_reaction_rate
+    :prog: robin3 plot-mesh-reaction-rate
+    :nested: full
+
+.. click:: robin3.cli:plot_neutron_fluxes_in_tagged_regions
+    :prog: robin3 plot-neutron-fluxes
+    :nested: full
+
+.. click:: robin3.cli:plot_nuclide_number_density
+    :prog: robin3 plot-nuclide-number-density
+    :nested: full
+
+.. click:: robin3.cli:make_axiom_p_table
+    :prog: robin3 make-axiom-p-table
+    :nested: full
+
+.. click:: robin3.cli:make_idyll_table
+    :prog: robin3 make-idyll-table
+    :nested: full
+
+.. click:: robin3.cli:use_multi_gpu_make_idyll_tables
+    :prog: robin3 use-multi-gpu-make-idyll-tables
+    :nested: full
+
+.. click:: robin3.cli:make_reflector_idyll_tables
+    :prog: robin3 make-reflector-idyll-tables
+    :nested: full
+
+.. click:: robin3.cli:r2_to_r3
+    :prog: robin3 r2-to-r3
+    :nested: full
+
+.. click:: robin3.cli:r3_to_openmc
+    :prog: robin3 r3-to-openmc
+    :nested: full

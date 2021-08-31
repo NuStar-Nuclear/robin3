@@ -1,0 +1,174 @@
+.. _usersguide_openmc:
+
+
+====================
+OpenMC Compatibility
+====================
+
+`OpenMC <https://docs.openmc.org/>`_ is a community-developed Monte Carlo neutron and photon transport simulation code.
+ROBIN3's input model can be directly converted to OpenMC input model by :mod:`robin3.openmc_compatible`
+module. This functionality enables developpers and users to compare and verify
+results of ROBIN3 efficiently with Monte Carlo code.
+
+.. note:: OpenMC Compatibility now only supports the newest OpenMC on *develop* branch, and will
+        support OpenMC v0.13.0 in the future.
+
+Normally, users only need to call the :meth:`robin3.openmc_compatible.robin3_to_openmc` method and ROBIN3 will automatically
+complete all the steps required to generate the OpenMC input files. For example, if
+we have a ROBIN3 input file named ``robin3_input.yaml``::
+
+    robin3.openmc_compatible.robin3_to_openmc("robin3_input.yaml")
+
+or using commandline::
+
+    robin3 r3-to-openmc robin3_input.yaml
+
+If multiple burnup points in ROBIN3 input, a pre-written script named ``deplete.py`` will be
+created in current working path. Run the script to perform depletion using OpenMC::
+
+    python deplete.py
+
+Method :meth:`robin3.openmc_compatible.get_model` can return an :class:`openmc:openmc.model.Model`. 
+For users who are familiar with OpenMC Python API, the following two patterns are also recommended::
+
+    robin3.openmc_compatible.robin3_to_openmc("robin3_input.yaml")
+    integrator = openmc_compatible.depletion_integrator_from_xml()
+    integrator.integrate()
+
+::
+
+    from robin3.util import load_data_from_file
+
+    robin3_model = load_data_from_file("robin3_input.yaml")[1]
+    openmc_model = robin3.openmc_compatible.get_model(robin3_model)
+    geometry = openmc_model.geometry
+    settings = openmc_model.settings
+    burnup_info = robin3_model["statepoints"]
+    integrator = robin3.openmc_compatible.get_depletion_integrator(geometry, settings, burnup_info)
+    integrator.integrate()
+
+.. warning:: The :mod:`robin3.openmc_compatible` module is still experimental 
+            and may undergo substantial changes in future releases. Some methods in this module have
+            ``optimized`` argument which turns on some empirical algorithms to remove
+            redundant instances in ROBIN3 pre-processed geometry.
+            If you encounter error, first retry with ``optimized`` option off. 
+
+--------
+Material
+--------
+
+ROBIN3's :ref:`two types of material <usersguide_materials>` can both be converted to :class:`openmc:openmc.Material`.
+
+Note some of the methods in this module has an argument named ``material_assimulation``, with which on
+nuclide densities in material is calculated and given by ROBIN3, not OpenMC.
+There are subtle differences between the two. However, if a ROBIN3 material contains sub material
+with S(α,β), this argument must be assigned True, because :meth:`openmc:openmc.Material.mix_materials` 
+currently does not support mix materials with S(α,β).
+
+.. note:: ROBIN3 and OpenMC use different nuclear data. Natural abundance, atomic mass,
+        formula to calculate uranium enrichment and boron concentration are also different.
+
+--------
+Geometry
+--------
+
+ROBIN3's geometry can be either a single assembly or a complete core.
+The former can be regarded as a lattice, the latter can be regarded as a two-level nested lattice.
+The input dictionary of robin3 and the geometry class of openmc have the following rough correspondence:
+
++------------------------------+-----------------------------------------------------------------------------------------+
+|         ROBIN3 dict          |                                      OpenMC class                                       |
++==============================+=========================================================================================+
+| :ref:`primitive <primitive>` | :class:`openmc:openmc.Region`                                                           |
++------------------------------+-----------------------------------------------------------------------------------------+
+| :ref:`region <region>`       | :class:`openmc:openmc.Cell`                                                             |
++------------------------------+-----------------------------------------------------------------------------------------+
+| :ref:`structure <structure>` | :class:`openmc:openmc.Universe`                                                         |
++------------------------------+-----------------------------------------------------------------------------------------+
+| :ref:`assembly <assembly>`   | :class:`openmc:openmc.Universe` containing :class:`openmc:openmc.Lattice` of pins       |
++------------------------------+-----------------------------------------------------------------------------------------+
+| :ref:`core <core>`           | :class:`openmc:openmc.Universe` containing :class:`openmc:openmc.Lattice` of assemblies |
++------------------------------+-----------------------------------------------------------------------------------------+
+
+.. note:: OpenMC Compatibility geometry interface is mainly designed for ROBIN3 geometry
+        after pre-processing. Directly apply them on raw ROBIN3 geometry may result in issues.
+
+-------
+Tallies
+-------
+
+Tallies of generated model contain following scores:
+
+* ``kappa-fission`` in cells filled by fissionable materials.
+* ``flux`` in cells converted from tagged ROBIN3 region. Number of energy groups depend on the nuclear data
+  library used by ROBIN3.
+* ``heating-local`` of the whole given geometry, if it exists at least one tagged ROBIN3 region.
+* ``absorption``, ``fission``, ``scatter matrix`` and ``chi`` of the whole given geometry, if the model is a single assembly.
+  Scores are divided in two energy groups by default, "0 - 0.0625 eV" and "0.0625 eV - 20 MeV".
+
+|
+
+To get volumes required to normalize flux or calculate pin power,
+OpenMC Compatibility module will retrieve volume values from ROBIN3 or drive OpenMC
+to launch volume calculation during conversion of model to get fissionable volumes
+and volumes of tagged ROBIN3 region. If user chooses ROBIN3, :ref:`volume.yaml <io_openmc_volume>`
+will be generated, otherwise :ref:`volume results file <openmc:io_volume>` of OpenMC.
+
+--------
+Settings
+--------
+
+Conversion from ROBIN3 model to OpenMC model will also generate :class:`openmc:openmc.Settings` that contains
+some empirical default parameters.
+
+For single assembly model::
+
+    settings.batches = 200
+    settings.inactive = 50
+    settings.particles = 20000
+
+For core model::
+
+    settings.batches = 60
+    settings.inactive = 50
+    settings.trigger_max_batches = 100
+    settings.trigger_active = True
+    settings.trigger_batch_interval = 5
+    settings.particles = 500000
+    settings.keff_trigger = {'type': 'std_dev', 'threshold': 50E-5}
+
+A Shannon Entropy mesh, whose dimension depends on the whole geometry's bounding box,
+is also defined to cover the whole geometry.
+
+The default temperature of OpenMC is set to 300 K to match ROBIN3's default temperature.
+If energy mode is ``'continuous-energy'``, Windowed Multipole is turned off by default because
+it currently does not support ``heating-local`` tally 
+(see issue `#1697 <https://github.com/openmc-dev/openmc/issues/1697>`_).
+
+---------
+Depletion
+---------
+
+Similar to tallies, depletion also requires volumes, in order to calculate evolution of number of nuclides.
+Thus OpenMC Compatibility module drives OpenMC to launch volume calculation during conversion or directly uses
+volumes calculated by ROBIN3 to obtain volumes of depletable materials. Volume values will be directly dumped in
+:ref:`materials.xml <openmc:io_materials>` as one of the properties of corresponding material. So the results of volume calculation
+of depletable materials won't exist in :ref:`volume.yaml <io_openmc_volume>`, even if user chooses to use ROBIN3's volume results.
+
+In order to take care of users who are not familiar with Python, OpenMC Compatibility module
+creates ``deplete.py`` script in the working path. This script will call :meth:`robin3.openmc_compatible.depletion_integrator_from_xml`
+method which reads depletion parameters from ``./depletion.xml`` by default. Users can
+modify :ref:`this XML file <io_openmc_depletion>` to change depletion related parameters such as time steps,
+units, power density, etc.
+
+---------------
+Post-processing
+---------------
+
+With the volumes obtained during conversion of model from ROBIN3 to OpenMC and the scored
+tallies obtained by running OpenMC simulation, methods provided by :mod:`robin3.openmc_compatible`
+are able to generate specific results to compare with ROBIN3.
+
+For example, :meth:`robin3.openmc_compatible.process_flux` can show steps-plot of
+multi-energy-group flux spectrum in tagged region. :meth:`robin3.openmc_compatible.process_pin_power`
+plot the comparison of pin power distribution between ROBIN3 and OpenMC.

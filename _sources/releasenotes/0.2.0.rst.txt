@@ -1,0 +1,22 @@
+===================
+What's New in 0.2.0
+===================
+
+------------
+New Features
+------------
+
+- Integrated IDYLL to make single assembly idyll tables by one command.
+- Ability to make tables for AXIOM-P.
+- Added geometry preprocessing module and reflector input in order to model reflector easily.
+- Added openmc compatiable module to conveniently convert robin3 models to openmc ones.
+
+|
+
+---------
+Bug Fixes
+---------
+- Fixed bug in calculating Dancoff factors.
+- Fixed bug that generating wrong energy group bins.
+- Fixed bug that searching quadrature index by group incorrectly.
+- Fixed bug that using static varible in an openmp loop.

@@ -1,0 +1,27 @@
+.. _usersguide_materials:
+
+
+====================
+Materials Definition
+====================
+
+Materials defined by 2 ways in ROBIN3:
+    1.  Defining macro cross sections directly;
+    2.  Defining material compositions, density and temperature, etc.
+
+--------------------
+Macro Cross Sections
+--------------------
+
+Macro cross section definition is used by macro-xs cases, such as C5G7 benchmark 
+problem. It use the format of :ref:`cross_section`.
+
+
+---------------------
+Material compositions
+---------------------
+
+
+-----------
+Temperature
+-----------

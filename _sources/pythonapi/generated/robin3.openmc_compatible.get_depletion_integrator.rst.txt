@@ -1,0 +1,7 @@
+﻿robin3.openmc_compatible.get_depletion_integrator
+=================================================
+
+.. currentmodule:: robin3.openmc_compatible
+
+.. autoclass:: get_depletion_integrator
+    :members:

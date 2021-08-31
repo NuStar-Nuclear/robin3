@@ -1,0 +1,20 @@
+===================
+What's New in 0.1.0
+===================
+
+------------
+New Features
+------------
+
+- Changed output format from json to HDF5.
+- Improved plotting performace by applying python multiprocessing.
+
+|
+
+---------
+Bug Fixes
+---------
+- Fixed bug that generate incorrect patch index in plotting.
+- Fixed bug in macro crossing updating.
+- Fixed bug related to assembly neighbor search.
+- Fixed bug in assembly neutron spectrum correcting.

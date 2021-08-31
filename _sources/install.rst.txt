@@ -1,0 +1,153 @@
+.. _install:
+
+=============
+Install Guide
+=============
+
+This install guide outlines the basic steps needed to install ROBIN3 on
+your computer. 
+
+-----------------------
+Installing CUDA-Toolkit
+-----------------------
+
+ROBIN3 takes advantage of the computing power of GPUs, and it choose the 
+`CUDA-toolkit <https://developer.nvidia.com/cuda-toolkit>`_ as its development tools, 
+so it requires CUDA-Toolkit Installed on the platform. 
+
+You can download CUDA-Toolkit installer at `<https://developer.nvidia.com/cuda-downloads>`_.
+Typical steps to install CUDA-Toolkit 11.1 on Unbuntu20.04 is as follows:
+
+.. note:: For performance reason, we strongly recommend you to use Nvidia's RTX 30 series GPU, which 
+          required the minimum version of CUDA-toolkit 11.1.
+
+.. code-block:: sh
+    
+    wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
+    sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
+    wget https://developer.download.nvidia.com/compute/cuda/11.1.0/local_installers/cuda-repo-ubuntu2004-11-1-local_11.1.0-455.23.05-1_amd64.deb
+    sudo dpkg -i cuda-repo-ubuntu2004-11-1-local_11.1.0-455.23.05-1_amd64.deb
+    sudo apt-key add /var/cuda-repo-ubuntu2004-11-1-local/7fa2af80.pub
+    sudo apt-get update
+    sudo apt-get -y install cuda
+
+--------------------------------------
+Installing ROBIN3 from Source on Linux
+--------------------------------------
+
+ROBIN3 use several open C++ projects as its prerequisities: 
+`nlohmann/json <https://github.com/nlohmann/json>`_, 
+`gabime/spdlog <https://github.com/gabime/spdlog>`_ and
+`yse/easy_profiler <https://github.com/yse/easy_profiler>`_.
+
+Installation of above C++ projects is such like:
+
+.. code-block:: sh
+    
+    git clone https://github.com/nlohmann/json.git --depth=1 /some/path/nlohmann && \
+    cd /some/path/nlohmann && \
+    mkdir build && cd build && \
+    cmake .. && make && make install
+
+    git clone https://github.com/gabime/spdlog.git -n /some/path/spdlog && \
+    cd /some/path/spdlog && \
+    git checkout 20a1d1c5 && \
+    mkdir build && cd build && \
+    cmake .. && make && make install
+
+    git clone https://github.com/yse/easy_profiler.git --depth=1 /some/path/easy_profiler && \
+    cd /some/path/easy_profiler && \
+    mkdir build && cd build && \
+    cmake .. && make && make install
+
+.. note:: In order to compile spdlog successfully using nvcc, here a specific version 
+          20a1d1c5 is checkout.
+
+After these library installed, we can clone ROBIN3 repository and install it:
+
+.. code-block:: sh
+ 
+    git clone http://192.168.1.105/diffusion/24/robin3.git --depth=1 /some/path/robin3 && \
+    cd /some/path/robin3 && \
+    pip3 install -e .
+
+--------------------------------------
+Installing ROBIN3 on Linux with Docker
+--------------------------------------
+
+First step, if the current system do not have `Docker`_ installed, then install `Docker`_.
+The install instructions of `Docker`_ can be found at `<https://docs.docker.com/engine/install/>`_.
+
+Second step, install `The NVIDIA Container Toolkit`_. `The NVIDIA Container Toolkit`_ allows users to 
+build and run GPU accelerated containers. The toolkit includes a container runtime library and 
+utilities to automatically configure containers to leverage NVIDIA GPUs. It's installation can be find at 
+`<https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#install-guide>`_.
+
+Third step, load ROBIN3 `Docker image`_ file into the local docker image repository:
+
+.. code-block:: sh
+
+    docker load -i robin3_0.3.1.tar
+ 
+.. note:: The ROBIN3 docker image file always named with version, such as robin3_0.3.1.tar.
+
+Now we can type: 
+
+.. code-block:: sh 
+    
+    docker images 
+    
+and see there is a docker image named ``dockerhub.nustar.com/robin3:lastest`` in our local docker repository.
+
+.. note:: The ``dockerhub.nustar.com/robin3:lastest`` contains the latest fully functional ROBIN3, other 
+          specific versions such as ``dockerhub.nustar.com/robin3:without_CUDA`` compiled ROBIN3 without CUDA, 
+          and ``dockerhub.nustar.com/robin3:non-commercial`` is used for non-commercial purpose.
+
+Finally, with docker running, execute the following command in the shell to build and run a ROBIN3 
+`Docker container`_:
+
+.. code-block:: sh
+
+    docker run --rm -it --gpus all \
+                --env="DISPLAY" \
+                --user=$(id -u $USER):$(id -g $USER) \
+                --workdir=/home/$USER \
+                --volume=$PWD:/home/$USER \
+                --volume="/etc/group:/etc/group:ro" \
+                --volume="/etc/passwd:/etc/passwd:ro" \
+                --volume="/etc/shadow:/etc/shadow:ro" \
+                --volume="/etc/sudoers.d:/etc/sudoers.d:ro" \
+                --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
+                -p 10000:8888 \
+                dockerhub.nustar.com/robin3:latest /bin/bash
+
+The command will place you in an interactive shell running in a `Docker container`_ with robin3 installed,
+and will mount your current directory to container's /home/$USER directory as the workdir.
+
+.. note:: The `options`_ of ``--volume="/tmp/.X11-unix:/tmp/.X11-unix:rw"`` used to `mounting volumes`_ 
+          for the X11 unix socket which is required for GUI based plotting in container.
+
+.. note:: Here ``-p 10000:8888`` `options`_ is used to bind the default port(8888) of jupyter-notebook in container 
+          to the host's port 10000, so we can start a jupyter-notebook server in the container, then visit the 
+          jupyter-notebook via a browser at http://127.0.0.1:10000 with an token on the host.
+
+In this interactive shell, you can use ROBIN3 by :ref:`command line<command>` or :ref:`pythonapi`. Examples can be
+found at :ref:`Examples to use ROBIN3<examples>`.
+
+Besides, you can run test cases in this interactive shell to make sure that ROBIN3 has been correctly installed and 
+works well:
+
+.. code-block:: sh
+
+    robin3-test-cases
+    robin3-test-gpu-cases
+
+.. note:: Runing all the ROBIN3's test cases may take about 0.5~1 hour depending your hardware, you can run test
+          cases that only use GPU as its solver by type ``robin3-test-gpu-cases`` to save time.
+
+.. _Docker: https://www.docker.com/
+.. _The NVIDIA Container Toolkit: https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/overview.html
+.. _Docker image: https://docs.docker.com/engine/reference/commandline/images/
+.. _Docker container: https://www.docker.com/resources/what-container
+.. _options: https://docs.docker.com/engine/reference/commandline/run/
+.. _mounting volumes: https://docs.docker.com/storage/volumes/

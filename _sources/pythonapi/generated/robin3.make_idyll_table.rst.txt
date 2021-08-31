@@ -1,0 +1,6 @@
+robin3.make_idyll_table
+=======================
+
+.. currentmodule:: robin3
+
+.. autofunction:: make_idyll_table

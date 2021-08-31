@@ -1,0 +1,7 @@
+﻿robin3.openmc_compatible.get_XSdata
+===================================
+
+.. currentmodule:: robin3.openmc_compatible
+
+.. autoclass:: get_XSdata
+    :members:

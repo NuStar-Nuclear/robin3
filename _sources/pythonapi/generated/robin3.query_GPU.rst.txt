@@ -1,0 +1,6 @@
+robin3.query_GPU
+================
+
+.. currentmodule:: robin3
+
+.. autofunction:: query_GPU

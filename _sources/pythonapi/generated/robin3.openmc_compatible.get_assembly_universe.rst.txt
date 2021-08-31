@@ -1,0 +1,7 @@
+﻿robin3.openmc_compatible.get_assembly_universe
+==============================================
+
+.. currentmodule:: robin3.openmc_compatible
+
+.. autoclass:: get_assembly_universe
+    :members:

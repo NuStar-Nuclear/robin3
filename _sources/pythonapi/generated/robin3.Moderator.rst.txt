@@ -1,0 +1,7 @@
+﻿robin3.Moderator
+================
+
+.. currentmodule:: robin3
+
+.. autoclass:: Moderator
+    :members:

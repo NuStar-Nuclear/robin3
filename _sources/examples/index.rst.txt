@@ -1,0 +1,66 @@
+.. _examples:
+
+========
+Examples
+========
+
+There are 2 ways to use ROBIN3: 
+    1. Use ROBIN3 directly by :ref:`pythonapi`;
+    2. Define :ref:`io_file_formats_input` and then :ref:`command`.
+
+-------------------
+By :ref:`pythonapi`
+-------------------
+
+The following series of `Jupyter <https://jupyter.org/>`_ Notebooks provide examples 
+for how to use ROBIN3 by :ref:`pythonapi`.
+
+.. toctree::
+    :maxdepth: 1
+
+    pincell
+    square_assembly
+    hexagonal_assembly
+    hc_assembly
+    c5g7
+    square_mini_core
+    vver
+    hfter
+    .. epr
+
+|
+
+--------------------------------------
+By :ref:`Command Line<command>`
+--------------------------------------
+
+The following series of `YAML <https://yaml.org/>`_ :ref:`input model<io_file_formats_input>` files 
+provide examples which use ROBIN3 by :ref:`Command Line<command>`.
+
+.. toctree::
+    :maxdepth: 1
+
+    _pincell
+    _square_assembly
+    _hexagonal_assembly
+    _c5g7
+    _square_mini_core
+    _vver
+    _ap1000
+    _idyll_table_case
+
+|
+
+--------------------
+OpenMC Compatibility
+--------------------
+
+The following series of `Jupyter <https://jupyter.org/>`_ Notebooks provide examples 
+for how to use ROBIN3's :ref:`OpenMC Compatibility Module <usersguide_openmc>`.
+
+.. toctree::
+    :maxdepth: 1
+
+    openmc_hex_assemb
+    openmc_hfter
+

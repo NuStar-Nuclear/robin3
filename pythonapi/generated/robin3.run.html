@@ -1,0 +1,344 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>robin3.run &mdash; ROBIN3 0.1.0-dev documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+    <link rel="canonical" href="/robin3/pythonapi/generated/robin3.run.html" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="robin3.make_idyll_table" href="robin3.make_idyll_table.html" />
+    <link rel="prev" title="robin3.Moderator" href="robin3.Moderator.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> ROBIN3
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Install Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releasenotes/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usersguide/index.html">User’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../methods/index.html">Theory and Methodology</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Python API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../index.html#material-specification">Material specification</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#run-simulation">Run Simulation</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">robin3.run</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#make-idyll-table">Make IDYLL Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#make-axiom-p-table">Make AXIOM-P Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#result-data-processing">Result Data Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#input-model-and-result-visualization">Input Model and Result Visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#openmc-compatibility">OpenMC Compatibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#others">Others</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../command.html">Run in Command Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../io_formats/index.html">File Format Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License Agreement</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ROBIN3</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Python API</a> &raquo;</li>
+        
+      <li>robin3.run</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/pythonapi/generated/robin3.run.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="robin3-run">
+<h1>robin3.run<a class="headerlink" href="#robin3-run" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt id="robin3.run">
+<code class="sig-prename descclassname">robin3.</code><code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model</span></em>, <em class="sig-param"><span class="n">library</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">material_databank</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">assembly</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">cyclic_track</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">use_gpu</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">device_id</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">num_thread_blocks</span><span class="o">=</span><span class="default_value">128</span></em>, <em class="sig-param"><span class="n">num_threads_per_block</span><span class="o">=</span><span class="default_value">128</span></em>, <em class="sig-param"><span class="n">number_groups_edit</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">output_file</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">logger_file</span><span class="o">=</span><span class="default_value">'/home/yuejin/Cloud/robin3/docs/robin3.log'</span></em>, <em class="sig-param"><span class="n">logger_level</span><span class="o">=</span><span class="default_value">'info'</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">profile_mode</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">write_json_debug</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">output_for_idyll</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#robin3.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run a ROBIN3 simulation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<em>dict</em><em> or </em><em>str</em>) – A dict which defined the model or a file name with path in which the
+model defined, both yaml or json format input file are acceptable.</p></li>
+<li><p><strong>library</strong> (<em>str</em><em>, </em><em>optional</em>) – The nuclear data library file name with path, only used by micro-xs
+cases. Default nuclear data library file installed in package will be
+used if None (None by default).</p></li>
+<li><p><strong>material_databank</strong> (<em>str</em><em>, </em><em>optional</em>) – The material databank file name with path, only used by micro-xs
+cases. Default material databank file installed in package will be
+used if None (None by default).</p></li>
+<li><p><strong>assembly</strong> (<em>str</em><em>, </em><em>optional</em>) – The name of target assembly which you want to simulate, only used when
+you want to simulate a single assembly defined in a whole core model
+input file, and if None, the first assembly defined in assemblies
+block will be used (None by default).</p></li>
+<li><p><strong>cyclic_track</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to use cyclic track, only used for single assembly cases.
+Cyclic track will accelerate simulation by reduce the total number of
+MOC iteration, but only works on CPU without OpenMP multi-threads
+parallelization(False by default).</p></li>
+<li><p><strong>use_gpu</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to use GPU, GPU will significantly accelerate simulation by
+parallel the MOC tracking calculation. If use_gpu=True but none of GPU
+avaiable on the platform, CPU with OpenMP mutli-threads parallelization
+will be used (False by default).</p></li>
+<li><p><strong>device_id</strong> (<em>int</em><em>, </em><em>optional</em>) – The device id of which GPU used, only works if use_gpu=True
+(config.DEVICE_ID by default)</p></li>
+<li><p><strong>num_thread_blocks</strong> (<em>int</em><em>, </em><em>optional</em>) – Total number of thread blocks used, only works if use_gpu=True
+(config.NUM_THREAD_BLOCKS by default).</p></li>
+<li><p><strong>num_threads_per_blocks</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of threads per block used, only works if use_gpu=True, should be
+a multiple of 32 (config.NUM_THREADS_PER_BLOCK by default).</p></li>
+<li><p><strong>num_groups_edit</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of energy groups used to edit calculation result, only works for
+micro-xs cases, should be a choice of [config.EDIT_GROUP_STRUCTURE]
+(config.NUM_EDIT_GROUPS by default).</p></li>
+<li><p><strong>output_file</strong> (<em>str</em><em>, </em><em>optional</em>) – The name of output file, the model name (assembly name or core name)
+will be used if None (None by default).</p></li>
+<li><p><strong>logger_file</strong> (<em>str</em><em>, </em><em>optional</em>) – The name of rotating logger file (config.LOGGER_FILE by default).</p></li>
+<li><p><strong>logger_level</strong> (<em>str</em><em>, </em><em>optional</em>) – The logger level used to output logger info, should be a choice of
+[‘debug’, ‘info’, ‘warn’, ‘error’] (config.LOGGER_LEVEL by default).</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to print iteration info to the logger, a progress bar will be
+used if verbose=False, only works for single assembly micro-xs cases
+(False by default).</p></li>
+<li><p><strong>profile_model</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to turn on profile mode, if profile mode turns on, a profile
+file will be generated (config.PROFILE_MODE by default).</p></li>
+<li><p><strong>write_json_debug</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to write a json file for cpp debugging (config.WRITE_JSON_DEBUG
+by default).</p></li>
+<li><p><strong>output_for_idyll</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to output result data for idyll, note if the input model has
+‘case_matrix’, output_for_idyll will be set as True (False  by default).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>robin3.ResultProcessor</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>A ResultProcessor instance used to handle result data</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">robin3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;./assembly_A.yaml&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">model</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="n">Loader</span><span class="o">=</span><span class="n">yaml</span><span class="o">.</span><span class="n">Loader</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">use_gpu</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s1">&#39;./core_AP1000.yaml&#39;</span><span class="p">,</span> <span class="n">assembly</span><span class="o">=</span><span class="s1">&#39;B_00&#39;</span><span class="p">,</span> <span class="n">cyclic_track</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="robin3.make_idyll_table.html" class="btn btn-neutral float-right" title="robin3.make_idyll_table" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="robin3.Moderator.html" class="btn btn-neutral float-left" title="robin3.Moderator" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020-, ShangHai NuStar Nuclear Power Technology Co.Ltd.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+ 
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-30411614-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+</body>
+</html>

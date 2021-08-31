@@ -1,0 +1,8 @@
+.. _examples_pincell:
+
+===================
+Modeling a Pin-Cell
+===================
+
+.. literalinclude:: ../../../examples/single_assembly/pincell.yaml
+    :language: yaml

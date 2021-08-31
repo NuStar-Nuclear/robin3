@@ -1,0 +1,8 @@
+.. _examples_idyll_table_case:
+
+===========================================
+Making an IDYLL Table for a Square Assembly
+===========================================
+
+.. literalinclude:: ../../../examples/single_assembly/idyll_table_case.yaml
+    :language: yaml

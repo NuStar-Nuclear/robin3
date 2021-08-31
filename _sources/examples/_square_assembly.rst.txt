@@ -1,0 +1,8 @@
+.. _examples_square_assembly:
+
+=================================
+Modeling a Single Square Assembly
+=================================
+
+.. literalinclude:: ../../../examples/single_assembly/square_assembly.yaml
+    :language: yaml

@@ -1,0 +1,971 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>robin3.Plotter &mdash; ROBIN3 0.1.0-dev documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+    <link rel="canonical" href="/robin3/pythonapi/generated/robin3.Plotter.html" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="robin3.openmc_compatible.get_material" href="robin3.openmc_compatible.get_material.html" />
+    <link rel="prev" title="robin3.ResultProcessor" href="robin3.ResultProcessor.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> ROBIN3
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Install Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releasenotes/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usersguide/index.html">User’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../methods/index.html">Theory and Methodology</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Python API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../index.html#material-specification">Material specification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#run-simulation">Run Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#make-idyll-table">Make IDYLL Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#make-axiom-p-table">Make AXIOM-P Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#result-data-processing">Result Data Processing</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#input-model-and-result-visualization">Input Model and Result Visualization</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">robin3.Plotter</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#openmc-compatibility">OpenMC Compatibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#others">Others</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../command.html">Run in Command Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../io_formats/index.html">File Format Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License Agreement</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ROBIN3</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Python API</a> &raquo;</li>
+        
+      <li>robin3.Plotter</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/pythonapi/generated/robin3.Plotter.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="robin3-plotter">
+<h1>robin3.Plotter<a class="headerlink" href="#robin3-plotter" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="robin3.Plotter">
+<em class="property">class </em><code class="sig-prename descclassname">robin3.</code><code class="sig-name descname">Plotter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input_model</span></em>, <em class="sig-param"><span class="n">generate_geometry_data</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">assembly</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">result_data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">num_process</span><span class="o">=</span><span class="default_value">32</span></em>, <em class="sig-param"><span class="n">write_json_for_debug</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">track</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">cyclic_track</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">quadrature</span><span class="o">=</span><span class="default_value">'ALL'</span></em>, <em class="sig-param"><span class="n">polar</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">interval</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#robin3.Plotter" title="Permalink to this definition">¶</a></dt>
+<dd><p>A plotter used to generate visualization data.</p>
+<p>The geometry and material data of the model should be defined either in a
+dict or a input(output) file. ROBIN3 performs geometrical computation and
+track generation which can be time-consuming before plotting, and caches
+the processed data for plotting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<em>dict</em><em> or </em><em>str</em>) – A dict which defined the model or a file name with path in which the
+model defined, both input yaml (json) file or output json file are
+acceptable.</p></li>
+<li><p><strong>assembly</strong> (<em>str</em><em>, </em><em>optional</em>) – The name of target assembly which you want to plot, only used when
+you want to plot a single assembly defined in a whole core model
+input file (None by default).</p></li>
+<li><p><strong>num_process</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of process used to perform geometry computation. Note that
+geometry computations are parallelized in assembly level by
+multi-processing, which means this argument only works for core
+model ploting (number_of_processors_availabe by default).</p></li>
+<li><p><strong>track</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to generate tracks to plot (False by default).</p></li>
+<li><p><strong>cyclic_track</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to generate cyclic tracks to plot (False by default).</p></li>
+<li><p><strong>quadrature</strong> (<em>str</em><em>, </em><em>optional</em>) – Which quadrature used to generate tracks, a choice of
+[‘ALL’, ‘FAST’, ‘THERMAL’, ‘EPITHERMAL’] (‘ALL’ by default).</p></li>
+<li><p><strong>polar</strong> (<em>int</em><em>, </em><em>optional</em>) – Which polar level used to generate tracks (0 by default).</p></li>
+<li><p><strong>interval</strong> (<em>int</em><em>, </em><em>optional</em>) – The azimuth interval used to generate tracks (1 by default).</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">robin3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">yaml</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;mini_core.yaml&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">model</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="n">Loader</span><span class="o">=</span><span class="n">yaml</span><span class="o">.</span><span class="n">Loader</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plotter</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">Plotter</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plotter</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">Plotter</span><span class="p">(</span><span class="s1">&#39;mini_core.yaml&#39;</span><span class="p">,</span> <span class="n">assembly</span><span class="o">=</span><span class="s1">&#39;B_00&#39;</span><span class="p">,</span> <span class="n">track</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt id="robin3.Plotter.plot_assembly_power">
+<code class="sig-name descname">plot_assembly_power</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">burnup</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">show_edge</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_peak_value</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">burnup_animation</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">save_animation_to</span><span class="o">=</span><span class="default_value">'burnup_animation.gif'</span></em>, <em class="sig-param"><span class="n">show_plot</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">save_fig</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">render_to_html</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">reference_data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">compare_to_reference</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">nonzero</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">compare_description</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">is_relative</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#robin3.Plotter.plot_assembly_power" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots a 2D heatmap of assembly power distribution in the geometry.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>burnup</strong> (<em>real</em><em>, </em><em>optional</em>) – The burnup point at which the result getting from, a KeyError
+will be raised if the target burnup cannot found in the result
+file (0.0 by default).</p></li>
+<li><p><strong>show_edge</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show the mesh edge (False by default).</p></li>
+<li><p><strong>show_peak_value</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show the peak value in the heatmap (True by default).</p></li>
+<li><p><strong>burnup_animation</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to create an animation to show the heatmap vary with burnup
+(False by default).</p></li>
+<li><p><strong>save_animation_to</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of file used to save the burnup animation, note only ‘.gif’
+or ‘.mp4’ suffix supported (‘burnup_animation.gif’ by default).</p></li>
+<li><p><strong>show_plot</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show the plot immediately (True by default).</p></li>
+<li><p><strong>save_fig</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to save the current figure (False by default).</p></li>
+<li><p><strong>render_to_html</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to render the plot to a html file for interactive
+visualization (False by default).</p></li>
+<li><p><strong>reference_data</strong> (<em>list</em><em> or </em><em>numpy.ndarray</em><em>, </em><em>optional</em>) – The reference data with which we want to compare and visualize the
+deviation, No comparison if None (None by default).</p></li>
+<li><p><strong>compare_to_reference</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to compare with the reference data, directly display the
+reference data if False (True by default).</p></li>
+<li><p><strong>compare_description</strong> (<em>str</em><em>, </em><em>optional</em>) – The description of the comparison, “ROBIN3 VS. Ref” if None (None
+by default).</p></li>
+<li><p><strong>nonzero</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether the data to compare is nonzero (False by default).</p></li>
+<li><p><strong>is_relative</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether the deviation is relative (True by default).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>fig</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>matplotlib.Figure</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">robin3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">plot_assembly_power</span><span class="p">(</span><span class="s1">&#39;result.h5&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="robin3.Plotter.plot_assembly_reaction_rate">
+<code class="sig-name descname">plot_assembly_reaction_rate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span><span class="o">=</span><span class="default_value">'assembly_vfis'</span></em>, <em class="sig-param"><span class="n">burnup</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">show_edge</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_peak_value</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">burnup_animation</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">save_animation_to</span><span class="o">=</span><span class="default_value">'burnup_animation.gif'</span></em>, <em class="sig-param"><span class="n">show_plot</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">save_fig</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">render_to_html</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">reference_data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">compare_to_reference</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">nonzero</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">compare_description</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">is_relative</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#robin3.Plotter.plot_assembly_reaction_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots a 2D heatmap of assembly reaction rate distribution in the geometry.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<em>str</em><em>, </em><em>optional</em>) – Which type of assembly reaction rate distribution to show, should be
+a choice of [‘assembly_vfis’, ‘assembly_fis’] (‘assembly_vfis’ by default).</p></li>
+<li><p><strong>burnup</strong> (<em>real</em><em>, </em><em>optional</em>) – The burnup point at which the result getting from, a KeyError
+will be raised if the target burnup cannot found in the result
+file (0.0 by default).</p></li>
+<li><p><strong>show_edge</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show the mesh edge (False by default).</p></li>
+<li><p><strong>show_peak_value</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show the peak value in the heatmap (True by default).</p></li>
+<li><p><strong>burnup_animation</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to create an animation to show the heatmap vary with burnup
+(False by default).</p></li>
+<li><p><strong>save_animation_to</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of file used to save the burnup animation, note only ‘.gif’
+or ‘.mp4’ suffix supported (‘burnup_animation.gif’ by default).</p></li>
+<li><p><strong>show_plot</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show the plot immediately (True by default).</p></li>
+<li><p><strong>save_fig</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to save the current figure (False by default).</p></li>
+<li><p><strong>render_to_html</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to render the plot to a html file for interactive
+visualization (False by default).</p></li>
+<li><p><strong>reference_data</strong> (<em>list</em><em> or </em><em>numpy.ndarray</em><em>, </em><em>optional</em>) – The reference data with which we want to compare and visualize the
+deviation, No comparison if None (None by default).</p></li>
+<li><p><strong>compare_to_reference</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to compare with the reference data, directly display the
+reference data if False (True by default).</p></li>
+<li><p><strong>nonzero</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether the data to compare is nonzero (False by default).</p></li>
+<li><p><strong>compare_description</strong> (<em>str</em><em>, </em><em>optional</em>) – The description of the comparison, “ROBIN3 VS. Ref” if None (None
+by default).</p></li>
+<li><p><strong>is_relative</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether the deviation is relative (True by default).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>fig</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>matplotlib.Figure</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">robin3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">plot_assembly_reaction_rate</span><span class="p">(</span><span class="s1">&#39;result.h5&#39;</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s1">&#39;assembly_fis&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="robin3.Plotter.plot_cell_neutron_balance_error">
+<code class="sig-name descname">plot_cell_neutron_balance_error</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">group</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">burnup</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">show_edge</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_peak_value</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">burnup_animation</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">save_animation_to</span><span class="o">=</span><span class="default_value">'burnup_animation.gif'</span></em>, <em class="sig-param"><span class="n">show_plot</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">save_fig</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">render_to_html</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">reference_data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">compare_description</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">is_relative</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#robin3.Plotter.plot_cell_neutron_balance_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots a 2D heatmap of cell neutron balance error distribution in the geometry.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>group</strong> (<em>int</em><em>, </em><em>optional</em>) – Which energy group of the pin flux distribution to show (1 by
+default).</p></li>
+<li><p><strong>burnup</strong> (<em>real</em><em>, </em><em>optional</em>) – The burnup point at which the result getting from, a KeyError
+will be raised if the target burnup cannot found in the result
+file (0.0 by default).</p></li>
+<li><p><strong>show_edge</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show the mesh edge (False by default).</p></li>
+<li><p><strong>show_peak_value</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show the peak value in the heatmap (True by default).</p></li>
+<li><p><strong>burnup_animation</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to create an animation to show the heatmap vary with burnup
+(False by default).</p></li>
+<li><p><strong>save_animation_to</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of file used to save the burnup animation, note only ‘.gif’
+or ‘.mp4’ suffix supported (‘burnup_animation.gif’ by default).</p></li>
+<li><p><strong>show_plot</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show the plot immediately (True by default).</p></li>
+<li><p><strong>save_fig</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to save the current figure (False by default).</p></li>
+<li><p><strong>render_to_html</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to render the plot to a html file for interactive
+visualization (False by default).</p></li>
+<li><p><strong>reference_data</strong> (<em>list</em><em> or </em><em>numpy.ndarray</em><em>, </em><em>optional</em>) – The reference data with which we want to compare and visualize the
+deviation, No comparison if None (None by default).</p></li>
+<li><p><strong>compare_description</strong> (<em>str</em><em>, </em><em>optional</em>) – The description of the comparison, “ROBIN3 VS. Ref” if None (None
+by default).</p></li>
+<li><p><strong>is_relative</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether the deviation is relative (True by default).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>fig</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>matplotlib.Figure</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">robin3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">plot_cell_neutron_balance_error</span><span class="p">(</span><span class="s1">&#39;result.h5&#39;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="robin3.Plotter.plot_cmfd_meshes">
+<code class="sig-name descname">plot_cmfd_meshes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">show_edge</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">show_plot</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">save_fig</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#robin3.Plotter.plot_cmfd_meshes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots a 2D surface of the CMFD meshes in the geometry.</p>
+<p>CMFD (Coarse Mesh Finite Difference) is used to acculate MOC transport calculation,
+ROBIN3 use the pin cells as the CMFD meshes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>show_edge</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show the mesh edge (True by default).</p></li>
+<li><p><strong>show_plot</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show the plot immediately (True by default).</p></li>
+<li><p><strong>save_fig</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to save the current figure (False by default).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>fig</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>matplotlib.Figure</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">robin3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">yaml</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;mini_core.yaml&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">model</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="n">Loader</span><span class="o">=</span><span class="n">yaml</span><span class="o">.</span><span class="n">Loader</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">plot_cmfd_meshes</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">show_plot</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">plot_cmfd_meshes</span><span class="p">(</span><span class="s1">&#39;mini_core.yaml&#39;</span><span class="p">,</span> <span class="n">assembly</span><span class="o">=</span><span class="s1">&#39;B_00&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="robin3.Plotter.plot_depletion_regions">
+<code class="sig-name descname">plot_depletion_regions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">show_edge</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">show_plot</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">save_fig</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#robin3.Plotter.plot_depletion_regions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots a 2D surface of the depletion regions in the geometry.</p>
+<p>Depletion regions are used by depletion calculation, unlike the geometry,
+ROBIN3 does not kown which material should be treated as burnalbe material
+until nuclear data library loaded.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>show_edge</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show the mesh edge (True by default).</p></li>
+<li><p><strong>show_plot</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show the plot immediately (True by default).</p></li>
+<li><p><strong>save_fig</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to save the current figure (False by default).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>fig</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>matplotlib.Figure</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">robin3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">plot_depletion_regions</span><span class="p">(</span><span class="s1">&#39;result.h5&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="robin3.Plotter.plot_flat_source_regions">
+<code class="sig-name descname">plot_flat_source_regions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">show_edge</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">show_plot</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">save_fig</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#robin3.Plotter.plot_flat_source_regions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots a 2D surface of the flat source regions in the geometry.</p>
+<p>Flat source regions are used by method of characteristics (MOC), neutron
+source in a flat source region assumed to be constant.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>show_edge</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show the mesh edge (True by default).</p></li>
+<li><p><strong>show_plot</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show the plot immediately (True by default).</p></li>
+<li><p><strong>save_fig</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to save the current figure (False by default).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>fig</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>matplotlib.Figure</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">robin3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">yaml</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;mini_core.yaml&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">model</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="n">Loader</span><span class="o">=</span><span class="n">yaml</span><span class="o">.</span><span class="n">Loader</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">plot_flat_source_regions</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">show_plot</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">plot_flat_source_regions</span><span class="p">(</span><span class="s1">&#39;mini_core.yaml&#39;</span><span class="p">,</span> <span class="n">assembly</span><span class="o">=</span><span class="s1">&#39;B_00&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="robin3.Plotter.plot_geometry">
+<code class="sig-name descname">plot_geometry</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">show_meshes</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_edge</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">show_plot</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">save_fig</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#robin3.Plotter.plot_geometry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots a 2D surface of the materials in the geometry.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>show_meshes</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show fine meshes–flat source regions used by MOC (True
+by default).</p></li>
+<li><p><strong>show_edge</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show the mesh edge (False by default).</p></li>
+<li><p><strong>show_plot</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show the plot immediately (True by default)..</p></li>
+<li><p><strong>save_fig</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to save the current figure (False by default).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>fig</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>matplotlib.Figure</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">robin3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">yaml</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;mini_core.yaml&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">model</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="n">Loader</span><span class="o">=</span><span class="n">yaml</span><span class="o">.</span><span class="n">Loader</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">plot_geometry</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">show_plot</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">plot_geometry</span><span class="p">(</span><span class="s1">&#39;mini_core.yaml&#39;</span><span class="p">,</span> <span class="n">assembly</span><span class="o">=</span><span class="s1">&#39;B_00&#39;</span><span class="p">,</span> <span class="n">show_mesh</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="robin3.Plotter.plot_mesh_flux">
+<code class="sig-name descname">plot_mesh_flux</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">group</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">burnup</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">show_edge</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_peak_value</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">burnup_animation</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">save_animation_to</span><span class="o">=</span><span class="default_value">'burnup_animation.gif'</span></em>, <em class="sig-param"><span class="n">show_plot</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">save_fig</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">render_to_html</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">reference_data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">compare_description</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">is_relative</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#robin3.Plotter.plot_mesh_flux" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots a 2D heatmap of mesh flux distribution in the geometry.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>group</strong> (<em>int</em><em>, </em><em>optional</em>) – Which energy group of the pin flux distribution to show (1 by
+default).</p></li>
+<li><p><strong>burnup</strong> (<em>real</em><em>, </em><em>optional</em>) – The burnup point at which the result getting from, a KeyError
+will be raised if the target burnup cannot found in the result
+file (0.0 by default).</p></li>
+<li><p><strong>show_edge</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show the mesh edge (False by default).</p></li>
+<li><p><strong>show_peak_value</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show the peak value in the heatmap (True by default).</p></li>
+<li><p><strong>burnup_animation</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to create an animation to show the heatmap vary with burnup
+(False by default).</p></li>
+<li><p><strong>save_animation_to</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of file used to save the burnup animation, note only ‘.gif’
+or ‘.mp4’ suffix supported (‘burnup_animation.gif’ by default).</p></li>
+<li><p><strong>show_plot</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show the plot immediately (True by default).</p></li>
+<li><p><strong>save_fig</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to save the current figure (False by default).</p></li>
+<li><p><strong>render_to_html</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to render the plot to a html file for interactive
+visualization (False by default).</p></li>
+<li><p><strong>reference_data</strong> (<em>list</em><em> or </em><em>numpy.ndarray</em><em>, </em><em>optional</em>) – The reference data with which we want to compare and visualize the
+deviation, No comparison if None (None by default).</p></li>
+<li><p><strong>compare_description</strong> (<em>str</em><em>, </em><em>optional</em>) – The description of the comparison, “ROBIN3 VS. Ref” if None (None
+by default).</p></li>
+<li><p><strong>is_relative</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether the deviation is relative (True by default).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>fig</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>matplotlib.Figure</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">robin3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">plot_mesh_flux</span><span class="p">(</span><span class="s1">&#39;result.h5&#39;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="robin3.Plotter.plot_mesh_reaction_rate">
+<code class="sig-name descname">plot_mesh_reaction_rate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span><span class="o">=</span><span class="default_value">'mesh_vfis'</span></em>, <em class="sig-param"><span class="n">burnup</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">show_edge</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_peak_value</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">burnup_animation</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">save_animation_to</span><span class="o">=</span><span class="default_value">'burnup_animation.gif'</span></em>, <em class="sig-param"><span class="n">show_plot</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">save_fig</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">render_to_html</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">reference_data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">compare_description</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">is_relative</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#robin3.Plotter.plot_mesh_reaction_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots a 2D heatmap of mesh reaction rate distribution in the geometry.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<em>str</em><em>, </em><em>optional</em>) – Which type of mesh reaction rate distribution to show, should be
+a choice of [‘mesh_vfis’, ‘mesh_fis’] (‘mesh_vfis’ by default).</p></li>
+<li><p><strong>burnup</strong> (<em>real</em><em>, </em><em>optional</em>) – The burnup point at which the result getting from, a KeyError
+will be raised if the target burnup cannot found in the result
+file (0.0 by default).</p></li>
+<li><p><strong>show_edge</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show the mesh edge (False by default).</p></li>
+<li><p><strong>show_peak_value</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show the peak value in the heatmap (True by default).</p></li>
+<li><p><strong>burnup_animation</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to create an animation to show the heatmap vary with burnup
+(False by default).</p></li>
+<li><p><strong>save_animation_to</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of file used to save the burnup animation, note only ‘.gif’
+or ‘.mp4’ suffix supported (‘burnup_animation.gif’ by default).</p></li>
+<li><p><strong>show_plot</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show the plot immediately (True by default).</p></li>
+<li><p><strong>save_fig</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to save the current figure (False by default).</p></li>
+<li><p><strong>render_to_html</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to render the plot to a html file for interactive
+visualization (False by default).</p></li>
+<li><p><strong>reference_data</strong> (<em>list</em><em> or </em><em>numpy.ndarray</em><em>, </em><em>optional</em>) – The reference data with which we want to compare and visualize the
+deviation, No comparison if None (None by default).</p></li>
+<li><p><strong>compare_description</strong> (<em>str</em><em>, </em><em>optional</em>) – The description of the comparison, “ROBIN3 VS. Ref” if None (None
+by default).</p></li>
+<li><p><strong>is_relative</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether the deviation is relative (True by default).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>fig</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>matplotlib.Figure</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">robin3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">plot_mesh_reaction_rate</span><span class="p">(</span><span class="s1">&#39;result.h5&#39;</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s1">&#39;mesh_fis&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="robin3.Plotter.plot_neutron_fluxes_in_tagged_regions">
+<code class="sig-name descname">plot_neutron_fluxes_in_tagged_regions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">burnup</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">burnup_animation</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">save_animation_to</span><span class="o">=</span><span class="default_value">'burnup_animation.gif'</span></em>, <em class="sig-param"><span class="n">show_plot</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">save_fig</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#robin3.Plotter.plot_neutron_fluxes_in_tagged_regions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots neutron fluxes distribution with neutron energy in tagged
+regions.</p>
+<p>Besides the average neutron fluxes, both the neutron fluxes of fuel
+and moderator regions will be plotted.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>burnup</strong> (<em>real</em><em>, </em><em>optional</em>) – The burnup point at which the result getting from, a KeyError
+will be raised if the target burnup cannot found in the result
+file (0.0 by default).</p></li>
+<li><p><strong>burnup_animation</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to create an animation to show the heatmap vary with burnup
+(False by default).</p></li>
+<li><p><strong>save_animation_to</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of file used to save the burnup animation, note only ‘.gif’
+or ‘.mp4’ suffix supported (‘burnup_animation.gif’ by default).</p></li>
+<li><p><strong>show_plot</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show the plot immediately (True by default).</p></li>
+<li><p><strong>save_fig</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to save the current figure (False by default).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>fig</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>matplotlib.Figure</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">robin3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">plot_neutron_fluxes_in_tagged_regions</span><span class="p">(</span><span class="s1">&#39;result.h5&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="robin3.Plotter.plot_nuclide_number_density">
+<code class="sig-name descname">plot_nuclide_number_density</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">nuclide</span></em>, <em class="sig-param"><span class="n">burnup</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">show_edge</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_peak_value</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">burnup_animation</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">save_animation_to</span><span class="o">=</span><span class="default_value">'burnup_animation.gif'</span></em>, <em class="sig-param"><span class="n">show_plot</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">render_to_html</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">reference_data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">compare_description</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">is_relative</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#robin3.Plotter.plot_nuclide_number_density" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots a 2D heatmap of nuclide number density distribution in the
+geometry.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nuclide</strong> (<em>str</em>) – The number density distribution of which nuclide to show, should be
+a nuclide name in the nuclear data library.</p></li>
+<li><p><strong>burnup</strong> (<em>real</em><em>, </em><em>optional</em>) – The burnup point at which the result getting from, a KeyError
+will be raised if the target burnup cannot found in the result
+file (0.0 by default).</p></li>
+<li><p><strong>show_edge</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show the mesh edge (False by default).</p></li>
+<li><p><strong>show_peak_value</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show the peak value in the heatmap (True by default).</p></li>
+<li><p><strong>burnup_animation</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to create an animation to show the heatmap vary with burnup
+(False by default).</p></li>
+<li><p><strong>save_animation_to</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of file used to save the burnup animation, note only ‘.gif’
+or ‘.mp4’ suffix supported (‘burnup_animation.gif’ by default).</p></li>
+<li><p><strong>show_plot</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show the plot immediately (True by default).</p></li>
+<li><p><strong>save_fig</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to save the current figure (False by default).</p></li>
+<li><p><strong>render_to_html</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to render the plot to a html file for interactive
+visualization (False by default).</p></li>
+<li><p><strong>reference_data</strong> (<em>list</em><em> or </em><em>numpy.ndarray</em><em>, </em><em>optional</em>) – The reference data with which we want to compare and visualize the
+deviation, No comparison if None (None by default).</p></li>
+<li><p><strong>compare_description</strong> (<em>str</em><em>, </em><em>optional</em>) – The description of the comparison, “ROBIN3 VS. Ref” if None (None
+by default).</p></li>
+<li><p><strong>is_relative</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether the deviation is relative (True by default).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>fig</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>matplotlib.Figure</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">robin3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">plot_nuclide_number_density</span><span class="p">(</span><span class="s1">&#39;result.h5&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="robin3.Plotter.plot_pin_flux">
+<code class="sig-name descname">plot_pin_flux</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">group</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">burnup</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">show_edge</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_peak_value</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">burnup_animation</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">save_animation_to</span><span class="o">=</span><span class="default_value">'burnup_animation.gif'</span></em>, <em class="sig-param"><span class="n">show_plot</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">save_fig</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">render_to_html</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">reference_data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">compare_description</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">is_relative</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#robin3.Plotter.plot_pin_flux" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots a 2D heatmap of pin flux distribution in the geometry.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>group</strong> (<em>int</em><em>, </em><em>optional</em>) – Which energy group of the pin flux distribution to show (1 by
+default).</p></li>
+<li><p><strong>burnup</strong> (<em>real</em><em>, </em><em>optional</em>) – The burnup point at which the result getting from, a KeyError
+will be raised if the target burnup cannot found in the result
+file (0.0 by default).</p></li>
+<li><p><strong>show_edge</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show the mesh edge (False by default).</p></li>
+<li><p><strong>show_peak_value</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show the peak value in the heatmap (True by default).</p></li>
+<li><p><strong>burnup_animation</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to create an animation to show the heatmap vary with burnup
+(False by default).</p></li>
+<li><p><strong>save_animation_to</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of file used to save the burnup animation, note only ‘.gif’
+or ‘.mp4’ suffix supported (‘burnup_animation.gif’ by default).</p></li>
+<li><p><strong>show_plot</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show the plot immediately (True by default).</p></li>
+<li><p><strong>save_fig</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to save the current figure (False by default).</p></li>
+<li><p><strong>render_to_html</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to render the plot to a html file for interactive
+visualization (False by default).</p></li>
+<li><p><strong>reference_data</strong> (<em>list</em><em> or </em><em>numpy.ndarray</em><em>, </em><em>optional</em>) – The reference data with which we want to compare and visualize the
+deviation, No comparison if None (None by default).</p></li>
+<li><p><strong>compare_description</strong> (<em>str</em><em>, </em><em>optional</em>) – The description of the comparison, “ROBIN3 VS. Ref” if None (None
+by default).</p></li>
+<li><p><strong>is_relative</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether the deviation is relative (True by default).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>fig</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>matplotlib.Figure</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">robin3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">plot_pin_flux</span><span class="p">(</span><span class="s1">&#39;result.h5&#39;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="robin3.Plotter.plot_pin_power">
+<code class="sig-name descname">plot_pin_power</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">burnup</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">show_edge</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_peak_value</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">burnup_animation</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">save_animation_to</span><span class="o">=</span><span class="default_value">'burnup_animation.gif'</span></em>, <em class="sig-param"><span class="n">show_plot</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">save_fig</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">render_to_html</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">reference_data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">compare_to_reference</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">nonzero</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">compare_description</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">is_relative</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#robin3.Plotter.plot_pin_power" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots a 2D heatmap of pin power distribution in the geometry.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>burnup</strong> (<em>real</em><em>, </em><em>optional</em>) – The burnup point at which the result getting from, a KeyError
+will be raised if the target burnup cannot found in the result
+file (0.0 by default).</p></li>
+<li><p><strong>show_edge</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show the mesh edge (False by default).</p></li>
+<li><p><strong>show_peak_value</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show the peak value in the heatmap (True by default).</p></li>
+<li><p><strong>burnup_animation</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to create an animation to show the heatmap vary with burnup
+(False by default).</p></li>
+<li><p><strong>save_animation_to</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of file used to save the burnup animation, note only ‘.gif’
+or ‘.mp4’ suffix supported (‘burnup_animation.gif’ by default).</p></li>
+<li><p><strong>show_plot</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show the plot immediately (True by default).</p></li>
+<li><p><strong>save_fig</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to save the current figure (False by default).</p></li>
+<li><p><strong>render_to_html</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to render the plot to a html file for interactive
+visualization (False by default).</p></li>
+<li><p><strong>reference_data</strong> (<em>list</em><em> or </em><em>numpy.ndarray</em><em>, </em><em>optional</em>) – The reference data with which we want to compare and visualize the
+deviation, No comparison if None (None by default).</p></li>
+<li><p><strong>compare_to_reference</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to compare with the reference data, directly display the
+reference data if False (True by default).</p></li>
+<li><p><strong>compare_description</strong> (<em>str</em><em>, </em><em>optional</em>) – The description of the comparison, “ROBIN3 VS. Ref” if None (None
+by default).</p></li>
+<li><p><strong>nonzero</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether the data to compare is nonzero (False by default).</p></li>
+<li><p><strong>is_relative</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether the deviation is relative (True by default).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>fig</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>matplotlib.Figure</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">robin3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">plot_pin_power</span><span class="p">(</span><span class="s1">&#39;result.h5&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="robin3.Plotter.plot_pin_reaction_rate">
+<code class="sig-name descname">plot_pin_reaction_rate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span><span class="o">=</span><span class="default_value">'pin_vfis'</span></em>, <em class="sig-param"><span class="n">burnup</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">show_edge</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_peak_value</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">burnup_animation</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">save_animation_to</span><span class="o">=</span><span class="default_value">'burnup_animation.gif'</span></em>, <em class="sig-param"><span class="n">show_plot</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">save_fig</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">render_to_html</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">reference_data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">compare_to_reference</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">nonzero</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">compare_description</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">is_relative</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#robin3.Plotter.plot_pin_reaction_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots a 2D heatmap of pin reaction rate distribution in the geometry.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<em>str</em><em>, </em><em>optional</em>) – Which type of pin reaction rate distribution to show, should be
+a choice of [‘pin_vfis’, ‘pin_fis’] (‘pin_vfis’ by default).</p></li>
+<li><p><strong>burnup</strong> (<em>real</em><em>, </em><em>optional</em>) – The burnup point at which the result getting from, a KeyError
+will be raised if the target burnup cannot found in the result
+file (0.0 by default).</p></li>
+<li><p><strong>show_edge</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show the mesh edge (False by default).</p></li>
+<li><p><strong>show_peak_value</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show the peak value in the heatmap (True by default).</p></li>
+<li><p><strong>burnup_animation</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to create an animation to show the heatmap vary with burnup
+(False by default).</p></li>
+<li><p><strong>save_animation_to</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of file used to save the burnup animation, note only ‘.gif’
+or ‘.mp4’ suffix supported (‘burnup_animation.gif’ by default).</p></li>
+<li><p><strong>show_plot</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show the plot immediately (True by default).</p></li>
+<li><p><strong>save_fig</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to save the current figure (False by default).</p></li>
+<li><p><strong>render_to_html</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to render the plot to a html file for interactive
+visualization (False by default).</p></li>
+<li><p><strong>reference_data</strong> (<em>list</em><em> or </em><em>numpy.ndarray</em><em>, </em><em>optional</em>) – The reference data with which we want to compare and visualize the
+deviation, No comparison if None (None by default).</p></li>
+<li><p><strong>compare_to_reference</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to compare with the reference data, directly display the
+reference data if False (True by default).</p></li>
+<li><p><strong>nonzero</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether the data to compare is nonzero (False by default).</p></li>
+<li><p><strong>compare_description</strong> (<em>str</em><em>, </em><em>optional</em>) – The description of the comparison, “ROBIN3 VS. Ref” if None (None
+by default).</p></li>
+<li><p><strong>is_relative</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether the deviation is relative (True by default).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>fig</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>matplotlib.Figure</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">robin3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">plot_pin_reaction_rate</span><span class="p">(</span><span class="s1">&#39;result.h5&#39;</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s1">&#39;pin_fis&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="robin3.Plotter.plot_resonance_regions">
+<code class="sig-name descname">plot_resonance_regions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">show_edge</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">show_plot</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">save_fig</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#robin3.Plotter.plot_resonance_regions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots a 2D surface of the resonance regions in the geometry.</p>
+<p>Resonance regions are used by resonance calculation, unlike the geometry,
+ROBIN3 does not kown which material should be treated as resonance material
+until nuclear data library loaded.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>show_edge</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show the mesh edge (True by default).</p></li>
+<li><p><strong>show_plot</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show the plot immediately (True by default).</p></li>
+<li><p><strong>save_fig</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to save the current figure (False by default).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>fig</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>matplotlib.Figure</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">robin3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">plot_resonance_regions</span><span class="p">(</span><span class="s1">&#39;result.h5&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="robin3.Plotter.plot_tagged_regions">
+<code class="sig-name descname">plot_tagged_regions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">show_meshes</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_plot</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">save_fig</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#robin3.Plotter.plot_tagged_regions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots a 2D surface of the tagged regions in the geometry.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>show_meshes</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show fine meshes–flat source regions used by MOC (True
+by default).</p></li>
+<li><p><strong>show_plot</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show the plot immediately (True by default)..</p></li>
+<li><p><strong>save_fig</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to save the current figure (False by default).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>fig</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>matplotlib.Figure</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">robin3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">yaml</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;mini_core.yaml&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">model</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="n">Loader</span><span class="o">=</span><span class="n">yaml</span><span class="o">.</span><span class="n">Loader</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">plot_tagged_regions</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">show_plot</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">plot_tagged_regions</span><span class="p">(</span><span class="s1">&#39;mini_core.yaml&#39;</span><span class="p">,</span> <span class="n">assembly</span><span class="o">=</span><span class="s1">&#39;B_00&#39;</span><span class="p">,</span> <span class="n">show_mesh</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="robin3.Plotter.plot_tracks">
+<code class="sig-name descname">plot_tracks</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cyclic_track</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">quadrature</span><span class="o">=</span><span class="default_value">'ALL'</span></em>, <em class="sig-param"><span class="n">interval</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">polar</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">track_width</span><span class="o">=</span><span class="default_value">0.3</span></em>, <em class="sig-param"><span class="n">show_edge</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">save_animation_to</span><span class="o">=</span><span class="default_value">'cyclic_tracks.gif'</span></em>, <em class="sig-param"><span class="n">show_plot</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">save_fig</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#robin3.Plotter.plot_tracks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots a 2D surface of the materials and tracks in the geometry.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cyclic</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to create a cyclic track animation (False
+by default).</p></li>
+<li><p><strong>quadrature</strong> (<em>str</em><em>, </em><em>optional</em>) – Which quadrature used to generate tracks, a choice of
+[‘ALL’, ‘FAST’, ‘THERMAL’, ‘EPITHERMAL’] (‘ALL’ by default).</p></li>
+<li><p><strong>interval</strong> (<em>int</em><em>, </em><em>optional</em>) – The azimuth interval used to generate tracks (1 by default).</p></li>
+<li><p><strong>polar</strong> (<em>int</em><em>, </em><em>optional</em>) – Which polar level used to generate tracks (0 by default).</p></li>
+<li><p><strong>track_width</strong> (<em>real</em><em>, </em><em>optional</em>) – The width used to plot track line (0.3 by default).</p></li>
+<li><p><strong>show_edge</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show the mesh edge (True by default).</p></li>
+<li><p><strong>save_animation_to</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of file used to save the cyclic tracks animation, note only ‘.gif’
+or ‘.mp4’ suffix supported (‘cyclic_track.gif’ by default).</p></li>
+<li><p><strong>show_plot</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show the plot immediately (True by default).</p></li>
+<li><p><strong>save_fig</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to save the current figure (False by default).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>fig</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>matplotlib.Figure</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">robin3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">yaml</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;mini_core.yaml&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">model</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="n">Loader</span><span class="o">=</span><span class="n">yaml</span><span class="o">.</span><span class="n">Loader</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">plot_tracks</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">show_plot</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">plot_tracks</span><span class="p">(</span><span class="s1">&#39;mini_core.yaml&#39;</span><span class="p">,</span> <span class="n">assembly</span><span class="o">=</span><span class="s1">&#39;B_00&#39;</span><span class="p">,</span> <span class="n">cyclic</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="robin3.openmc_compatible.get_material.html" class="btn btn-neutral float-right" title="robin3.openmc_compatible.get_material" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="robin3.ResultProcessor.html" class="btn btn-neutral float-left" title="robin3.ResultProcessor" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020-, ShangHai NuStar Nuclear Power Technology Co.Ltd.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+ 
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-30411614-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+</body>
+</html>

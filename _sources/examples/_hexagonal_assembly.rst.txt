@@ -1,0 +1,8 @@
+.. _examples_hexagonal_assembly:
+
+====================================
+Modeling a Single Hexagonal Assembly
+====================================
+
+.. literalinclude:: ../../../examples/single_assembly/hexagonal_assembly.yaml
+    :language: yaml

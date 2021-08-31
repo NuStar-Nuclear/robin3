@@ -1,0 +1,810 @@
+.. _io_file_formats_input:
+
+
+================
+Input Model File
+================
+
+.. _cross_sections:
+
+------------------------
+``cross_sections`` array
+------------------------
+
+``cross_sections`` is an array of :ref:`cross_section`.
+
+.. note:: Array ``cross_sections`` only used for macro cross section input models, such as 
+          C5G7 benchmark problems. If you want to build model from material compositionsm,
+          use array ``materials`` instead.
+
+.. _cross_section:
+
+------------------------
+``cross_section`` object
+------------------------
+
+Each ``cross_section`` represent one kind of material, and it defines the macro cross 
+sections of this kind of material, ``cross_section`` has following properties:
+
+    :name:
+        A unique string name to identify the cross_section.
+
+        *Required*
+    
+    :sigma_tr:
+        An array of float representing the transport cross sections in energy 
+        groups, units in /cm.
+
+        *Required*
+
+    :sigma_f:
+        An array of float representing the fission cross sections in energy 
+        groups, units in /cm.
+
+        *Required*
+        
+    :nu_sigma_f:
+        An array of float representing the fission neutron product cross 
+        sections in energy groups, units in /cm.
+
+        *Required*
+    
+    :kappa_sigma_f:
+        An array of float representing the fission energy product cross 
+        sections in energy groups, units in /cm.
+
+        *Required*
+
+    :sigma_s:
+        An array of float representing the scattering cross sections in energy 
+        groups, scatter from group ordered first, units in /cm.
+
+        *Required*
+
+    :chi:
+        An array of float representing the fission spectrum in energy groups.
+
+        *Required*
+
+
+.. _materials:
+
+-------------------
+``materials`` array 
+-------------------
+
+``materials`` is an array of :ref:`material`.
+
+.. _material:
+
+-------------------
+``material`` object
+-------------------
+
+Each ``material`` represents a kind of material compositions, and has following 
+properties:
+
+    .. _material_name:
+
+    :name:
+        A unique string name to identify the material.
+
+        *Required*
+    
+    :temperature:
+        A float, temperature of this material, units in Kelvin.
+
+        .. note:: If temperature not defined, the temperature of this material will be 
+                  obtained by :ref:`moderator temperature<moderator_temperature>` or 
+                  :ref:`fuel temperature<fuel_temperature>`.
+ 
+    .. _material_elements:
+
+    :elements:
+        An array of string names of elements which compose this material, here names should
+        be :ref:`material name<material_name>` pre-defined in :ref:`io_file_formats_materialdb` 
+        excepts:
+         
+            1.  "MOD", which is a built-in material, can be directly used as moderater material 
+                whose number density is calculated by specifying 
+                :ref:`system pressure<system_pressure>`, 
+                :ref:`moderator temperature<moderator_temperature>` and 
+                :ref:`boron concentration<boron_concentration>`
+                in :ref:`state points<state_points>`;
+            2.  Enriched "UO2" can be defined using "UO2_enrichment" conveniently.
+                For example, "UO2_3.2" means material UO2 with 3.2 enrichment.
+            3.  If the material is 'homogenized', which means composing elements by  
+                :ref:`volume_percents<material_volume_percents>`, in that case elements 
+                should be materials that you have defined by weight percents or "MOD", 
+                not pre-defined materials in :ref:`io_file_formats_materialdb`. 
+
+        *Required*
+    
+        .. note:: ROBIN3 support 3 kinds of fraction types to compose elements:
+                  :ref:`number_densities<material_number_densities>`,
+                  :ref:`weight_percents<material_weight_percents>` and
+                  :ref:`volume_percents<material_volume_percents>`, at least one of these
+                  fraction types is required.
+
+    .. _material_number_densities:
+
+    :number_densities:
+
+        An array of float representing the nuclide number densities of each element defined by 
+        :ref:`elements<material_elements>`, units in /barn-cm. 
+
+    .. _material_weight_percents:
+
+    :weight_percents:
+
+        An array of float representing the weight percents of each element defined by 
+        :ref:`elements<material_elements>`. 
+
+        .. note:: Sum of weight_percents should be range in 0.999~1.0, the rest that less 
+                  than 1.0 will be treated as impurity.
+
+    .. _material_density:
+        
+    :density:
+        A float, density of this material, units in g/cm^3, only required when the material is
+        is composed by :ref:`weight_percents<material_weight_percents>`.
+ 
+    .. _material_volume_percents:
+
+    :volume_percents:
+
+        An array of float representing the volume percents of each element defined by 
+        :ref:`elements<material_elements>`. 
+
+        .. note:: Sum of volume_percents should be equal to 1.0.
+
+.. _structures:
+
+--------------------
+``structures`` array
+--------------------
+
+``structures`` is an array of :ref:`structure`.
+
+.. _structure:
+
+--------------------
+``structure`` object
+--------------------
+
+Each ``structure`` defines a geometry object with materials, ``structure`` has following 
+properties:
+
+    .. _structure_name:
+
+    :name:
+        A unique string name to identify the structure.
+
+        *Required*
+    
+    :meshing:
+        An :ref:`meshing` used to define the flat source region meshing.
+
+        .. note:: a default :ref:`meshing` with 8 (for square assembly) or 6 (for hexagonal assembly) 
+                  azimuths divisions and 3 annulars in the first circle will be used for 'pin' 
+                  structure.
+
+    :primitives:
+        An array of :ref:`primitive` used to define geometrical boundaries of materials.
+        
+        *Required*
+
+    :regions:
+        An array of :ref:`region` used to define material region.
+
+        *Required*
+
+.. _meshing:
+
+------------------
+``meshing`` object
+------------------
+
+``meshing`` gives the flat source region meshing info, it has following properties:
+    
+    :type:
+        A choice of ["SECTORS", "RECTANGLES"], which type of this meshing is.
+
+        *Required*
+
+    :center:
+        A :ref:`point`, the center of the "SECTORS" meshing, only required when 
+        ``type`` is "SECTORS".
+        
+        *Default*: {"x": 0.0, "y": 0.0}
+    
+    :num_azimuths:
+        An integer defining the number of azimuths division of the "SECTORS" meshing, only 
+        required when ``type`` is "SECTORS".
+    
+        .. note:: ``num_azimuths`` should be a multiple of 2, and not less than 4.
+
+    :radii:
+        An array of float defining radii of the "SECTORS" meshing, only required when ``type``
+        is "SECTORS", units in cm. If not addtional radii needed, ``radii`` can be an empty 
+        array.
+
+    :num_divisions_x:
+        An integer defining the number of even divisions in x-direction of "RECTANGLES" meshing, 
+        only required when ``type`` is "RECTANGLES".
+
+    :num_divisions_y:
+        An integer defining the number of even divisions in y-direction of "RECTANGLES" meshing, 
+        only required when ``type`` is "RECTANGLES".
+
+    :xmin:
+        An float defining the minimum x coordinate of "RECTANGLES" meshing, units in cm, only 
+        required when ``type`` is "RECTANGLES".
+
+    :xmax:
+        An float defining the maximum x coordinate of "RECTANGLES" meshing, units in cm, only 
+        required when ``type`` is "RECTANGLES".
+
+    :ymin:
+        An float defining the minimum y coordinate of "RECTANGLES" meshing, units in cm, only 
+        required when ``type`` is "RECTANGLES".
+
+    :ymax:
+        An float defining the maximum y coordinate of "RECTANGLES" meshing, units in cm, only 
+        required when ``type`` is "RECTANGLES".
+
+
+.. _primitive:
+
+--------------------
+``primitive`` object
+--------------------
+
+``primitive`` here is a type of geometry primitive, such as cycle or polygon, ROBIN3 offers 4 
+kinds of primitives: they are cycle, ellipse, polygon and sector. ``primitive`` has following 
+properties:
+    
+    :type:
+        A choice of ["CIRCLE", "ELLIPSE", "POLYGON", "SECTOR"], which type this primitive is.
+
+        *Required*
+
+    :center:
+        A :ref:`point`, the center of the primitive, only required when ``type`` is 
+        "CIRCLE" or "SECTOR".
+
+        *Default*: {"x": 0.0, "y": 0.0}
+
+    :radius:
+        A float defining the radius of circle primitive, units in cm, only required when ``type`` 
+        is "CIRCLE".
+
+    :vertexes:
+        An array of :ref:`point`, representing the vertexes of polygon primitive, only required when 
+        ``type`` is "POLYGON".
+        
+        .. note:: The order of :ref:`point` in ``vertexes`` is inessential.
+
+    :radius_inner:
+        A float defining the inner radius of sector primitive, units in cm, only required when 
+        ``type`` is "SECTOR".
+    
+    :radius_outer:
+        A float defining the outer radius of sector primitive, units in cm, only required when 
+        ``type`` is "SECTOR".
+
+    :span:
+        A float defining the span of sector primitive, units in degree, only required when 
+        ``type`` is "SECTOR".
+
+.. _region:
+
+-----------------
+``region`` object
+-----------------
+
+``region`` here refer to a material region, it has following properties:
+
+    :material:
+        The material of this region, an unique string name defined in :ref:`material` of 
+        :ref:`materials`.
+        
+        *Required*
+
+    :space:
+        A string used to define the region space, ROBIN3 supports following boolean operation:
+
+        .. table:: Boolean Operators Used to Define Space.
+
+        +------------+---------------------------+
+        |   Symbol   |    operation              |
+        +============+===========================+
+        |     &      |    intersection           |
+        +------------+---------------------------+
+        |     \|     |    union                  |
+        +------------+---------------------------+
+        |     \-     |    difference             |
+        +------------+---------------------------+
+        |     \^     |    symmetric difference   |
+        +------------+---------------------------+
+
+        With these boolean operators, space "1&2" means primitive 1 intersects with
+        primitive 2, space "4|(3-2)" means primitive 4 unions the space of primitive 3 
+        differences primitive 2, note brackets are also supported.
+        
+        *Required*
+
+    :tag:
+        A string used to tag this region, specific neutron fluxes data will be editting for 
+        tagged regions.
+        
+.. _point:
+
+-----------------
+``point`` object
+-----------------
+
+``point`` here refer to a point in 2D geometry, it has following properties:
+
+    :x:
+        A float defining x coordinate of this point.
+        
+        *Required*
+
+    :y:
+        A float defining y coordinate of this point.
+        
+        *Required*
+        
+        
+.. _assemblies:
+
+--------------------
+``assemblies`` array 
+--------------------
+
+``assemblies`` is an array of :ref:`assembly`.
+
+.. note:: :ref:`assembly` defined in ``assemblies`` should have the same 
+          :ref:`assembly type<assembly_type>`.
+
+.. _assembly:
+
+-------------------
+``assembly`` object
+-------------------
+
+Each ``assembly`` represents a specific kind of assembly which will be used to generate 
+modular assembly tracks. ``assembly`` has following properties:
+
+    .. _assembly_name:
+
+    :name:
+        A unique string name to identify the assembly.
+
+        *Required*
+    
+    .. _assembly_type:
+
+    :type:
+        A choice of ["SQUARE", "HEXAGON"], the geometry type of the assembly.
+
+        .. note:: The geometry type is used to generate cells, 'SQUARE' assembly is composed 
+                  by square cells and 'HEXAGON' assembly is composed by hexagonal cells.
+        
+        *Required*
+
+    .. _assembly_pitch:
+
+    :pitch:
+        A float defining the pitch of the assembly, units in cm.
+        
+        *Required*
+
+    :cell_pitch:
+        A float defining the pitch of cells in the assembly, units in cm.
+        
+        *Required*
+
+    .. _cell_map:
+
+    :cell_map:
+        An array of :ref:`structure name<structure_name>`, used to locate structures,
+        with cell_map, same structure can be duplicated and located in 'cell centers' 
+        conveniently.
+
+        .. note:: :ref:`cell map<cell_map>` offers user a convenient way to compose assembly with
+                  duplicated structures when the structures are regularly placed in cells. If
+                  there are irregularly located structures, use 
+                  :ref:`structure locations<structure_locations>` as a supplement.
+    
+    .. _structure_locations:
+
+    :structure_locations:
+        An array of :ref:`structure location<structure_location>`, used to locate structures,
+        with structure_location, same structure can be duplicated and located in any place.
+        
+        .. note:: At least one of :ref:`cell map<cell_map>` and
+                  :ref:`structure locations<structure_locations>` is required.
+
+    :symmetry:
+        An integer representing the symmetry of the assembly, should be a choice of 
+        [1, 2, 4, 8] when ``type`` is "SQUARE", and [1, 6, 12] when ``type`` is "HEXAGON" 
+        or "CYLINDER".
+
+        *Default*: 1
+
+    :boundary_condition:
+        A choice of ["VACUUM", "REFLECTIVE", "PERIODIC_VACUUM", "PERIODIC_REFLECTIVE"],
+        defining the boundary condition of the assembly.
+
+        *Default*: "REFLECTIVE"
+
+    .. :num_layers:
+    ..     An integer, defining the number of layers of the cylinder assembly, only required
+    ..     when ``type`` is "CYLINDER".
+
+    .. :num_structures_per_layer:
+    ..     An array of integer representing the number of structures in each layer of the cylinder
+    ..     assembly, only required when ``type`` is "CYLINDER".
+
+    .. :start_angles_per_layer:
+    ..     An array of float representing the starting angle in each layer of the cylinder
+    ..     assembly, only required when ``type`` is "CYLINDER".
+
+.. _structure_location:
+
+-----------------------------
+``structure_location`` object
+-----------------------------
+
+``structure_location`` used to locate structures in assembly, it has following properties:
+
+    :structure:
+        The :ref:`name<structure_name>` of the structure.
+        
+        *Required*
+
+    :location:
+        An :ref:`point`, representing the location of the structure.
+        
+        *Required*
+
+.. _core:
+
+---------------
+``core`` object
+---------------
+
+``core`` used to define a reactor core in 2D geometry, it has following properties:
+
+    :name:
+        A unique string name to identify the core.
+
+        *Required*
+    
+    :type:
+        A choice of ["SQUARE", "HEXAGON"], the geometry type of the core.
+
+        *Required*
+    
+    :symmetry:
+        An integer representing the symmetry of the core, should be a choice of 
+        [1, 4, 8] when ``type`` is "SQUARE", and [1, 6, 12] when ``type`` is "HEXAGON".
+
+        *Default*: 1
+
+    :is_periodic:
+        A boolean, whether the core is periodic.
+
+        *Default*: fasle
+
+    :outer_albedo:
+        A float range in [0.0, 1.0], representing the outer albedo of the core.
+
+        *Default*: 0.0
+
+    :assembly_map:
+        An array of :ref:`assembly name<assembly_name>`, representing the loading pattern 
+        of the core.
+
+        *Required*
+
+    :tmo_map:
+        An array of float representing the temperature of moderator of each assembly 
+        in the core. 
+
+        .. note:: If ``tmo_map`` not defined, :ref:`moderator temperature<moderator_temperature>` 
+                  will be used for each assembly.
+
+    :reflector:
+        A :ref:`reflector` object used to define the reflector of the core.
+
+.. _reflector:
+
+--------------------
+``reflector`` object
+--------------------
+
+``reflector`` used to define reflector geometry, it has following properties:
+
+    :baffles:
+        An array of :ref:`baffle` used to define geometry of baffles in the reflector.
+
+    :primitives:
+        An array of :ref:`primitive` used to define geometrical boundaries of materials in 
+        the reflector.
+        
+        *Required*
+
+    :regions:
+        An array of :ref:`region` used to define material region in the reflector.
+
+        *Required*
+
+.. _baffle:
+
+-----------------
+``baffle`` object
+-----------------
+
+``baffle`` used to define baffle geometry, it has following properties:
+
+    :thickness:
+        A float defining the thickness of this baffle.
+
+        *Required*
+
+    :material:
+        Material of this baffle, an unique string name defined in :ref:`material` of 
+        :ref:`materials`.
+        
+        *Required*
+
+    :tag:
+        A string used to tag this baffle region, specific neutron fluxes data will be editting 
+        for tagged regions.
+
+.. _moc_control_parameters:
+
+----------------------------------
+``moc_control_parameters`` object
+----------------------------------
+
+``moc_control_parameters`` used to define control parameter of MOC transport calculation, 
+it has following properties:
+
+    :max_num_inner_iterations:
+        An integer defining the maximum number of inner iteration of MOC transport 
+        calculation.
+
+        *Default*: 1
+
+    :max_num_outer_iterations:
+        An integer defining the maximum number of outer iteration of MOC transport 
+        calculation.
+
+        *Default*: 1000
+
+    :keff_converge_threshold:
+        A float defining the k-effective converge threshold of MOC transport calculation.
+
+        *Default*: 0.00001
+
+    :residual_type:
+        A choice of ["SCALAR_FLUX", "FISSION_SOURCE"], Use which type of distribution to 
+        compute the residual.
+
+        *Default*: "FISSION_SOURCE"
+        
+        .. note:: The ``residual`` here will be used to compare with 
+                  the :ref:`distribution converge threshold<distribution_converge_threshold>` to 
+                  decide whether the distribution converged.
+
+    .. _distribution_converge_threshold:
+
+    :distribution_converge_threshold:
+        A float defining the distribution converge threshold of MOC transport calculation.
+
+        *Default*: 0.00001
+
+
+.. _quadratures:
+
+---------------------
+``quadratures`` array
+---------------------
+
+``quadratures`` is an array of :ref:`quadrature`.
+
+.. _quadrature:
+
+---------------------
+``quadrature`` object
+---------------------
+
+Each ``quadrature`` represents a kind of space and angle discretization for MOC transport 
+calculation, it has following properties:
+
+    :num_polars:
+        An integer defining the number discrete polar angles in 0~-90 degree.
+
+        *Default*: 2
+
+    :num_azimuths:
+        An integer defining the number discrete azimuths angles in 0~-90 degree for square 
+        assembly and 0~-60 degree for hexagonal assembly.
+
+        *Default*: ``12`` for square assembly, ``8`` for hexagonal assembly
+    
+    :track_density:
+        A float defining the track density used by MOC track generation, units in cm.
+
+        *Default*: 0.05
+
+    :type:
+        A choice of ["LCMD", "TYPL", "DECT"], which type of polar quadrature sets used.
+
+        *Default*: "TYPL"
+
+    :used_by:
+        A choice of ["FAST", "EPITHERMAL", "THERMAL", "ALL"], which type of energy group 
+        use this quadrature set.
+
+        *Default*: "ALL"
+
+
+.. _state_points:
+
+---------------------------
+``state_points`` object
+---------------------------
+
+``state_points`` defining state points info of the reactor core, it has following 
+properties:
+
+    .. _system_pressure:
+
+    :system_pressure:
+        A float defining the system pressure of the reactor core, units in MPa.
+
+        *Required*
+
+    .. _boron_concentration: 
+
+    :boron_concentration:
+        A float defining the boron concentration, units in ppm.
+
+        *Required*
+
+    .. _moderator_temperature:
+
+    :moderator_temperature:
+        A float defining the temperature of moderator, units in Kelvin.
+
+        *Required*
+
+    .. _fuel_temperature:
+
+    :fuel_temperature:
+        A float defining the temperature of fuel, units in Kelvin.
+
+        *Required*
+
+    .. _burnup_points:
+
+    :burnup_points:
+        An array of float representing the burnup points used by depletion 
+        calculation, units in GWd/tU, only required when depletion simulated.
+
+    .. _power_density:
+
+    :power_density:
+        A float defining the power density used by depletion calculation, 
+        units in w/g, only required when depletion simulated.
+
+
+.. _spectrum_corrector:
+
+-----------------------------
+``spectrum_corrector`` object
+-----------------------------
+
+``spectrum_corrector`` defines parameters to perform neutron spectrum correction,
+which is a typical technique applied in single-assembly calculation. If 
+``spectrum_corrector`` not defined, neutron spectrum correction will not be performed.
+``spectrum_corrector`` has following properties:
+
+    :method:
+        A choice of ["B1", "P1"], which method to use by neutron spectrum correction.
+
+        *Default*: "P1"
+    
+    :target_keff:
+        A float defining the target k-effective, if ``target_keff`` defined, 
+        k-effective search will be perform.
+        
+        *Default*: 1.0
+
+    :target_buckling:
+        A float defining the target buckling, if ``target_buckling`` defined,
+        buckling search will be performed.
+
+        *Default*: 0.0
+
+        .. note:: If neither ``target_keff`` nor ``target_keff`` defined, neutron 
+                  spectrum correction will not be performed.
+
+
+.. _case_matrix:
+
+----------------------
+``case_matrix`` object
+----------------------
+
+``case_matrix`` defines parameters to perform case matrix calculation, such as restart
+calculations and historical branch calculations. If ``case_matrix`` not defined, case
+matrix calculation will not be performed. ``case_matrix`` has following properties:
+
+    :restart_burnup_points:
+        An array of float representing which burnup points will be choosed by restart 
+        calcualtion, units in GWd/tU, should be a subset of :ref:`burnup points<burnup_points>`.
+
+        *Required*
+    
+    :restart_moderator_temperatures:
+        An array of float representing at which moderator temperatures restart calculation
+        will be performed, units in Kelvin.
+        
+    :restart_fuel_temperatures:
+        An array of float representing at which fuel temperatures restart calculation
+        will be performed, units in Kelvin.
+
+    :restart_boron_concentrations:
+        An array of float representing at which boron concentrations restart calculation
+        will be performed, units in ppm.
+
+    :historical_moderator_temperatures:
+        An array of float representing at which moderator temperatures historical branch 
+        calculation will be performed, units in Kelvin.
+    
+    :historical_fuel_temperatures:
+        An array of float representing at which fuel temperatures historical branch 
+        calculation will be performed, units in Kelvin.
+        
+    :historical_boron_concentrations:
+        An array of float representing at which boron concentrations historical branch 
+        calculation will be performed, units in ppm.
+
+    :shutdown_cooling_days:
+        An array of float representing shutdown cooling days that restart calculation
+        will simulates, units in day.
+    
+    :control_rod_in_structure_maps:
+        An array of :ref:`cell_map_replaced` representing at which control-rod-in pattern
+        restart calcualtion will be performed.
+
+    :grid_structure_maps:
+        An array of :ref:`cell_map_replaced` representing at which grid-in pattern
+        historical branch calcualtion will be performed.
+
+
+.. _cell_map_replaced:
+
+----------------------------
+``cell_map_replaced`` object
+----------------------------
+
+``cell_map_replaced`` used to replace the cell map of assembly to perform control-rod-in 
+restart calcualtion or grid-in historical branch calculation, it has following properties:
+
+    :name:
+        A unique string name to identify the replacement.
+
+        *Required*
+
+    :cell_map:
+        A :ref:`cell map<cell_map>`, the cell loading pattern after replaced.
+        
+        *Required*
+

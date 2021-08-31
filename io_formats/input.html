@@ -1,0 +1,1034 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>3. Input Model File &mdash; ROBIN3 0.1.0-dev documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+    <link rel="canonical" href="/robin3/io_formats/input.html" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4. Results Output File" href="output.html" />
+    <link rel="prev" title="2. Material Databank File" href="materialdb.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ROBIN3
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Install Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releasenotes/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usersguide/index.html">User’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../methods/index.html">Theory and Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pythonapi/index.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../command.html">Run in Command Line</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">File Format Specifications</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#robin3-files">ROBIN3 Files</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="nuclearlib.html">1. Nuclear Data Library File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="materialdb.html">2. Material Databank File</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">3. Input Model File</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cross-sections-array">3.1. <code class="docutils literal notranslate"><span class="pre">cross_sections</span></code> array</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cross-section-object">3.2. <code class="docutils literal notranslate"><span class="pre">cross_section</span></code> object</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#materials-array">3.3. <code class="docutils literal notranslate"><span class="pre">materials</span></code> array</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#material-object">3.4. <code class="docutils literal notranslate"><span class="pre">material</span></code> object</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#structures-array">3.5. <code class="docutils literal notranslate"><span class="pre">structures</span></code> array</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#structure-object">3.6. <code class="docutils literal notranslate"><span class="pre">structure</span></code> object</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#meshing-object">3.7. <code class="docutils literal notranslate"><span class="pre">meshing</span></code> object</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#primitive-object">3.8. <code class="docutils literal notranslate"><span class="pre">primitive</span></code> object</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#region-object">3.9. <code class="docutils literal notranslate"><span class="pre">region</span></code> object</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#point-object">3.10. <code class="docutils literal notranslate"><span class="pre">point</span></code> object</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#assemblies-array">3.11. <code class="docutils literal notranslate"><span class="pre">assemblies</span></code> array</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#assembly-object">3.12. <code class="docutils literal notranslate"><span class="pre">assembly</span></code> object</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#structure-location-object">3.13. <code class="docutils literal notranslate"><span class="pre">structure_location</span></code> object</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#core-object">3.14. <code class="docutils literal notranslate"><span class="pre">core</span></code> object</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#reflector-object">3.15. <code class="docutils literal notranslate"><span class="pre">reflector</span></code> object</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#baffle-object">3.16. <code class="docutils literal notranslate"><span class="pre">baffle</span></code> object</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#moc-control-parameters-object">3.17. <code class="docutils literal notranslate"><span class="pre">moc_control_parameters</span></code> object</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#quadratures-array">3.18. <code class="docutils literal notranslate"><span class="pre">quadratures</span></code> array</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#quadrature-object">3.19. <code class="docutils literal notranslate"><span class="pre">quadrature</span></code> object</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#state-points-object">3.20. <code class="docutils literal notranslate"><span class="pre">state_points</span></code> object</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spectrum-corrector-object">3.21. <code class="docutils literal notranslate"><span class="pre">spectrum_corrector</span></code> object</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#case-matrix-object">3.22. <code class="docutils literal notranslate"><span class="pre">case_matrix</span></code> object</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cell-map-replaced-object">3.23. <code class="docutils literal notranslate"><span class="pre">cell_map_replaced</span></code> object</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="output.html">4. Results Output File</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#openmc-compatibility-module-files">OpenMC Compatibility Module Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License Agreement</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ROBIN3</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">File Format Specifications</a> &raquo;</li>
+        
+      <li><span class="section-number">3. </span>Input Model File</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/io_formats/input.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="input-model-file">
+<span id="io-file-formats-input"></span><h1><span class="section-number">3. </span>Input Model File<a class="headerlink" href="#input-model-file" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="cross-sections-array">
+<span id="cross-sections"></span><h2><span class="section-number">3.1. </span><code class="docutils literal notranslate"><span class="pre">cross_sections</span></code> array<a class="headerlink" href="#cross-sections-array" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">cross_sections</span></code> is an array of <a class="reference internal" href="#cross-section"><span class="std std-ref">cross_section object</span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Array <code class="docutils literal notranslate"><span class="pre">cross_sections</span></code> only used for macro cross section input models, such as
+C5G7 benchmark problems. If you want to build model from material compositionsm,
+use array <code class="docutils literal notranslate"><span class="pre">materials</span></code> instead.</p>
+</div>
+</div>
+<div class="section" id="cross-section-object">
+<span id="cross-section"></span><h2><span class="section-number">3.2. </span><code class="docutils literal notranslate"><span class="pre">cross_section</span></code> object<a class="headerlink" href="#cross-section-object" title="Permalink to this headline">¶</a></h2>
+<p>Each <code class="docutils literal notranslate"><span class="pre">cross_section</span></code> represent one kind of material, and it defines the macro cross
+sections of this kind of material, <code class="docutils literal notranslate"><span class="pre">cross_section</span></code> has following properties:</p>
+<blockquote>
+<div><dl class="field-list">
+<dt class="field-odd">name</dt>
+<dd class="field-odd"><p>A unique string name to identify the cross_section.</p>
+<p><em>Required</em></p>
+</dd>
+<dt class="field-even">sigma_tr</dt>
+<dd class="field-even"><p>An array of float representing the transport cross sections in energy
+groups, units in /cm.</p>
+<p><em>Required</em></p>
+</dd>
+<dt class="field-odd">sigma_f</dt>
+<dd class="field-odd"><p>An array of float representing the fission cross sections in energy
+groups, units in /cm.</p>
+<p><em>Required</em></p>
+</dd>
+<dt class="field-even">nu_sigma_f</dt>
+<dd class="field-even"><p>An array of float representing the fission neutron product cross
+sections in energy groups, units in /cm.</p>
+<p><em>Required</em></p>
+</dd>
+<dt class="field-odd">kappa_sigma_f</dt>
+<dd class="field-odd"><p>An array of float representing the fission energy product cross
+sections in energy groups, units in /cm.</p>
+<p><em>Required</em></p>
+</dd>
+<dt class="field-even">sigma_s</dt>
+<dd class="field-even"><p>An array of float representing the scattering cross sections in energy
+groups, scatter from group ordered first, units in /cm.</p>
+<p><em>Required</em></p>
+</dd>
+<dt class="field-odd">chi</dt>
+<dd class="field-odd"><p>An array of float representing the fission spectrum in energy groups.</p>
+<p><em>Required</em></p>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="materials-array">
+<span id="materials"></span><h2><span class="section-number">3.3. </span><code class="docutils literal notranslate"><span class="pre">materials</span></code> array<a class="headerlink" href="#materials-array" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">materials</span></code> is an array of <a class="reference internal" href="#material"><span class="std std-ref">material object</span></a>.</p>
+</div>
+<div class="section" id="material-object">
+<span id="material"></span><h2><span class="section-number">3.4. </span><code class="docutils literal notranslate"><span class="pre">material</span></code> object<a class="headerlink" href="#material-object" title="Permalink to this headline">¶</a></h2>
+<p>Each <code class="docutils literal notranslate"><span class="pre">material</span></code> represents a kind of material compositions, and has following
+properties:</p>
+<blockquote>
+<div><dl class="field-list" id="material-name">
+<dt class="field-odd">name</dt>
+<dd class="field-odd"><p>A unique string name to identify the material.</p>
+<p><em>Required</em></p>
+</dd>
+<dt class="field-even">temperature</dt>
+<dd class="field-even"><p>A float, temperature of this material, units in Kelvin.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If temperature not defined, the temperature of this material will be
+obtained by <a class="reference internal" href="#moderator-temperature"><span class="std std-ref">moderator temperature</span></a> or
+<a class="reference internal" href="#fuel-temperature"><span class="std std-ref">fuel temperature</span></a>.</p>
+</div>
+</dd>
+</dl>
+<dl class="field-list" id="material-elements">
+<dt class="field-odd">elements</dt>
+<dd class="field-odd"><p>An array of string names of elements which compose this material, here names should
+be <a class="reference internal" href="#material-name"><span class="std std-ref">material name</span></a> pre-defined in <a class="reference internal" href="materialdb.html#io-file-formats-materialdb"><span class="std std-ref">Material Databank File</span></a>
+excepts:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>“MOD”, which is a built-in material, can be directly used as moderater material
+whose number density is calculated by specifying
+<a class="reference internal" href="#system-pressure"><span class="std std-ref">system pressure</span></a>,
+<a class="reference internal" href="#moderator-temperature"><span class="std std-ref">moderator temperature</span></a> and
+<a class="reference internal" href="#boron-concentration"><span class="std std-ref">boron concentration</span></a>
+in <a class="reference internal" href="#state-points"><span class="std std-ref">state points</span></a>;</p></li>
+<li><p>Enriched “UO2” can be defined using “UO2_enrichment” conveniently.
+For example, “UO2_3.2” means material UO2 with 3.2 enrichment.</p></li>
+<li><p>If the material is ‘homogenized’, which means composing elements by
+<a class="reference internal" href="#material-volume-percents"><span class="std std-ref">volume_percents</span></a>, in that case elements
+should be materials that you have defined by weight percents or “MOD”,
+not pre-defined materials in <a class="reference internal" href="materialdb.html#io-file-formats-materialdb"><span class="std std-ref">Material Databank File</span></a>.</p></li>
+</ol>
+</div></blockquote>
+<p><em>Required</em></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>ROBIN3 support 3 kinds of fraction types to compose elements:
+<a class="reference internal" href="#material-number-densities"><span class="std std-ref">number_densities</span></a>,
+<a class="reference internal" href="#material-weight-percents"><span class="std std-ref">weight_percents</span></a> and
+<a class="reference internal" href="#material-volume-percents"><span class="std std-ref">volume_percents</span></a>, at least one of these
+fraction types is required.</p>
+</div>
+</dd>
+</dl>
+<dl class="field-list simple" id="material-number-densities">
+<dt class="field-odd">number_densities</dt>
+<dd class="field-odd"><p>An array of float representing the nuclide number densities of each element defined by
+<a class="reference internal" href="#material-elements"><span class="std std-ref">elements</span></a>, units in /barn-cm.</p>
+</dd>
+</dl>
+<dl class="field-list" id="material-weight-percents">
+<dt class="field-odd">weight_percents</dt>
+<dd class="field-odd"><p>An array of float representing the weight percents of each element defined by
+<a class="reference internal" href="#material-elements"><span class="std std-ref">elements</span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Sum of weight_percents should be range in 0.999~1.0, the rest that less
+than 1.0 will be treated as impurity.</p>
+</div>
+</dd>
+</dl>
+<dl class="field-list simple" id="material-density">
+<dt class="field-odd">density</dt>
+<dd class="field-odd"><p>A float, density of this material, units in g/cm^3, only required when the material is
+is composed by <a class="reference internal" href="#material-weight-percents"><span class="std std-ref">weight_percents</span></a>.</p>
+</dd>
+</dl>
+<dl class="field-list" id="material-volume-percents">
+<dt class="field-odd">volume_percents</dt>
+<dd class="field-odd"><p>An array of float representing the volume percents of each element defined by
+<a class="reference internal" href="#material-elements"><span class="std std-ref">elements</span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Sum of volume_percents should be equal to 1.0.</p>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="structures-array">
+<span id="structures"></span><h2><span class="section-number">3.5. </span><code class="docutils literal notranslate"><span class="pre">structures</span></code> array<a class="headerlink" href="#structures-array" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">structures</span></code> is an array of <a class="reference internal" href="#structure"><span class="std std-ref">structure object</span></a>.</p>
+</div>
+<div class="section" id="structure-object">
+<span id="structure"></span><h2><span class="section-number">3.6. </span><code class="docutils literal notranslate"><span class="pre">structure</span></code> object<a class="headerlink" href="#structure-object" title="Permalink to this headline">¶</a></h2>
+<p>Each <code class="docutils literal notranslate"><span class="pre">structure</span></code> defines a geometry object with materials, <code class="docutils literal notranslate"><span class="pre">structure</span></code> has following
+properties:</p>
+<blockquote>
+<div><dl class="field-list" id="structure-name">
+<dt class="field-odd">name</dt>
+<dd class="field-odd"><p>A unique string name to identify the structure.</p>
+<p><em>Required</em></p>
+</dd>
+<dt class="field-even">meshing</dt>
+<dd class="field-even"><p>An <a class="reference internal" href="#meshing"><span class="std std-ref">meshing object</span></a> used to define the flat source region meshing.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>a default <a class="reference internal" href="#meshing"><span class="std std-ref">meshing object</span></a> with 8 (for square assembly) or 6 (for hexagonal assembly)
+azimuths divisions and 3 annulars in the first circle will be used for ‘pin’
+structure.</p>
+</div>
+</dd>
+<dt class="field-odd">primitives</dt>
+<dd class="field-odd"><p>An array of <a class="reference internal" href="#primitive"><span class="std std-ref">primitive object</span></a> used to define geometrical boundaries of materials.</p>
+<p><em>Required</em></p>
+</dd>
+<dt class="field-even">regions</dt>
+<dd class="field-even"><p>An array of <a class="reference internal" href="#region"><span class="std std-ref">region object</span></a> used to define material region.</p>
+<p><em>Required</em></p>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="meshing-object">
+<span id="meshing"></span><h2><span class="section-number">3.7. </span><code class="docutils literal notranslate"><span class="pre">meshing</span></code> object<a class="headerlink" href="#meshing-object" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">meshing</span></code> gives the flat source region meshing info, it has following properties:</p>
+<blockquote>
+<div><dl class="field-list">
+<dt class="field-odd">type</dt>
+<dd class="field-odd"><p>A choice of [“SECTORS”, “RECTANGLES”], which type of this meshing is.</p>
+<p><em>Required</em></p>
+</dd>
+<dt class="field-even">center</dt>
+<dd class="field-even"><p>A <a class="reference internal" href="#point"><span class="std std-ref">point object</span></a>, the center of the “SECTORS” meshing, only required when
+<code class="docutils literal notranslate"><span class="pre">type</span></code> is “SECTORS”.</p>
+<p><em>Default</em>: {“x”: 0.0, “y”: 0.0}</p>
+</dd>
+<dt class="field-odd">num_azimuths</dt>
+<dd class="field-odd"><p>An integer defining the number of azimuths division of the “SECTORS” meshing, only
+required when <code class="docutils literal notranslate"><span class="pre">type</span></code> is “SECTORS”.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">num_azimuths</span></code> should be a multiple of 2, and not less than 4.</p>
+</div>
+</dd>
+<dt class="field-even">radii</dt>
+<dd class="field-even"><p>An array of float defining radii of the “SECTORS” meshing, only required when <code class="docutils literal notranslate"><span class="pre">type</span></code>
+is “SECTORS”, units in cm. If not addtional radii needed, <code class="docutils literal notranslate"><span class="pre">radii</span></code> can be an empty
+array.</p>
+</dd>
+<dt class="field-odd">num_divisions_x</dt>
+<dd class="field-odd"><p>An integer defining the number of even divisions in x-direction of “RECTANGLES” meshing,
+only required when <code class="docutils literal notranslate"><span class="pre">type</span></code> is “RECTANGLES”.</p>
+</dd>
+<dt class="field-even">num_divisions_y</dt>
+<dd class="field-even"><p>An integer defining the number of even divisions in y-direction of “RECTANGLES” meshing,
+only required when <code class="docutils literal notranslate"><span class="pre">type</span></code> is “RECTANGLES”.</p>
+</dd>
+<dt class="field-odd">xmin</dt>
+<dd class="field-odd"><p>An float defining the minimum x coordinate of “RECTANGLES” meshing, units in cm, only
+required when <code class="docutils literal notranslate"><span class="pre">type</span></code> is “RECTANGLES”.</p>
+</dd>
+<dt class="field-even">xmax</dt>
+<dd class="field-even"><p>An float defining the maximum x coordinate of “RECTANGLES” meshing, units in cm, only
+required when <code class="docutils literal notranslate"><span class="pre">type</span></code> is “RECTANGLES”.</p>
+</dd>
+<dt class="field-odd">ymin</dt>
+<dd class="field-odd"><p>An float defining the minimum y coordinate of “RECTANGLES” meshing, units in cm, only
+required when <code class="docutils literal notranslate"><span class="pre">type</span></code> is “RECTANGLES”.</p>
+</dd>
+<dt class="field-even">ymax</dt>
+<dd class="field-even"><p>An float defining the maximum y coordinate of “RECTANGLES” meshing, units in cm, only
+required when <code class="docutils literal notranslate"><span class="pre">type</span></code> is “RECTANGLES”.</p>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="primitive-object">
+<span id="primitive"></span><h2><span class="section-number">3.8. </span><code class="docutils literal notranslate"><span class="pre">primitive</span></code> object<a class="headerlink" href="#primitive-object" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">primitive</span></code> here is a type of geometry primitive, such as cycle or polygon, ROBIN3 offers 4
+kinds of primitives: they are cycle, ellipse, polygon and sector. <code class="docutils literal notranslate"><span class="pre">primitive</span></code> has following
+properties:</p>
+<blockquote>
+<div><dl class="field-list">
+<dt class="field-odd">type</dt>
+<dd class="field-odd"><p>A choice of [“CIRCLE”, “ELLIPSE”, “POLYGON”, “SECTOR”], which type this primitive is.</p>
+<p><em>Required</em></p>
+</dd>
+<dt class="field-even">center</dt>
+<dd class="field-even"><p>A <a class="reference internal" href="#point"><span class="std std-ref">point object</span></a>, the center of the primitive, only required when <code class="docutils literal notranslate"><span class="pre">type</span></code> is
+“CIRCLE” or “SECTOR”.</p>
+<p><em>Default</em>: {“x”: 0.0, “y”: 0.0}</p>
+</dd>
+<dt class="field-odd">radius</dt>
+<dd class="field-odd"><p>A float defining the radius of circle primitive, units in cm, only required when <code class="docutils literal notranslate"><span class="pre">type</span></code>
+is “CIRCLE”.</p>
+</dd>
+<dt class="field-even">vertexes</dt>
+<dd class="field-even"><p>An array of <a class="reference internal" href="#point"><span class="std std-ref">point object</span></a>, representing the vertexes of polygon primitive, only required when
+<code class="docutils literal notranslate"><span class="pre">type</span></code> is “POLYGON”.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The order of <a class="reference internal" href="#point"><span class="std std-ref">point object</span></a> in <code class="docutils literal notranslate"><span class="pre">vertexes</span></code> is inessential.</p>
+</div>
+</dd>
+<dt class="field-odd">radius_inner</dt>
+<dd class="field-odd"><p>A float defining the inner radius of sector primitive, units in cm, only required when
+<code class="docutils literal notranslate"><span class="pre">type</span></code> is “SECTOR”.</p>
+</dd>
+<dt class="field-even">radius_outer</dt>
+<dd class="field-even"><p>A float defining the outer radius of sector primitive, units in cm, only required when
+<code class="docutils literal notranslate"><span class="pre">type</span></code> is “SECTOR”.</p>
+</dd>
+<dt class="field-odd">span</dt>
+<dd class="field-odd"><p>A float defining the span of sector primitive, units in degree, only required when
+<code class="docutils literal notranslate"><span class="pre">type</span></code> is “SECTOR”.</p>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="region-object">
+<span id="region"></span><h2><span class="section-number">3.9. </span><code class="docutils literal notranslate"><span class="pre">region</span></code> object<a class="headerlink" href="#region-object" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">region</span></code> here refer to a material region, it has following properties:</p>
+<blockquote>
+<div><dl class="field-list">
+<dt class="field-odd">material</dt>
+<dd class="field-odd"><p>The material of this region, an unique string name defined in <a class="reference internal" href="#material"><span class="std std-ref">material object</span></a> of
+<a class="reference internal" href="#materials"><span class="std std-ref">materials array</span></a>.</p>
+<p><em>Required</em></p>
+</dd>
+<dt class="field-even">space</dt>
+<dd class="field-even"><p>A string used to define the region space, ROBIN3 supports following boolean operation:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 69%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Symbol</p></th>
+<th class="head"><p>operation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>&amp;</p></td>
+<td><p>intersection</p></td>
+</tr>
+<tr class="row-odd"><td><p>|</p></td>
+<td><p>union</p></td>
+</tr>
+<tr class="row-even"><td><p>-</p></td>
+<td><p>difference</p></td>
+</tr>
+<tr class="row-odd"><td><p>^</p></td>
+<td><p>symmetric difference</p></td>
+</tr>
+</tbody>
+</table>
+<p>With these boolean operators, space “1&amp;2” means primitive 1 intersects with
+primitive 2, space “4|(3-2)” means primitive 4 unions the space of primitive 3
+differences primitive 2, note brackets are also supported.</p>
+<p><em>Required</em></p>
+</dd>
+<dt class="field-odd">tag</dt>
+<dd class="field-odd"><p>A string used to tag this region, specific neutron fluxes data will be editting for
+tagged regions.</p>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="point-object">
+<span id="point"></span><h2><span class="section-number">3.10. </span><code class="docutils literal notranslate"><span class="pre">point</span></code> object<a class="headerlink" href="#point-object" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">point</span></code> here refer to a point in 2D geometry, it has following properties:</p>
+<blockquote>
+<div><dl class="field-list">
+<dt class="field-odd">x</dt>
+<dd class="field-odd"><p>A float defining x coordinate of this point.</p>
+<p><em>Required</em></p>
+</dd>
+<dt class="field-even">y</dt>
+<dd class="field-even"><p>A float defining y coordinate of this point.</p>
+<p><em>Required</em></p>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="assemblies-array">
+<span id="assemblies"></span><h2><span class="section-number">3.11. </span><code class="docutils literal notranslate"><span class="pre">assemblies</span></code> array<a class="headerlink" href="#assemblies-array" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">assemblies</span></code> is an array of <a class="reference internal" href="#assembly"><span class="std std-ref">assembly object</span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference internal" href="#assembly"><span class="std std-ref">assembly object</span></a> defined in <code class="docutils literal notranslate"><span class="pre">assemblies</span></code> should have the same
+<a class="reference internal" href="#assembly-type"><span class="std std-ref">assembly type</span></a>.</p>
+</div>
+</div>
+<div class="section" id="assembly-object">
+<span id="assembly"></span><h2><span class="section-number">3.12. </span><code class="docutils literal notranslate"><span class="pre">assembly</span></code> object<a class="headerlink" href="#assembly-object" title="Permalink to this headline">¶</a></h2>
+<p>Each <code class="docutils literal notranslate"><span class="pre">assembly</span></code> represents a specific kind of assembly which will be used to generate
+modular assembly tracks. <code class="docutils literal notranslate"><span class="pre">assembly</span></code> has following properties:</p>
+<blockquote>
+<div><dl class="field-list" id="assembly-name">
+<dt class="field-odd">name</dt>
+<dd class="field-odd"><p>A unique string name to identify the assembly.</p>
+<p><em>Required</em></p>
+</dd>
+</dl>
+<dl class="field-list" id="assembly-type">
+<dt class="field-odd">type</dt>
+<dd class="field-odd"><p>A choice of [“SQUARE”, “HEXAGON”], the geometry type of the assembly.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The geometry type is used to generate cells, ‘SQUARE’ assembly is composed
+by square cells and ‘HEXAGON’ assembly is composed by hexagonal cells.</p>
+</div>
+<p><em>Required</em></p>
+</dd>
+</dl>
+<dl class="field-list" id="assembly-pitch">
+<dt class="field-odd">pitch</dt>
+<dd class="field-odd"><p>A float defining the pitch of the assembly, units in cm.</p>
+<p><em>Required</em></p>
+</dd>
+<dt class="field-even">cell_pitch</dt>
+<dd class="field-even"><p>A float defining the pitch of cells in the assembly, units in cm.</p>
+<p><em>Required</em></p>
+</dd>
+</dl>
+<dl class="field-list" id="cell-map">
+<dt class="field-odd">cell_map</dt>
+<dd class="field-odd"><p>An array of <a class="reference internal" href="#structure-name"><span class="std std-ref">structure name</span></a>, used to locate structures,
+with cell_map, same structure can be duplicated and located in ‘cell centers’
+conveniently.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference internal" href="#cell-map"><span class="std std-ref">cell map</span></a> offers user a convenient way to compose assembly with
+duplicated structures when the structures are regularly placed in cells. If
+there are irregularly located structures, use
+<a class="reference internal" href="#structure-locations"><span class="std std-ref">structure locations</span></a> as a supplement.</p>
+</div>
+</dd>
+</dl>
+<dl class="field-list" id="structure-locations">
+<dt class="field-odd">structure_locations</dt>
+<dd class="field-odd"><p>An array of <a class="reference internal" href="#structure-location"><span class="std std-ref">structure location</span></a>, used to locate structures,
+with structure_location, same structure can be duplicated and located in any place.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>At least one of <a class="reference internal" href="#cell-map"><span class="std std-ref">cell map</span></a> and
+<a class="reference internal" href="#structure-locations"><span class="std std-ref">structure locations</span></a> is required.</p>
+</div>
+</dd>
+<dt class="field-even">symmetry</dt>
+<dd class="field-even"><p>An integer representing the symmetry of the assembly, should be a choice of
+[1, 2, 4, 8] when <code class="docutils literal notranslate"><span class="pre">type</span></code> is “SQUARE”, and [1, 6, 12] when <code class="docutils literal notranslate"><span class="pre">type</span></code> is “HEXAGON”
+or “CYLINDER”.</p>
+<p><em>Default</em>: 1</p>
+</dd>
+<dt class="field-odd">boundary_condition</dt>
+<dd class="field-odd"><p>A choice of [“VACUUM”, “REFLECTIVE”, “PERIODIC_VACUUM”, “PERIODIC_REFLECTIVE”],
+defining the boundary condition of the assembly.</p>
+<p><em>Default</em>: “REFLECTIVE”</p>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="structure-location-object">
+<span id="structure-location"></span><h2><span class="section-number">3.13. </span><code class="docutils literal notranslate"><span class="pre">structure_location</span></code> object<a class="headerlink" href="#structure-location-object" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">structure_location</span></code> used to locate structures in assembly, it has following properties:</p>
+<blockquote>
+<div><dl class="field-list">
+<dt class="field-odd">structure</dt>
+<dd class="field-odd"><p>The <a class="reference internal" href="#structure-name"><span class="std std-ref">name</span></a> of the structure.</p>
+<p><em>Required</em></p>
+</dd>
+<dt class="field-even">location</dt>
+<dd class="field-even"><p>An <a class="reference internal" href="#point"><span class="std std-ref">point object</span></a>, representing the location of the structure.</p>
+<p><em>Required</em></p>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="core-object">
+<span id="core"></span><h2><span class="section-number">3.14. </span><code class="docutils literal notranslate"><span class="pre">core</span></code> object<a class="headerlink" href="#core-object" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">core</span></code> used to define a reactor core in 2D geometry, it has following properties:</p>
+<blockquote>
+<div><dl class="field-list">
+<dt class="field-odd">name</dt>
+<dd class="field-odd"><p>A unique string name to identify the core.</p>
+<p><em>Required</em></p>
+</dd>
+<dt class="field-even">type</dt>
+<dd class="field-even"><p>A choice of [“SQUARE”, “HEXAGON”], the geometry type of the core.</p>
+<p><em>Required</em></p>
+</dd>
+<dt class="field-odd">symmetry</dt>
+<dd class="field-odd"><p>An integer representing the symmetry of the core, should be a choice of
+[1, 4, 8] when <code class="docutils literal notranslate"><span class="pre">type</span></code> is “SQUARE”, and [1, 6, 12] when <code class="docutils literal notranslate"><span class="pre">type</span></code> is “HEXAGON”.</p>
+<p><em>Default</em>: 1</p>
+</dd>
+<dt class="field-even">is_periodic</dt>
+<dd class="field-even"><p>A boolean, whether the core is periodic.</p>
+<p><em>Default</em>: fasle</p>
+</dd>
+<dt class="field-odd">outer_albedo</dt>
+<dd class="field-odd"><p>A float range in [0.0, 1.0], representing the outer albedo of the core.</p>
+<p><em>Default</em>: 0.0</p>
+</dd>
+<dt class="field-even">assembly_map</dt>
+<dd class="field-even"><p>An array of <a class="reference internal" href="#assembly-name"><span class="std std-ref">assembly name</span></a>, representing the loading pattern
+of the core.</p>
+<p><em>Required</em></p>
+</dd>
+<dt class="field-odd">tmo_map</dt>
+<dd class="field-odd"><p>An array of float representing the temperature of moderator of each assembly
+in the core.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">tmo_map</span></code> not defined, <a class="reference internal" href="#moderator-temperature"><span class="std std-ref">moderator temperature</span></a>
+will be used for each assembly.</p>
+</div>
+</dd>
+<dt class="field-even">reflector</dt>
+<dd class="field-even"><p>A <a class="reference internal" href="#reflector"><span class="std std-ref">reflector object</span></a> object used to define the reflector of the core.</p>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="reflector-object">
+<span id="reflector"></span><h2><span class="section-number">3.15. </span><code class="docutils literal notranslate"><span class="pre">reflector</span></code> object<a class="headerlink" href="#reflector-object" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">reflector</span></code> used to define reflector geometry, it has following properties:</p>
+<blockquote>
+<div><dl class="field-list">
+<dt class="field-odd">baffles</dt>
+<dd class="field-odd"><p>An array of <a class="reference internal" href="#baffle"><span class="std std-ref">baffle object</span></a> used to define geometry of baffles in the reflector.</p>
+</dd>
+<dt class="field-even">primitives</dt>
+<dd class="field-even"><p>An array of <a class="reference internal" href="#primitive"><span class="std std-ref">primitive object</span></a> used to define geometrical boundaries of materials in
+the reflector.</p>
+<p><em>Required</em></p>
+</dd>
+<dt class="field-odd">regions</dt>
+<dd class="field-odd"><p>An array of <a class="reference internal" href="#region"><span class="std std-ref">region object</span></a> used to define material region in the reflector.</p>
+<p><em>Required</em></p>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="baffle-object">
+<span id="baffle"></span><h2><span class="section-number">3.16. </span><code class="docutils literal notranslate"><span class="pre">baffle</span></code> object<a class="headerlink" href="#baffle-object" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">baffle</span></code> used to define baffle geometry, it has following properties:</p>
+<blockquote>
+<div><dl class="field-list">
+<dt class="field-odd">thickness</dt>
+<dd class="field-odd"><p>A float defining the thickness of this baffle.</p>
+<p><em>Required</em></p>
+</dd>
+<dt class="field-even">material</dt>
+<dd class="field-even"><p>Material of this baffle, an unique string name defined in <a class="reference internal" href="#material"><span class="std std-ref">material object</span></a> of
+<a class="reference internal" href="#materials"><span class="std std-ref">materials array</span></a>.</p>
+<p><em>Required</em></p>
+</dd>
+<dt class="field-odd">tag</dt>
+<dd class="field-odd"><p>A string used to tag this baffle region, specific neutron fluxes data will be editting
+for tagged regions.</p>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="moc-control-parameters-object">
+<span id="moc-control-parameters"></span><h2><span class="section-number">3.17. </span><code class="docutils literal notranslate"><span class="pre">moc_control_parameters</span></code> object<a class="headerlink" href="#moc-control-parameters-object" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">moc_control_parameters</span></code> used to define control parameter of MOC transport calculation,
+it has following properties:</p>
+<blockquote>
+<div><dl class="field-list">
+<dt class="field-odd">max_num_inner_iterations</dt>
+<dd class="field-odd"><p>An integer defining the maximum number of inner iteration of MOC transport
+calculation.</p>
+<p><em>Default</em>: 1</p>
+</dd>
+<dt class="field-even">max_num_outer_iterations</dt>
+<dd class="field-even"><p>An integer defining the maximum number of outer iteration of MOC transport
+calculation.</p>
+<p><em>Default</em>: 1000</p>
+</dd>
+<dt class="field-odd">keff_converge_threshold</dt>
+<dd class="field-odd"><p>A float defining the k-effective converge threshold of MOC transport calculation.</p>
+<p><em>Default</em>: 0.00001</p>
+</dd>
+<dt class="field-even">residual_type</dt>
+<dd class="field-even"><p>A choice of [“SCALAR_FLUX”, “FISSION_SOURCE”], Use which type of distribution to
+compute the residual.</p>
+<p><em>Default</em>: “FISSION_SOURCE”</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">residual</span></code> here will be used to compare with
+the <a class="reference internal" href="#distribution-converge-threshold"><span class="std std-ref">distribution converge threshold</span></a> to
+decide whether the distribution converged.</p>
+</div>
+</dd>
+</dl>
+<dl class="field-list" id="distribution-converge-threshold">
+<dt class="field-odd">distribution_converge_threshold</dt>
+<dd class="field-odd"><p>A float defining the distribution converge threshold of MOC transport calculation.</p>
+<p><em>Default</em>: 0.00001</p>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="quadratures-array">
+<span id="quadratures"></span><h2><span class="section-number">3.18. </span><code class="docutils literal notranslate"><span class="pre">quadratures</span></code> array<a class="headerlink" href="#quadratures-array" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">quadratures</span></code> is an array of <a class="reference internal" href="#quadrature"><span class="std std-ref">quadrature object</span></a>.</p>
+</div>
+<div class="section" id="quadrature-object">
+<span id="quadrature"></span><h2><span class="section-number">3.19. </span><code class="docutils literal notranslate"><span class="pre">quadrature</span></code> object<a class="headerlink" href="#quadrature-object" title="Permalink to this headline">¶</a></h2>
+<p>Each <code class="docutils literal notranslate"><span class="pre">quadrature</span></code> represents a kind of space and angle discretization for MOC transport
+calculation, it has following properties:</p>
+<blockquote>
+<div><dl class="field-list">
+<dt class="field-odd">num_polars</dt>
+<dd class="field-odd"><p>An integer defining the number discrete polar angles in 0~-90 degree.</p>
+<p><em>Default</em>: 2</p>
+</dd>
+<dt class="field-even">num_azimuths</dt>
+<dd class="field-even"><p>An integer defining the number discrete azimuths angles in 0~-90 degree for square
+assembly and 0~-60 degree for hexagonal assembly.</p>
+<p><em>Default</em>: <code class="docutils literal notranslate"><span class="pre">12</span></code> for square assembly, <code class="docutils literal notranslate"><span class="pre">8</span></code> for hexagonal assembly</p>
+</dd>
+<dt class="field-odd">track_density</dt>
+<dd class="field-odd"><p>A float defining the track density used by MOC track generation, units in cm.</p>
+<p><em>Default</em>: 0.05</p>
+</dd>
+<dt class="field-even">type</dt>
+<dd class="field-even"><p>A choice of [“LCMD”, “TYPL”, “DECT”], which type of polar quadrature sets used.</p>
+<p><em>Default</em>: “TYPL”</p>
+</dd>
+<dt class="field-odd">used_by</dt>
+<dd class="field-odd"><p>A choice of [“FAST”, “EPITHERMAL”, “THERMAL”, “ALL”], which type of energy group
+use this quadrature set.</p>
+<p><em>Default</em>: “ALL”</p>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="state-points-object">
+<span id="state-points"></span><h2><span class="section-number">3.20. </span><code class="docutils literal notranslate"><span class="pre">state_points</span></code> object<a class="headerlink" href="#state-points-object" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">state_points</span></code> defining state points info of the reactor core, it has following
+properties:</p>
+<blockquote>
+<div><dl class="field-list" id="system-pressure">
+<dt class="field-odd">system_pressure</dt>
+<dd class="field-odd"><p>A float defining the system pressure of the reactor core, units in MPa.</p>
+<p><em>Required</em></p>
+</dd>
+</dl>
+<dl class="field-list" id="boron-concentration">
+<dt class="field-odd">boron_concentration</dt>
+<dd class="field-odd"><p>A float defining the boron concentration, units in ppm.</p>
+<p><em>Required</em></p>
+</dd>
+</dl>
+<dl class="field-list" id="moderator-temperature">
+<dt class="field-odd">moderator_temperature</dt>
+<dd class="field-odd"><p>A float defining the temperature of moderator, units in Kelvin.</p>
+<p><em>Required</em></p>
+</dd>
+</dl>
+<dl class="field-list" id="fuel-temperature">
+<dt class="field-odd">fuel_temperature</dt>
+<dd class="field-odd"><p>A float defining the temperature of fuel, units in Kelvin.</p>
+<p><em>Required</em></p>
+</dd>
+</dl>
+<dl class="field-list simple" id="burnup-points">
+<dt class="field-odd">burnup_points</dt>
+<dd class="field-odd"><p>An array of float representing the burnup points used by depletion
+calculation, units in GWd/tU, only required when depletion simulated.</p>
+</dd>
+</dl>
+<dl class="field-list simple" id="power-density">
+<dt class="field-odd">power_density</dt>
+<dd class="field-odd"><p>A float defining the power density used by depletion calculation,
+units in w/g, only required when depletion simulated.</p>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="spectrum-corrector-object">
+<span id="spectrum-corrector"></span><h2><span class="section-number">3.21. </span><code class="docutils literal notranslate"><span class="pre">spectrum_corrector</span></code> object<a class="headerlink" href="#spectrum-corrector-object" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">spectrum_corrector</span></code> defines parameters to perform neutron spectrum correction,
+which is a typical technique applied in single-assembly calculation. If
+<code class="docutils literal notranslate"><span class="pre">spectrum_corrector</span></code> not defined, neutron spectrum correction will not be performed.
+<code class="docutils literal notranslate"><span class="pre">spectrum_corrector</span></code> has following properties:</p>
+<blockquote>
+<div><dl class="field-list">
+<dt class="field-odd">method</dt>
+<dd class="field-odd"><p>A choice of [“B1”, “P1”], which method to use by neutron spectrum correction.</p>
+<p><em>Default</em>: “P1”</p>
+</dd>
+<dt class="field-even">target_keff</dt>
+<dd class="field-even"><p>A float defining the target k-effective, if <code class="docutils literal notranslate"><span class="pre">target_keff</span></code> defined,
+k-effective search will be perform.</p>
+<p><em>Default</em>: 1.0</p>
+</dd>
+<dt class="field-odd">target_buckling</dt>
+<dd class="field-odd"><p>A float defining the target buckling, if <code class="docutils literal notranslate"><span class="pre">target_buckling</span></code> defined,
+buckling search will be performed.</p>
+<p><em>Default</em>: 0.0</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If neither <code class="docutils literal notranslate"><span class="pre">target_keff</span></code> nor <code class="docutils literal notranslate"><span class="pre">target_keff</span></code> defined, neutron
+spectrum correction will not be performed.</p>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="case-matrix-object">
+<span id="case-matrix"></span><h2><span class="section-number">3.22. </span><code class="docutils literal notranslate"><span class="pre">case_matrix</span></code> object<a class="headerlink" href="#case-matrix-object" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">case_matrix</span></code> defines parameters to perform case matrix calculation, such as restart
+calculations and historical branch calculations. If <code class="docutils literal notranslate"><span class="pre">case_matrix</span></code> not defined, case
+matrix calculation will not be performed. <code class="docutils literal notranslate"><span class="pre">case_matrix</span></code> has following properties:</p>
+<blockquote>
+<div><dl class="field-list">
+<dt class="field-odd">restart_burnup_points</dt>
+<dd class="field-odd"><p>An array of float representing which burnup points will be choosed by restart
+calcualtion, units in GWd/tU, should be a subset of <a class="reference internal" href="#burnup-points"><span class="std std-ref">burnup points</span></a>.</p>
+<p><em>Required</em></p>
+</dd>
+<dt class="field-even">restart_moderator_temperatures</dt>
+<dd class="field-even"><p>An array of float representing at which moderator temperatures restart calculation
+will be performed, units in Kelvin.</p>
+</dd>
+<dt class="field-odd">restart_fuel_temperatures</dt>
+<dd class="field-odd"><p>An array of float representing at which fuel temperatures restart calculation
+will be performed, units in Kelvin.</p>
+</dd>
+<dt class="field-even">restart_boron_concentrations</dt>
+<dd class="field-even"><p>An array of float representing at which boron concentrations restart calculation
+will be performed, units in ppm.</p>
+</dd>
+<dt class="field-odd">historical_moderator_temperatures</dt>
+<dd class="field-odd"><p>An array of float representing at which moderator temperatures historical branch
+calculation will be performed, units in Kelvin.</p>
+</dd>
+<dt class="field-even">historical_fuel_temperatures</dt>
+<dd class="field-even"><p>An array of float representing at which fuel temperatures historical branch
+calculation will be performed, units in Kelvin.</p>
+</dd>
+<dt class="field-odd">historical_boron_concentrations</dt>
+<dd class="field-odd"><p>An array of float representing at which boron concentrations historical branch
+calculation will be performed, units in ppm.</p>
+</dd>
+<dt class="field-even">shutdown_cooling_days</dt>
+<dd class="field-even"><p>An array of float representing shutdown cooling days that restart calculation
+will simulates, units in day.</p>
+</dd>
+<dt class="field-odd">control_rod_in_structure_maps</dt>
+<dd class="field-odd"><p>An array of <a class="reference internal" href="#cell-map-replaced"><span class="std std-ref">cell_map_replaced object</span></a> representing at which control-rod-in pattern
+restart calcualtion will be performed.</p>
+</dd>
+<dt class="field-even">grid_structure_maps</dt>
+<dd class="field-even"><p>An array of <a class="reference internal" href="#cell-map-replaced"><span class="std std-ref">cell_map_replaced object</span></a> representing at which grid-in pattern
+historical branch calcualtion will be performed.</p>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="cell-map-replaced-object">
+<span id="cell-map-replaced"></span><h2><span class="section-number">3.23. </span><code class="docutils literal notranslate"><span class="pre">cell_map_replaced</span></code> object<a class="headerlink" href="#cell-map-replaced-object" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">cell_map_replaced</span></code> used to replace the cell map of assembly to perform control-rod-in
+restart calcualtion or grid-in historical branch calculation, it has following properties:</p>
+<blockquote>
+<div><dl class="field-list">
+<dt class="field-odd">name</dt>
+<dd class="field-odd"><p>A unique string name to identify the replacement.</p>
+<p><em>Required</em></p>
+</dd>
+<dt class="field-even">cell_map</dt>
+<dd class="field-even"><p>A <a class="reference internal" href="#cell-map"><span class="std std-ref">cell map</span></a>, the cell loading pattern after replaced.</p>
+<p><em>Required</em></p>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="output.html" class="btn btn-neutral float-right" title="4. Results Output File" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="materialdb.html" class="btn btn-neutral float-left" title="2. Material Databank File" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020-, ShangHai NuStar Nuclear Power Technology Co.Ltd.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+ 
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-30411614-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+</body>
+</html>

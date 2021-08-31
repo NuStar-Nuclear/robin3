@@ -1,0 +1,395 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Install Guide &mdash; ROBIN3 0.1.0-dev documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+    <link rel="canonical" href="/robin3/install.html" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Release Notes" href="releasenotes/index.html" />
+    <link rel="prev" title="Welcome to ROBIN3’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ROBIN3
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Install Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installing-cuda-toolkit">Installing CUDA-Toolkit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installing-robin3-from-source-on-linux">Installing ROBIN3 from Source on Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installing-robin3-on-linux-with-docker">Installing ROBIN3 on Linux with Docker</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="releasenotes/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usersguide/index.html">User’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="methods/index.html">Theory and Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pythonapi/index.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command.html">Run in Command Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io_formats/index.html">File Format Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License Agreement</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ROBIN3</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Install Guide</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/install.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="install-guide">
+<span id="install"></span><h1>Install Guide<a class="headerlink" href="#install-guide" title="Permalink to this headline">¶</a></h1>
+<p>This install guide outlines the basic steps needed to install ROBIN3 on
+your computer.</p>
+<div class="section" id="installing-cuda-toolkit">
+<h2>Installing CUDA-Toolkit<a class="headerlink" href="#installing-cuda-toolkit" title="Permalink to this headline">¶</a></h2>
+<p>ROBIN3 takes advantage of the computing power of GPUs, and it choose the
+<a class="reference external" href="https://developer.nvidia.com/cuda-toolkit">CUDA-toolkit</a> as its development tools,
+so it requires CUDA-Toolkit Installed on the platform.</p>
+<p>You can download CUDA-Toolkit installer at <a class="reference external" href="https://developer.nvidia.com/cuda-downloads">https://developer.nvidia.com/cuda-downloads</a>.
+Typical steps to install CUDA-Toolkit 11.1 on Unbuntu20.04 is as follows:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For performance reason, we strongly recommend you to use Nvidia’s RTX 30 series GPU, which
+required the minimum version of CUDA-toolkit 11.1.</p>
+</div>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
+sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
+wget https://developer.download.nvidia.com/compute/cuda/11.1.0/local_installers/cuda-repo-ubuntu2004-11-1-local_11.1.0-455.23.05-1_amd64.deb
+sudo dpkg -i cuda-repo-ubuntu2004-11-1-local_11.1.0-455.23.05-1_amd64.deb
+sudo apt-key add /var/cuda-repo-ubuntu2004-11-1-local/7fa2af80.pub
+sudo apt-get update
+sudo apt-get -y install cuda
+</pre></div>
+</div>
+</div>
+<div class="section" id="installing-robin3-from-source-on-linux">
+<h2>Installing ROBIN3 from Source on Linux<a class="headerlink" href="#installing-robin3-from-source-on-linux" title="Permalink to this headline">¶</a></h2>
+<p>ROBIN3 use several open C++ projects as its prerequisities:
+<a class="reference external" href="https://github.com/nlohmann/json">nlohmann/json</a>,
+<a class="reference external" href="https://github.com/gabime/spdlog">gabime/spdlog</a> and
+<a class="reference external" href="https://github.com/yse/easy_profiler">yse/easy_profiler</a>.</p>
+<p>Installation of above C++ projects is such like:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/nlohmann/json.git --depth<span class="o">=</span><span class="m">1</span> /some/path/nlohmann <span class="o">&amp;&amp;</span> <span class="se">\</span>
+<span class="nb">cd</span> /some/path/nlohmann <span class="o">&amp;&amp;</span> <span class="se">\</span>
+mkdir build <span class="o">&amp;&amp;</span> <span class="nb">cd</span> build <span class="o">&amp;&amp;</span> <span class="se">\</span>
+cmake .. <span class="o">&amp;&amp;</span> make <span class="o">&amp;&amp;</span> make install
+
+git clone https://github.com/gabime/spdlog.git -n /some/path/spdlog <span class="o">&amp;&amp;</span> <span class="se">\</span>
+<span class="nb">cd</span> /some/path/spdlog <span class="o">&amp;&amp;</span> <span class="se">\</span>
+git checkout 20a1d1c5 <span class="o">&amp;&amp;</span> <span class="se">\</span>
+mkdir build <span class="o">&amp;&amp;</span> <span class="nb">cd</span> build <span class="o">&amp;&amp;</span> <span class="se">\</span>
+cmake .. <span class="o">&amp;&amp;</span> make <span class="o">&amp;&amp;</span> make install
+
+git clone https://github.com/yse/easy_profiler.git --depth<span class="o">=</span><span class="m">1</span> /some/path/easy_profiler <span class="o">&amp;&amp;</span> <span class="se">\</span>
+<span class="nb">cd</span> /some/path/easy_profiler <span class="o">&amp;&amp;</span> <span class="se">\</span>
+mkdir build <span class="o">&amp;&amp;</span> <span class="nb">cd</span> build <span class="o">&amp;&amp;</span> <span class="se">\</span>
+cmake .. <span class="o">&amp;&amp;</span> make <span class="o">&amp;&amp;</span> make install
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In order to compile spdlog successfully using nvcc, here a specific version
+20a1d1c5 is checkout.</p>
+</div>
+<p>After these library installed, we can clone ROBIN3 repository and install it:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git clone http://192.168.1.105/diffusion/24/robin3.git --depth<span class="o">=</span><span class="m">1</span> /some/path/robin3 <span class="o">&amp;&amp;</span> <span class="se">\</span>
+<span class="nb">cd</span> /some/path/robin3 <span class="o">&amp;&amp;</span> <span class="se">\</span>
+pip3 install -e .
+</pre></div>
+</div>
+</div>
+<div class="section" id="installing-robin3-on-linux-with-docker">
+<h2>Installing ROBIN3 on Linux with Docker<a class="headerlink" href="#installing-robin3-on-linux-with-docker" title="Permalink to this headline">¶</a></h2>
+<p>First step, if the current system do not have <a class="reference external" href="https://www.docker.com/">Docker</a> installed, then install <a class="reference external" href="https://www.docker.com/">Docker</a>.
+The install instructions of <a class="reference external" href="https://www.docker.com/">Docker</a> can be found at <a class="reference external" href="https://docs.docker.com/engine/install/">https://docs.docker.com/engine/install/</a>.</p>
+<p>Second step, install <a class="reference external" href="https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/overview.html">The NVIDIA Container Toolkit</a>. <a class="reference external" href="https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/overview.html">The NVIDIA Container Toolkit</a> allows users to
+build and run GPU accelerated containers. The toolkit includes a container runtime library and
+utilities to automatically configure containers to leverage NVIDIA GPUs. It’s installation can be find at
+<a class="reference external" href="https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#install-guide">https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#install-guide</a>.</p>
+<p>Third step, load ROBIN3 <a class="reference external" href="https://docs.docker.com/engine/reference/commandline/images/">Docker image</a> file into the local docker image repository:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>docker load -i robin3_0.3.1.tar
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The ROBIN3 docker image file always named with version, such as robin3_0.3.1.tar.</p>
+</div>
+<p>Now we can type:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>docker images
+</pre></div>
+</div>
+<p>and see there is a docker image named <code class="docutils literal notranslate"><span class="pre">dockerhub.nustar.com/robin3:lastest</span></code> in our local docker repository.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">dockerhub.nustar.com/robin3:lastest</span></code> contains the latest fully functional ROBIN3, other
+specific versions such as <code class="docutils literal notranslate"><span class="pre">dockerhub.nustar.com/robin3:without_CUDA</span></code> compiled ROBIN3 without CUDA,
+and <code class="docutils literal notranslate"><span class="pre">dockerhub.nustar.com/robin3:non-commercial</span></code> is used for non-commercial purpose.</p>
+</div>
+<p>Finally, with docker running, execute the following command in the shell to build and run a ROBIN3
+<a class="reference external" href="https://www.docker.com/resources/what-container">Docker container</a>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>docker run --rm -it --gpus all <span class="se">\</span>
+            --env<span class="o">=</span><span class="s2">&quot;DISPLAY&quot;</span> <span class="se">\</span>
+            --user<span class="o">=</span><span class="k">$(</span>id -u <span class="nv">$USER</span><span class="k">)</span>:<span class="k">$(</span>id -g <span class="nv">$USER</span><span class="k">)</span> <span class="se">\</span>
+            --workdir<span class="o">=</span>/home/<span class="nv">$USER</span> <span class="se">\</span>
+            --volume<span class="o">=</span><span class="nv">$PWD</span>:/home/<span class="nv">$USER</span> <span class="se">\</span>
+            --volume<span class="o">=</span><span class="s2">&quot;/etc/group:/etc/group:ro&quot;</span> <span class="se">\</span>
+            --volume<span class="o">=</span><span class="s2">&quot;/etc/passwd:/etc/passwd:ro&quot;</span> <span class="se">\</span>
+            --volume<span class="o">=</span><span class="s2">&quot;/etc/shadow:/etc/shadow:ro&quot;</span> <span class="se">\</span>
+            --volume<span class="o">=</span><span class="s2">&quot;/etc/sudoers.d:/etc/sudoers.d:ro&quot;</span> <span class="se">\</span>
+            --volume<span class="o">=</span><span class="s2">&quot;/tmp/.X11-unix:/tmp/.X11-unix:rw&quot;</span> <span class="se">\</span>
+            -p <span class="m">10000</span>:8888 <span class="se">\</span>
+            dockerhub.nustar.com/robin3:latest /bin/bash
+</pre></div>
+</div>
+<p>The command will place you in an interactive shell running in a <a class="reference external" href="https://www.docker.com/resources/what-container">Docker container</a> with robin3 installed,
+and will mount your current directory to container’s /home/$USER directory as the workdir.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <a class="reference external" href="https://docs.docker.com/engine/reference/commandline/run/">options</a> of <code class="docutils literal notranslate"><span class="pre">--volume=&quot;/tmp/.X11-unix:/tmp/.X11-unix:rw&quot;</span></code> used to <a class="reference external" href="https://docs.docker.com/storage/volumes/">mounting volumes</a>
+for the X11 unix socket which is required for GUI based plotting in container.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Here <code class="docutils literal notranslate"><span class="pre">-p</span> <span class="pre">10000:8888</span></code> <a class="reference external" href="https://docs.docker.com/engine/reference/commandline/run/">options</a> is used to bind the default port(8888) of jupyter-notebook in container
+to the host’s port 10000, so we can start a jupyter-notebook server in the container, then visit the
+jupyter-notebook via a browser at <a class="reference external" href="http://127.0.0.1:10000">http://127.0.0.1:10000</a> with an token on the host.</p>
+</div>
+<p>In this interactive shell, you can use ROBIN3 by <a class="reference internal" href="command.html#command"><span class="std std-ref">command line</span></a> or <a class="reference internal" href="pythonapi/index.html#pythonapi"><span class="std std-ref">Python API</span></a>. Examples can be
+found at <a class="reference internal" href="examples/index.html#examples"><span class="std std-ref">Examples to use ROBIN3</span></a>.</p>
+<p>Besides, you can run test cases in this interactive shell to make sure that ROBIN3 has been correctly installed and
+works well:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>robin3-test-cases
+robin3-test-gpu-cases
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Runing all the ROBIN3’s test cases may take about 0.5~1 hour depending your hardware, you can run test
+cases that only use GPU as its solver by type <code class="docutils literal notranslate"><span class="pre">robin3-test-gpu-cases</span></code> to save time.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="releasenotes/index.html" class="btn btn-neutral float-right" title="Release Notes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to ROBIN3’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020-, ShangHai NuStar Nuclear Power Technology Co.Ltd.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+ 
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-30411614-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+</body>
+</html>

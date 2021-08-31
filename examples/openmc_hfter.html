@@ -1,0 +1,1107 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Flux Spectrum in 2D-HFTER Full Core &mdash; ROBIN3 0.1.0-dev documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+    <link rel="canonical" href="/robin3/examples/openmc_hfter.html" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Theory and Methodology" href="../methods/index.html" />
+    <link rel="prev" title="Depletion of a Hexagonal Assembly" href="openmc_hex_assemb.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ROBIN3
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Install Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releasenotes/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usersguide/index.html">User’s Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#by-pythonapi">By <span class="xref std std-ref">pythonapi</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#by-command-line">By <span class="xref std std-ref">Command Line</span></a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#openmc-compatibility">OpenMC Compatibility</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="openmc_hex_assemb.html">Depletion of a Hexagonal Assembly</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Flux Spectrum in 2D-HFTER Full Core</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Create-OpenMC-Model">Create OpenMC Model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Processing-the-Outputs">Processing the Outputs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../methods/index.html">Theory and Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pythonapi/index.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../command.html">Run in Command Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../io_formats/index.html">File Format Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License Agreement</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ROBIN3</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Examples</a> &raquo;</li>
+        
+      <li>Flux Spectrum in 2D-HFTER Full Core</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/examples/openmc_hfter.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container,
+div.nbinput.container div.prompt,
+div.nbinput.container div.input_area,
+div.nbinput.container div[class*=highlight],
+div.nbinput.container div[class*=highlight] pre,
+div.nboutput.container,
+div.nboutput.container div.prompt,
+div.nboutput.container div.output_area,
+div.nboutput.container div[class*=highlight],
+div.nboutput.container div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="Flux-Spectrum-in-2D-HFTER-Full-Core">
+<h1>Flux Spectrum in 2D-HFTER Full Core<a class="headerlink" href="#Flux-Spectrum-in-2D-HFTER-Full-Core" title="Permalink to this headline">¶</a></h1>
+<p>OpenMC has no functionality to tally scores in a tagged space. However, ROBIN3’s OpenMC Compatibility Module can generate tallies for all cells converted from tagged region in ROBIN3 model. With post-processing functionality provided by OpenMC Compatibility Module, scores in cells of the same tag are automatically summed.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">openmc</span>
+<span class="kn">import</span> <span class="nn">robin3</span>
+<span class="kn">from</span> <span class="nn">robin3</span> <span class="kn">import</span> <span class="n">openmc_compatible</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="Create-OpenMC-Model">
+<h2>Create OpenMC Model<a class="headerlink" href="#Create-OpenMC-Model" title="Permalink to this headline">¶</a></h2>
+<p>Firstly, load pre-defined model in <a class="reference internal" href="hfter.html"><span class="doc">“Modeling HFTER Full Core” example</span></a>. Suppose that we’ve already export the ROBIN3 into a json file and have result file in current working directory.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">!</span>ls
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+HFTER.h5  hfter.json
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Read model from input file</span>
+<span class="n">robin3_model</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">load_data_from_file</span><span class="p">(</span><span class="s1">&#39;hfter.json&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<p>Add openmc_compatible parameters to model dictionary. In this example, we choose to tally flux in tagged regions.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Add openmc_compatible parameters to model dictionary</span>
+<span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;volume&#39;</span><span class="p">:</span><span class="s1">&#39;robin3&#39;</span><span class="p">,</span> <span class="s1">&#39;nuclide_density&#39;</span><span class="p">:</span><span class="s1">&#39;robin3&#39;</span><span class="p">}</span>
+<span class="n">tallies</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;flux&#39;</span><span class="p">]</span>
+<span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;tallies&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tallies</span>
+<span class="n">robin3_model</span><span class="p">[</span><span class="s1">&#39;openmc_compatible&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parameters</span>
+</pre></div>
+</div>
+</div>
+<p>We’ve set OpenMC to calculate volumes (used to calculate tagged spaces’ total volume and fissionable mass of the whole model to deduce absolute flux). The results of volume calculation will be printed during conversion. Caveat: do not use ROBIN3 to calculate volume if it exists several tagged regions with the same name.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">openmc_model</span> <span class="o">=</span> <span class="n">openmc_compatible</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="n">robin3_model</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+100%|██████████| 344/344 [00:03&lt;00:00, 101.14it/s]
+ =================&gt;             Cells Volume              &lt;=================
+
+        cell id: 540, volume: 78.53193
+
+        cell id: 243, volume: 78.53193
+
+        cell id: 521, volume: 78.53193
+
+        cell id: 538, volume: 78.53193
+
+        cell id: 632, volume: 254.44346
+
+        cell id: 628, volume: 254.44346
+
+        cell id: 630, volume: 254.44346
+
+        cell id: 596, volume: 254.44346
+
+        cell id: 592, volume: 254.44346
+
+        cell id: 594, volume: 254.44346
+
+        cell id: 262, volume: 78.53193
+
+        cell id: 246, volume: 78.53193
+
+        cell id: 155, volume: 254.44346
+
+        cell id: 150, volume: 254.44346
+
+        cell id: 152, volume: 254.44346
+
+        cell id: 191, volume: 254.44346
+
+        cell id: 187, volume: 254.44346
+
+        cell id: 189, volume: 254.44346
+
+        cell id: 508, volume: 78.53193
+
+        cell id: 519, volume: 78.53193
+
+        cell id: 536, volume: 78.53193
+
+        cell id: 612, volume: 254.44346
+
+        cell id: 610, volume: 254.44346
+
+        cell id: 614, volume: 254.44346
+
+        cell id: 608, volume: 254.44346
+
+        cell id: 606, volume: 254.44346
+
+        cell id: 604, volume: 254.44346
+
+        cell id: 602, volume: 254.44346
+
+        cell id: 598, volume: 254.44346
+
+        cell id: 600, volume: 254.44346
+
+        cell id: 576, volume: 254.44346
+
+        cell id: 574, volume: 254.44346
+
+        cell id: 578, volume: 254.44346
+
+        cell id: 548, volume: 254.44346
+
+        cell id: 550, volume: 254.44346
+
+        cell id: 546, volume: 254.44346
+
+        cell id: 274, volume: 78.53193
+
+        cell id: 264, volume: 78.53193
+
+        cell id: 248, volume: 78.53193
+
+        cell id: 171, volume: 254.44346
+
+        cell id: 173, volume: 254.44346
+
+        cell id: 169, volume: 254.44346
+
+        cell id: 175, volume: 254.44346
+
+        cell id: 177, volume: 254.44346
+
+        cell id: 179, volume: 254.44346
+
+        cell id: 185, volume: 254.44346
+
+        cell id: 181, volume: 254.44346
+
+        cell id: 183, volume: 254.44346
+
+        cell id: 207, volume: 254.44346
+
+        cell id: 209, volume: 254.44346
+
+        cell id: 205, volume: 254.44346
+
+        cell id: 235, volume: 254.44346
+
+        cell id: 233, volume: 254.44346
+
+        cell id: 237, volume: 254.44346
+
+        cell id: 582, volume: 254.44346
+
+        cell id: 584, volume: 254.44346
+
+        cell id: 580, volume: 254.44346
+
+        cell id: 552, volume: 254.44346
+
+        cell id: 554, volume: 254.44346
+
+        cell id: 556, volume: 254.44346
+
+        cell id: 201, volume: 254.44346
+
+        cell id: 199, volume: 254.44346
+
+        cell id: 203, volume: 254.44346
+
+        cell id: 231, volume: 254.44346
+
+        cell id: 229, volume: 254.44346
+
+        cell id: 227, volume: 254.44346
+
+        cell id: 568, volume: 254.44346
+
+        cell id: 564, volume: 254.44346
+
+        cell id: 566, volume: 254.44346
+
+        cell id: 562, volume: 254.44346
+
+        cell id: 558, volume: 254.44346
+
+        cell id: 560, volume: 254.44346
+
+        cell id: 534, volume: 254.44346
+
+        cell id: 529, volume: 254.44346
+
+        cell id: 531, volume: 254.44346
+
+        cell id: 219, volume: 254.44346
+
+        cell id: 215, volume: 254.44346
+
+        cell id: 217, volume: 254.44346
+
+        cell id: 225, volume: 254.44346
+
+        cell id: 221, volume: 254.44346
+
+        cell id: 223, volume: 254.44346
+
+        cell id: 254, volume: 254.44346
+
+        cell id: 250, volume: 254.44346
+
+        cell id: 252, volume: 254.44346
+
+        cell id: 378, volume: 0.52676
+
+        cell id: 381, volume: 0.52676
+
+        cell id: 384, volume: 0.52676
+
+        cell id: 387, volume: 0.52676
+
+        cell id: 390, volume: 0.50891
+
+        cell id: 393, volume: 0.52676
+
+        cell id: 396, volume: 0.52676
+
+        cell id: 399, volume: 0.50891
+
+        cell id: 402, volume: 0.50891
+
+        cell id: 405, volume: 0.52676
+
+        cell id: 408, volume: 0.52676
+
+        cell id: 411, volume: 0.52676
+
+ =================&gt;           Materials Volume            &lt;=================
+
+        material id: 2, volume: 112.992
+
+        material id: 3, volume: 6.3211200000000005
+
+</pre></div></div>
+</div>
+<p>Now we have an OpenMC model. It is strongly recommended to use OpenMC Plot Explorer for plotting geometry, which is much faster than OpenMC Python API’s built-in plot function. The following figure shows the geometry plotted in OpenMC Plot Explorer GUI, which is identical to ROBIN3 model(except color XD).</p>
+<p><img alt="2D-HFTER core in OpenMC model" src="../_images/hfter.png" /></p>
+</div>
+<div class="section" id="Processing-the-Outputs">
+<h2>Processing the Outputs<a class="headerlink" href="#Processing-the-Outputs" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">16</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">openmc_compatible.process_flux</span></code> method can plot a figure containing step plots of flux spectrum in all tagged spaces. Number of energy groups is according to ROBIN3. This method returns a <a class="reference external" href="http://pandas.pydata.org/">Pandas</a> <code class="docutils literal notranslate"><span class="pre">Dataframe</span></code> giving a summary of results.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">openmc_result</span> <span class="o">=</span> <span class="n">openmc</span><span class="o">.</span><span class="n">StatePoint</span><span class="p">(</span><span class="s2">&quot;statepoint.065.h5&quot;</span><span class="p">)</span>
+<span class="c1"># If ROBIN3 is choosed to calculate volumes, arg r3_vol should be assigned True.</span>
+<span class="n">openmc_compatible</span><span class="o">.</span><span class="n">process_flux</span><span class="p">(</span><span class="n">openmc_result</span><span class="p">,</span> <span class="n">r3_vol</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>fuel_1</th>
+      <th>fuel_10</th>
+      <th>fuel_11</th>
+      <th>fuel_12</th>
+      <th>fuel_2</th>
+      <th>fuel_3</th>
+      <th>fuel_4</th>
+      <th>fuel_5</th>
+      <th>fuel_6</th>
+      <th>fuel_7</th>
+      <th>fuel_8</th>
+      <th>fuel_9</th>
+      <th>loop_1</th>
+      <th>loop_2</th>
+      <th>loop_3</th>
+      <th>loop_4</th>
+    </tr>
+    <tr>
+      <th>energy high [eV]</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1.000000e+07</th>
+      <td>8.382695e+10</td>
+      <td>1.168732e+11</td>
+      <td>7.390521e+10</td>
+      <td>1.019620e+11</td>
+      <td>9.058883e+10</td>
+      <td>8.611301e+10</td>
+      <td>8.990434e+10</td>
+      <td>1.038868e+11</td>
+      <td>1.031186e+11</td>
+      <td>8.342095e+10</td>
+      <td>9.330717e+10</td>
+      <td>1.085195e+11</td>
+      <td>2.233277e+10</td>
+      <td>1.941859e+10</td>
+      <td>4.305434e+09</td>
+      <td>7.064458e+09</td>
+    </tr>
+    <tr>
+      <th>6.065500e+06</th>
+      <td>3.980501e+11</td>
+      <td>4.640745e+11</td>
+      <td>3.646410e+11</td>
+      <td>3.773631e+11</td>
+      <td>4.205893e+11</td>
+      <td>3.701882e+11</td>
+      <td>4.243955e+11</td>
+      <td>4.275804e+11</td>
+      <td>4.615111e+11</td>
+      <td>3.606286e+11</td>
+      <td>4.050204e+11</td>
+      <td>4.311377e+11</td>
+      <td>9.964092e+10</td>
+      <td>8.638849e+10</td>
+      <td>2.439686e+10</td>
+      <td>3.808344e+10</td>
+    </tr>
+    <tr>
+      <th>3.679000e+06</th>
+      <td>8.047515e+11</td>
+      <td>9.775182e+11</td>
+      <td>8.144732e+11</td>
+      <td>8.786991e+11</td>
+      <td>8.795875e+11</td>
+      <td>7.085022e+11</td>
+      <td>8.604446e+11</td>
+      <td>9.319571e+11</td>
+      <td>9.460002e+11</td>
+      <td>7.345308e+11</td>
+      <td>8.482429e+11</td>
+      <td>9.150436e+11</td>
+      <td>2.112465e+11</td>
+      <td>1.856710e+11</td>
+      <td>5.807183e+10</td>
+      <td>8.707432e+10</td>
+    </tr>
+    <tr>
+      <th>2.231000e+06</th>
+      <td>9.969212e+11</td>
+      <td>1.196063e+12</td>
+      <td>1.002027e+12</td>
+      <td>1.074142e+12</td>
+      <td>1.093259e+12</td>
+      <td>9.606702e+11</td>
+      <td>1.047195e+12</td>
+      <td>1.143159e+12</td>
+      <td>1.188062e+12</td>
+      <td>9.477212e+11</td>
+      <td>1.113276e+12</td>
+      <td>1.124723e+12</td>
+      <td>4.341980e+11</td>
+      <td>3.717076e+11</td>
+      <td>1.302743e+11</td>
+      <td>1.908963e+11</td>
+    </tr>
+    <tr>
+      <th>1.353000e+06</th>
+      <td>9.325835e+11</td>
+      <td>1.132238e+12</td>
+      <td>9.446453e+11</td>
+      <td>1.101632e+12</td>
+      <td>1.050459e+12</td>
+      <td>8.621989e+11</td>
+      <td>1.031914e+12</td>
+      <td>1.086240e+12</td>
+      <td>1.114099e+12</td>
+      <td>9.025027e+11</td>
+      <td>9.776791e+11</td>
+      <td>1.057069e+12</td>
+      <td>5.255317e+11</td>
+      <td>4.460073e+11</td>
+      <td>2.080373e+11</td>
+      <td>3.123587e+11</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2.500000e-02</th>
+      <td>1.155261e+11</td>
+      <td>1.281502e+11</td>
+      <td>1.270576e+11</td>
+      <td>1.277336e+11</td>
+      <td>1.470914e+11</td>
+      <td>1.208593e+11</td>
+      <td>1.179377e+11</td>
+      <td>1.257699e+11</td>
+      <td>1.294046e+11</td>
+      <td>1.167487e+11</td>
+      <td>1.140656e+11</td>
+      <td>1.158830e+11</td>
+      <td>1.316783e+10</td>
+      <td>1.337031e+10</td>
+      <td>1.084775e+10</td>
+      <td>8.645156e+09</td>
+    </tr>
+    <tr>
+      <th>2.000000e-02</th>
+      <td>1.022442e+11</td>
+      <td>1.094665e+11</td>
+      <td>1.347981e+11</td>
+      <td>1.144757e+11</td>
+      <td>1.115466e+11</td>
+      <td>1.035241e+11</td>
+      <td>1.029901e+11</td>
+      <td>8.769948e+10</td>
+      <td>1.137514e+11</td>
+      <td>1.222522e+11</td>
+      <td>9.878184e+10</td>
+      <td>9.482982e+10</td>
+      <td>1.224884e+10</td>
+      <td>1.059416e+10</td>
+      <td>7.780369e+09</td>
+      <td>7.454142e+09</td>
+    </tr>
+    <tr>
+      <th>1.500000e-02</th>
+      <td>7.965356e+10</td>
+      <td>9.197905e+10</td>
+      <td>8.967084e+10</td>
+      <td>8.901377e+10</td>
+      <td>8.034512e+10</td>
+      <td>9.662500e+10</td>
+      <td>7.316412e+10</td>
+      <td>7.142514e+10</td>
+      <td>9.725734e+10</td>
+      <td>9.266495e+10</td>
+      <td>7.968603e+10</td>
+      <td>7.538539e+10</td>
+      <td>9.204326e+09</td>
+      <td>8.379327e+09</td>
+      <td>6.974102e+09</td>
+      <td>5.156516e+09</td>
+    </tr>
+    <tr>
+      <th>1.000000e-02</th>
+      <td>5.970545e+10</td>
+      <td>6.098838e+10</td>
+      <td>5.303492e+10</td>
+      <td>5.084866e+10</td>
+      <td>5.856488e+10</td>
+      <td>5.681828e+10</td>
+      <td>4.109086e+10</td>
+      <td>4.569987e+10</td>
+      <td>5.622816e+10</td>
+      <td>6.371771e+10</td>
+      <td>4.379588e+10</td>
+      <td>5.401718e+10</td>
+      <td>5.558438e+09</td>
+      <td>5.308297e+09</td>
+      <td>3.496485e+09</td>
+      <td>3.578289e+09</td>
+    </tr>
+    <tr>
+      <th>4.999999e-03</th>
+      <td>1.770836e+10</td>
+      <td>1.788919e+10</td>
+      <td>1.909463e+10</td>
+      <td>1.844400e+10</td>
+      <td>2.030621e+10</td>
+      <td>2.263185e+10</td>
+      <td>1.297049e+10</td>
+      <td>1.720754e+10</td>
+      <td>2.171353e+10</td>
+      <td>1.535894e+10</td>
+      <td>1.441043e+10</td>
+      <td>1.180533e+10</td>
+      <td>1.900640e+09</td>
+      <td>1.704642e+09</td>
+      <td>8.001304e+08</td>
+      <td>9.768184e+08</td>
+    </tr>
+  </tbody>
+</table>
+<p>69 rows × 16 columns</p>
+</div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_openmc_hfter_16_1.svg" src="../_images/examples_openmc_hfter_16_1.svg" /></div>
+</div>
+<p>Then we put results obtained by ROBIN3 here for comparison.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">robin3_result</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">ResultProcessor</span><span class="p">(</span><span class="s2">&quot;HFTER.h5&quot;</span><span class="p">)</span>
+<span class="n">plotter</span> <span class="o">=</span> <span class="n">robin3_result</span><span class="o">.</span><span class="n">generate_plotter</span><span class="p">()</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plotter</span><span class="o">.</span><span class="n">plot_neutron_fluxes_in_tagged_regions</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_openmc_hfter_18_0.svg" src="../_images/examples_openmc_hfter_18_0.svg" /></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../methods/index.html" class="btn btn-neutral float-right" title="Theory and Methodology" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="openmc_hex_assemb.html" class="btn btn-neutral float-left" title="Depletion of a Hexagonal Assembly" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020-, ShangHai NuStar Nuclear Power Technology Co.Ltd.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+ 
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-30411614-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+</body>
+</html>

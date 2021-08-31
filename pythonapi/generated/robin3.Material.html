@@ -1,0 +1,582 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>robin3.Material &mdash; ROBIN3 0.1.0-dev documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+    <link rel="canonical" href="/robin3/pythonapi/generated/robin3.Material.html" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="robin3.Moderator" href="robin3.Moderator.html" />
+    <link rel="prev" title="robin3.get_predefined_materials" href="robin3.get_predefined_materials.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> ROBIN3
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Install Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releasenotes/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usersguide/index.html">User’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../methods/index.html">Theory and Methodology</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Python API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#material-specification">Material specification</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="robin3.get_predefined_materials.html">robin3.get_predefined_materials</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">robin3.Material</a></li>
+<li class="toctree-l3"><a class="reference internal" href="robin3.Moderator.html">robin3.Moderator</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#run-simulation">Run Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#make-idyll-table">Make IDYLL Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#make-axiom-p-table">Make AXIOM-P Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#result-data-processing">Result Data Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#input-model-and-result-visualization">Input Model and Result Visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#openmc-compatibility">OpenMC Compatibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#others">Others</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../command.html">Run in Command Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../io_formats/index.html">File Format Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License Agreement</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ROBIN3</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Python API</a> &raquo;</li>
+        
+      <li>robin3.Material</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/pythonapi/generated/robin3.Material.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="robin3-material">
+<h1>robin3.Material<a class="headerlink" href="#robin3-material" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="robin3.Material">
+<em class="property">class </em><code class="sig-prename descclassname">robin3.</code><code class="sig-name descname">Material</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#robin3.Material" title="Permalink to this definition">¶</a></dt>
+<dd><p>A material composed by elements.</p>
+<p>This Material class is used to create materials by ROBIN3’s Python API, and to
+inspect attributes such as nuclide number densities, macro cross sections.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – A unique string name to identify the material.</p></li>
+<li><p><strong>input_type</strong> (<em>str</em>) – A choice of [“BY_WEIGHT_PERCENT”, “BY_VOLUME_PERCENT”, “BY_NUMBER_DENSITY”],
+by which way to define the material.</p></li>
+<li><p><strong>elements</strong> (<em>list of str</em>) – <p>A list of string names of elements which compose this material, element here
+is a material as well, element material should be predefined either by user
+or contained in get_predefined_materials. Note:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Enriched “UO2” can be defined use “UO2_enrichment” conveniently.
+For example, “UO2_3.2” means material UO2 with 3.2 enrichment.</p></li>
+<li><p>If input_type is “BY_VOLUME_PERCENT”, elements
+here should be materials that you have defined by weight percents.</p></li>
+</ol>
+</div></blockquote>
+</p></li>
+<li><p><strong>number_densities</strong> (<em>list of float</em><em>, </em><em>optional</em>) – A list of float representing the nuclide number densities of each element,
+units in /barn/cm, required when input_type is “BY_NUMBER_DENSITY” (None by
+default).</p></li>
+<li><p><strong>weight_percents</strong> (<em>list of float</em><em>, </em><em>optional</em>) – A list of float representing the weight percents of each element, required
+when input_type is “BY_WEIGHT_PERCENT”. Note sum of weight_percents should
+be range in 0.999~1.0, the rest that less than 1.0 will be treated as
+impurity (None by default).</p></li>
+<li><p><strong>volume_percents</strong> (<em>list of float</em><em>, </em><em>optional</em>) – A list of float representing the volume percents of each element, required
+when input_type is “BY_VOLUME_PERCENT”. Note sum of volume_percents should
+be equal to 1.0 (None by default).</p></li>
+<li><p><strong>temperature</strong> (<em>float</em><em>, </em><em>optional</em>) – Temperature of the material in Kelvin. Default temperature 300K will be used
+if None (None by default).</p></li>
+<li><p><strong>density</strong> (<em>float</em><em>, </em><em>optional</em>) – A float, density of this material, units in g/cm^3, required when input_type
+is “BY_WEIGHT_PERCENT” (None by default)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="robin3.Material.name">
+<code class="sig-name descname">name</code><a class="headerlink" href="#robin3.Material.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unique string name to identify the material</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="robin3.Material.temperature">
+<code class="sig-name descname">temperature</code><a class="headerlink" href="#robin3.Material.temperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Temperature of the material in Kelvin.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="robin3.Material.density">
+<code class="sig-name descname">density</code><a class="headerlink" href="#robin3.Material.density" title="Permalink to this definition">¶</a></dt>
+<dd><p>Density of the material in g/cm^3.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="robin3.Material.burnable">
+<code class="sig-name descname">burnable</code><a class="headerlink" href="#robin3.Material.burnable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether the material is burnable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="robin3.Material.fissionable">
+<code class="sig-name descname">fissionable</code><a class="headerlink" href="#robin3.Material.fissionable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether the material is fissionable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="robin3.Material.resonant">
+<code class="sig-name descname">resonant</code><a class="headerlink" href="#robin3.Material.resonant" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether the material is resonant.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="robin3.Material.is_Gd_bearing">
+<code class="sig-name descname">is_Gd_bearing</code><a class="headerlink" href="#robin3.Material.is_Gd_bearing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether the material is Gd-bearing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="robin3.Material.get_fission_matrix">
+<code class="sig-name descname">get_fission_matrix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#robin3.Material.get_fission_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the macro fission matrix in energy groups of this material, here
+fission_matrix is 2D numpy array, and fission_matrix[0][1] means
+group 0 -&gt; group 1 fission.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>fission_matrix</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="robin3.Material.get_fission_spectrum">
+<code class="sig-name descname">get_fission_spectrum</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#robin3.Material.get_fission_spectrum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the fission specturm in energy groups of this material</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>chi</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="robin3.Material.get_kappa_sigma_a">
+<code class="sig-name descname">get_kappa_sigma_a</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#robin3.Material.get_kappa_sigma_a" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the macro absorb energy production cross sections in energy groups
+in units of barn of this material</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>kappa_sigma_a</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="robin3.Material.get_kappa_sigma_f">
+<code class="sig-name descname">get_kappa_sigma_f</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#robin3.Material.get_kappa_sigma_f" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the macro fission energy production cross sections in energy groups
+in units of barn of this material</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>kappa_sigma_f</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="robin3.Material.get_macro_xs_df">
+<code class="sig-name descname">get_macro_xs_df</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#robin3.Material.get_macro_xs_df" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a pandas’s DataFrame contained each kind of macro cross sections</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>macro_xs</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="robin3.Material.get_nu_sigma_f">
+<code class="sig-name descname">get_nu_sigma_f</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#robin3.Material.get_nu_sigma_f" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the macro neutron fission production cross sections in energy groups
+in units of barn of this material</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>nu_sigma_f</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="robin3.Material.get_nuclide_number_densities">
+<code class="sig-name descname">get_nuclide_number_densities</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#robin3.Material.get_nuclide_number_densities" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the nuclide atomic number densities in units of atom/b-cm of
+this material</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>nuclides</strong> – Dictionary whose keys are nuclide names and values are nuclide number
+density in atom/b-cm</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="robin3.Material.get_sigma_a">
+<code class="sig-name descname">get_sigma_a</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#robin3.Material.get_sigma_a" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the macro absorb cross sections in energy groups in units of barn
+of this material</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>sigma_a</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="robin3.Material.get_sigma_f">
+<code class="sig-name descname">get_sigma_f</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#robin3.Material.get_sigma_f" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the macro fission cross sections in energy groups in units of barn
+of this material</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>sigma_f</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="robin3.Material.get_sigma_s">
+<code class="sig-name descname">get_sigma_s</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#robin3.Material.get_sigma_s" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the macro scattering cross sections in energy groups in units of barn
+of this material, here sigma_s is 2D numpy array, and sigma_s[0][1] means
+group 0 -&gt; group 1 scattering.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>sigma_s</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="robin3.Material.get_sigma_tr">
+<code class="sig-name descname">get_sigma_tr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#robin3.Material.get_sigma_tr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the macro transport cross sections in energy groups in units of
+barn of this material</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>sigma_tr</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="robin3.Material.plot_macro_xs">
+<code class="sig-name descname">plot_macro_xs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">xs_type</span><span class="o">=</span><span class="default_value">['sigma_tr', 'sigma_a', 'sigma_f', 'sigma_s']</span></em><span class="sig-paren">)</span><a class="headerlink" href="#robin3.Material.plot_macro_xs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot macro cross sections of this material.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>xs_type</strong> (<em>list of str</em><em>, </em><em>optional</em>) – Which type of cross section to plot, should be a combination of
+‘sigma_tr’, ‘sigma_a’, ‘sigma_f’ or ‘sigma_s’ ([‘sigma_tr’, ‘sigma_a’,
+‘sigma_f’, ‘sigma_s’] by default).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>fig</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>matplotlib.Figure</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="robin3.Moderator.html" class="btn btn-neutral float-right" title="robin3.Moderator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="robin3.get_predefined_materials.html" class="btn btn-neutral float-left" title="robin3.get_predefined_materials" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020-, ShangHai NuStar Nuclear Power Technology Co.Ltd.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+ 
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-30411614-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,8 @@
+.. _examples_ap1000:
+
+========================
+Modeling AP1000 1/8 Core
+========================
+
+.. literalinclude:: ../../../examples/core/ap1000.yaml
+    :language: yaml

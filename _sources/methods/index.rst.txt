@@ -1,0 +1,18 @@
+.. _methods:
+
+======================
+Theory and Methodology
+======================
+
+.. toctree::
+    :numbered:
+    :maxdepth: 1
+
+    introduction
+    geometry
+    nuclear_lib
+    resonance
+    moc
+    depletion
+    spectrum_corr
+    editing

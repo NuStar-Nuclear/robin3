@@ -1,0 +1,13 @@
+.. _io_file_formats_materialdb:
+
+
+======================
+Material Databank File
+======================
+
+Material databank file is a file in which frequently-used materials are pre-defined.
+The format that used to define pre-defined materials is identical to :ref:`materials`.
+Users can add materials to material databank file manually.
+
+.. literalinclude:: ../../../robin3/data_files/material_db.yaml
+    :language: yaml

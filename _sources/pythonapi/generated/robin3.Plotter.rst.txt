@@ -1,0 +1,7 @@
+robin3.Plotter
+==============
+
+.. currentmodule:: robin3
+
+.. autoclass:: Plotter
+    :members:

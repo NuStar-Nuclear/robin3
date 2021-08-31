@@ -1,0 +1,1028 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Depletion of a Hexagonal Assembly &mdash; ROBIN3 0.1.0-dev documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+    <link rel="canonical" href="/robin3/examples/openmc_hex_assemb.html" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Flux Spectrum in 2D-HFTER Full Core" href="openmc_hfter.html" />
+    <link rel="prev" title="Making an IDYLL Table for a Square Assembly" href="_idyll_table_case.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ROBIN3
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Install Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releasenotes/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usersguide/index.html">User’s Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#by-pythonapi">By <span class="xref std std-ref">pythonapi</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#by-command-line">By <span class="xref std std-ref">Command Line</span></a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#openmc-compatibility">OpenMC Compatibility</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Depletion of a Hexagonal Assembly</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Create-OpenMC-Model">Create OpenMC Model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Setting-Up-for-Depletion">Setting Up for Depletion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Processing-the-Outputs">Processing the Outputs</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="openmc_hfter.html">Flux Spectrum in 2D-HFTER Full Core</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../methods/index.html">Theory and Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pythonapi/index.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../command.html">Run in Command Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../io_formats/index.html">File Format Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License Agreement</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ROBIN3</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Examples</a> &raquo;</li>
+        
+      <li>Depletion of a Hexagonal Assembly</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/examples/openmc_hex_assemb.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container,
+div.nbinput.container div.prompt,
+div.nbinput.container div.input_area,
+div.nbinput.container div[class*=highlight],
+div.nbinput.container div[class*=highlight] pre,
+div.nboutput.container,
+div.nboutput.container div.prompt,
+div.nboutput.container div.output_area,
+div.nboutput.container div[class*=highlight],
+div.nboutput.container div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="Depletion-of-a-Hexagonal-Assembly">
+<h1>Depletion of a Hexagonal Assembly<a class="headerlink" href="#Depletion-of-a-Hexagonal-Assembly" title="Permalink to this headline">¶</a></h1>
+<p>This notebook is intended to introduce the reader to the contained in ROBIN3. We will convert the hexagonal assembly model built in “Modeling a Single Hexagonal Assembly” example to an OpenMC model. If you are not familiar with OpenMC’s depletion interface or even Python, skip the first two sections in this jupyter notebook, use command line instead and jump to the post-processing part.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">openmc</span>
+<span class="kn">import</span> <span class="nn">robin3</span>
+<span class="kn">from</span> <span class="nn">robin3</span> <span class="kn">import</span> <span class="n">openmc_compatible</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="Create-OpenMC-Model">
+<h2>Create OpenMC Model<a class="headerlink" href="#Create-OpenMC-Model" title="Permalink to this headline">¶</a></h2>
+<p>Firstly, load pre-defined model in <a class="reference internal" href="hexagonal_assembly.html"><span class="doc">“Modeling a Single Hexagonal Assembly” example</span></a>. You can find the input file in examples folder under root directory of ROBIN3’s source. Then append parameters used by openmc_compatible module (this step is optional, we can just use the default parameters).</p>
+<p>We have input and output of ROBIN3 in the current working directory.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">!</span>ls
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+hexagonal_assembly.yaml  single_hexagonal_assembly.h5
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Read model from input file</span>
+<span class="n">robin3_model</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">load_data_from_file</span><span class="p">(</span><span class="s1">&#39;hexagonal_assembly.yaml&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<p>Add openmc_compatible parameters to model dictionary. In this example, we choose to tally pin power and homogenized cross-section of the assembly.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Add openmc_compatible parameters to model dictionary</span>
+<span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;volume&#39;</span><span class="p">:</span><span class="s1">&#39;openmc&#39;</span><span class="p">,</span> <span class="s1">&#39;optimize&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">,</span> <span class="p">}</span>
+<span class="n">tallies</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;pin-power&#39;</span><span class="p">,</span> <span class="s1">&#39;cross-section&#39;</span><span class="p">]</span>
+<span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;tallies&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tallies</span>
+<span class="n">robin3_model</span><span class="p">[</span><span class="s1">&#39;openmc_compatible&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parameters</span>
+</pre></div>
+</div>
+</div>
+<p>Because we’ve set OpenMC to calculate volumes (used to deduce power density), the OpenMC executable will be launched in volume calculation mode during model conversion.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">openmc_model</span> <span class="o">=</span> <span class="n">openmc_compatible</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="n">robin3_model</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+No protocol specified
+                                %%%%%%%%%%%%%%%
+                           %%%%%%%%%%%%%%%%%%%%%%%%
+                        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                      %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                                    %%%%%%%%%%%%%%%%%%%%%%%%
+                                     %%%%%%%%%%%%%%%%%%%%%%%%
+                 ###############      %%%%%%%%%%%%%%%%%%%%%%%%
+                ##################     %%%%%%%%%%%%%%%%%%%%%%%
+                ###################     %%%%%%%%%%%%%%%%%%%%%%%
+                ####################     %%%%%%%%%%%%%%%%%%%%%%
+                #####################     %%%%%%%%%%%%%%%%%%%%%
+                ######################     %%%%%%%%%%%%%%%%%%%%
+                #######################     %%%%%%%%%%%%%%%%%%
+                 #######################     %%%%%%%%%%%%%%%%%
+                 ######################     %%%%%%%%%%%%%%%%%
+                  ####################     %%%%%%%%%%%%%%%%%
+                    #################     %%%%%%%%%%%%%%%%%
+                     ###############     %%%%%%%%%%%%%%%%
+                       ############     %%%%%%%%%%%%%%%
+                          ########     %%%%%%%%%%%%%%
+                                      %%%%%%%%%%%
+
+                   | The OpenMC Monte Carlo Code
+         Copyright | 2011-2020 MIT and OpenMC contributors
+           License | https://docs.openmc.org/en/latest/license.html
+           Version | 0.12.1-dev
+          Git SHA1 | e91a6aac1786a5f391330a599ac81345d2af4781
+         Date/Time | 2020-11-10 14:40:54
+     MPI Processes | 1
+    OpenMP Threads | 24
+
+ Reading settings XML file...
+ Reading cross sections XML file...
+ Reading materials XML file...
+ Reading geometry XML file...
+ Reading H1 from /home/yuejin/Cloud/nuclear_data_libraries/endfb71_hdf5/H1.h5
+ Reading H2 from /home/yuejin/Cloud/nuclear_data_libraries/endfb71_hdf5/H2.h5
+ Reading O16 from /home/yuejin/Cloud/nuclear_data_libraries/endfb71_hdf5/O16.h5
+ Reading O17 from /home/yuejin/Cloud/nuclear_data_libraries/endfb71_hdf5/O17.h5
+ Reading B10 from /home/yuejin/Cloud/nuclear_data_libraries/endfb71_hdf5/B10.h5
+ Reading B11 from /home/yuejin/Cloud/nuclear_data_libraries/endfb71_hdf5/B11.h5
+ Reading U234 from
+ /home/yuejin/Cloud/nuclear_data_libraries/endfb71_hdf5/U234.h5
+ Reading U235 from
+ /home/yuejin/Cloud/nuclear_data_libraries/endfb71_hdf5/U235.h5
+ Reading U238 from
+ /home/yuejin/Cloud/nuclear_data_libraries/endfb71_hdf5/U238.h5
+ Reading U236 from
+ /home/yuejin/Cloud/nuclear_data_libraries/endfb71_hdf5/U236.h5
+ Reading Gd152 from
+ /home/yuejin/Cloud/nuclear_data_libraries/endfb71_hdf5/Gd152.h5
+ Reading Gd154 from
+ /home/yuejin/Cloud/nuclear_data_libraries/endfb71_hdf5/Gd154.h5
+ Reading Gd155 from
+ /home/yuejin/Cloud/nuclear_data_libraries/endfb71_hdf5/Gd155.h5
+ Reading Gd156 from
+ /home/yuejin/Cloud/nuclear_data_libraries/endfb71_hdf5/Gd156.h5
+ Reading Gd157 from
+ /home/yuejin/Cloud/nuclear_data_libraries/endfb71_hdf5/Gd157.h5
+ Reading Gd158 from
+ /home/yuejin/Cloud/nuclear_data_libraries/endfb71_hdf5/Gd158.h5
+ Reading Gd160 from
+ /home/yuejin/Cloud/nuclear_data_libraries/endfb71_hdf5/Gd160.h5
+ Reading Sn112 from
+ /home/yuejin/Cloud/nuclear_data_libraries/endfb71_hdf5/Sn112.h5
+ Reading Sn114 from
+ /home/yuejin/Cloud/nuclear_data_libraries/endfb71_hdf5/Sn114.h5
+ Reading Sn115 from
+ /home/yuejin/Cloud/nuclear_data_libraries/endfb71_hdf5/Sn115.h5
+ Reading Sn116 from
+ /home/yuejin/Cloud/nuclear_data_libraries/endfb71_hdf5/Sn116.h5
+ Reading Sn117 from
+ /home/yuejin/Cloud/nuclear_data_libraries/endfb71_hdf5/Sn117.h5
+ Reading Sn118 from
+ /home/yuejin/Cloud/nuclear_data_libraries/endfb71_hdf5/Sn118.h5
+ Reading Sn119 from
+ /home/yuejin/Cloud/nuclear_data_libraries/endfb71_hdf5/Sn119.h5
+ Reading Sn120 from
+ /home/yuejin/Cloud/nuclear_data_libraries/endfb71_hdf5/Sn120.h5
+ Reading Sn122 from
+ /home/yuejin/Cloud/nuclear_data_libraries/endfb71_hdf5/Sn122.h5
+ Reading Sn124 from
+ /home/yuejin/Cloud/nuclear_data_libraries/endfb71_hdf5/Sn124.h5
+ Reading Fe54 from
+ /home/yuejin/Cloud/nuclear_data_libraries/endfb71_hdf5/Fe54.h5
+ Reading Fe56 from
+ /home/yuejin/Cloud/nuclear_data_libraries/endfb71_hdf5/Fe56.h5
+ Reading Fe57 from
+ /home/yuejin/Cloud/nuclear_data_libraries/endfb71_hdf5/Fe57.h5
+ Reading Fe58 from
+ /home/yuejin/Cloud/nuclear_data_libraries/endfb71_hdf5/Fe58.h5
+ Reading Zr90 from
+ /home/yuejin/Cloud/nuclear_data_libraries/endfb71_hdf5/Zr90.h5
+ Reading Zr91 from
+ /home/yuejin/Cloud/nuclear_data_libraries/endfb71_hdf5/Zr91.h5
+ Reading Zr92 from
+ /home/yuejin/Cloud/nuclear_data_libraries/endfb71_hdf5/Zr92.h5
+ Reading Zr94 from
+ /home/yuejin/Cloud/nuclear_data_libraries/endfb71_hdf5/Zr94.h5
+ Reading Zr96 from
+ /home/yuejin/Cloud/nuclear_data_libraries/endfb71_hdf5/Zr96.h5
+ Reading Nb93 from
+ /home/yuejin/Cloud/nuclear_data_libraries/endfb71_hdf5/Nb93.h5
+ Reading He4 from /home/yuejin/Cloud/nuclear_data_libraries/endfb71_hdf5/He4.h5
+ Reading c_H_in_H2O from
+ /home/yuejin/Cloud/nuclear_data_libraries/endfb71_hdf5/c_H_in_H2O.h5
+ Minimum neutron data temperature: 900.0 K
+ Maximum neutron data temperature: 600.0 K
+ Preparing distributed cell instances...
+
+ =================&gt;     STOCHASTIC VOLUME CALCULATION     &lt;=================
+
+ Running volume calculation 1
+   Cell 18: 0.45031825136634335 +/- 0.00044939813458463114 cm^3
+   Cell 23: 0.44983849042379365 +/- 0.0004491588481074704 cm^3
+   Cell 28: 0.4499583184608944 +/- 0.0004492186257419531 cm^3
+   Cell 33: 13.494990005262064 +/- 0.0024350330921252532 cm^3
+   Cell 37: 0.44992465889991107 +/- 0.0004492018350772717 cm^3
+   Cell 42: 0.44992465889991107 +/- 0.0004492018350772717 cm^3
+   Cell 47: 0.4499789629916309 +/- 0.00044922892370492237 cm^3
+   Cell 56: 0.4497653369779231 +/- 0.0004491223507229963 cm^3
+   Cell 61: 58.05504138877096 +/- 0.004868550339116217 cm^3
+   Cell 65: 0.44946958163541584 +/- 0.00044897476348297057 cm^3
+   Cell 72: 0.45051661837907203 +/- 0.0004494970351645636 cm^3
+   Cell 77: 4.051780424433425 +/- 0.0013442317525530303 cm^3
+   Cell 81: 0.4500014026989531 +/- 0.0004492401168744375 cm^3
+   Cell 86: 0.4501086644999535 +/- 0.0004492936163617796 cm^3
+   Cell 91: 0.44998300213894893 +/- 0.000449230938496075 cm^3
+   Cell 96: 0.9014631815504384 +/- 0.0006356133352741109 cm^3
+   Cell 101: 0.8991191297235561 +/- 0.0006347875712154944 cm^3
+   Cell 106: 5.852729849319212 +/- 0.00161330929670906 cm^3
+   Cell 115: 4.503034411595107 +/- 0.0014166104714154908 cm^3
+   Cell 120: 0.45032498327854 +/- 0.0004494014912969413 cm^3
+   Cell 125: 0.45049821781906785 +/- 0.0004494878620470974 cm^3
+   Cell 130: 1.3501361535759142 +/- 0.0007775996004909301 cm^3
+   Cell 134: 2.7014611628457614 +/- 0.001098775327138812 cm^3
+   Cell 139: 2.7010208957880986 +/- 0.0010986861654174037 cm^3
+   Cell 145: 0.9004839127228954 +/- 0.0006352684891105389 cm^3
+   Cell 150: 0.9009057792205537 +/- 0.0006354170710276293 cm^3
+   Cell 154: 0.8993453219733644 +/- 0.0006348673014483202 cm^3
+   Cell 159: 2.7022245616888645 +/- 0.0010989299112172438 cm^3
+   Cell 165: 2.700322123302084 +/- 0.0010985446367490761 cm^3
+   Cell 169: 0.9013873353396892 +/- 0.0006355866330128598 cm^3
+   Cell 176: 0.45013918250191176 +/- 0.0004493088368059146 cm^3
+   Cell 182: 1.8005724378027728 +/- 0.0008976769692345487 cm^3
+   Cell 187: 1.350273933378873 +/- 0.0007776391925656917 cm^3
+   Cell 192: 0.899606071372449 +/- 0.0006349592001964947 cm^3
+   Cell 196: 0.45017239326874875 +/- 0.0004493253996429486 cm^3
+   Cell 205: 0.4501203331477611 +/- 0.0004492994360044141 cm^3
+   Cell 211: 0.4503514621331802 +/- 0.00044941469412142893 cm^3
+   Cell 215: 0.4501872034755814 +/- 0.00044933278557558845 cm^3
+   Cell 224: 0.448655917847911 +/- 0.00044856847934205633 cm^3
+   Cell 229: 1.8001577520114576 +/- 0.0008975738824901008 cm^3
+   Cell 234: 0.899985302426195 +/- 0.0006350928328559172 cm^3
+   Cell 239: 0.45053232617419764 +/- 0.00044950486572607035 cm^3
+   Cell 248: 0.45005570679067297 +/- 0.00044926720318740857 cm^3
+   Cell 254: 2.7006183274387374 +/- 0.001098604631897666 cm^3
+   Cell 259: 2.6988989970637065 +/- 0.0010982563408529608 cm^3
+   Cell 263: 0.4497716200959733 +/- 0.0004491254855844315 cm^3
+   Cell 268: 1.3497241605494779 +/- 0.0007774811990300896 cm^3
+   Cell 274: 0.900719529649779 +/- 0.0006353514779998947 cm^3
+   Cell 278: 0.44963384029301473 +/- 0.00044905673751570083 cm^3
+   Cell 287: 0.4502810014521884 +/- 0.0004493795603220253 cm^3
+   Cell 293: 0.9003618407150624 +/- 0.0006352254886744261 cm^3
+   Cell 297: 0.44955978925885126 +/- 0.00044901978386690427 cm^3
+   Cell 304: 0.8996500531988005 +/- 0.0006349746998718774 cm^3
+   Cell 309: 0.89961729122611 +/- 0.000634963154231467 cm^3
+   Cell 314: 0.4508541115771987 +/- 0.00044966525027742804 cm^3
+   Cell 319: 0.4494215606617462 +/- 0.0004489507955614506 cm^3
+   Cell 325: 0.9005723251697451 +/- 0.0006352996309811831 cm^3
+   Cell 330: 0.9005907257297493 +/- 0.000635306112091218 cm^3
+   Cell 335: 0.44964326497009005 +/- 0.00044906144048861054 cm^3
+   Cell 340: 0.45085052122402713 +/- 0.00044966346108704235 cm^3
+   Cell 344: 0.449750077976944 +/- 0.000449114737396728 cm^3
+   Cell 349: 0.44976309300719086 +/- 0.0004491212311243089 cm^3
+   Cell 356: 0.4497788008023164 +/- 0.0004491290682563465 cm^3
+   Cell 361: 0.4508500724298807 +/- 0.0004496632374377422 cm^3
+   Cell 370: 0.45027696230487035 +/- 0.00044937754619908996 cm^3
+   Cell 375: 0.4491962660002308 +/- 0.00044883833079365924 cm^3
+   Cell 380: 0.450288630952678 +/- 0.00044938336475175964 cm^3
+   Cell 385: 0.4497280870637681 +/- 0.000449103765022378 cm^3
+   Cell 390: 0.44975636109499423 +/- 0.0004491178723114535 cm^3
+   Cell 395: 0.45007006820335926 +/- 0.00044927436623603986 cm^3
+ Running volume calculation 2
+   Material 3: 26.98217586662127 +/- 0.01025769035773868 cm^3
+   Material 5: 109.36768896801223 +/- 0.01922147348290143 cm^3
+   Material 10: 4.052564161036583 +/- 0.004048651861993786 cm^3
+ Elapsed time: 79.769599947 s
+</pre></div></div>
+</div>
+<p>Now we have an OpenMC model. It is strongly recommended to use <a class="reference external" href="https://github.com/openmc-dev/plotter">OpenMC Plot Explorer</a> for plotting geometry, which is much faster than OpenMC Python API’s built-in plot function. The following figure shows the geometry plotted in OpenMC Plot Explorer GUI, which is identical to ROBIN3 model(except color XD).</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">Image</span><span class="p">(</span><span class="s1">&#39;./images/39AWU.png&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_openmc_hex_assemb_13_0.png" class="no-scaled-link" src="../_images/examples_openmc_hex_assemb_13_0.png" style="width: 600px;" />
+</div>
+</div>
+</div>
+<div class="section" id="Setting-Up-for-Depletion">
+<h2>Setting Up for Depletion<a class="headerlink" href="#Setting-Up-for-Depletion" title="Permalink to this headline">¶</a></h2>
+<p>The OpenMC depletion interface can be accessed from the <code class="docutils literal notranslate"><span class="pre">openmc.deplete</span></code> module. The official document of OpenMC has introduced relevant usage and examples in detail. Here we will just use a method provided by <code class="docutils literal notranslate"><span class="pre">robin3.openmc_compatible</span></code>, which groups some empirical parameters, to generate an <code class="docutils literal notranslate"><span class="pre">openmc.deplete.CECMIntegrator</span></code>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">geometry</span> <span class="o">=</span> <span class="n">openmc_model</span><span class="o">.</span><span class="n">geometry</span>
+<span class="n">settings</span> <span class="o">=</span> <span class="n">openmc_model</span><span class="o">.</span><span class="n">settings</span>
+<span class="n">depletion_states</span> <span class="o">=</span> <span class="n">robin3_model</span><span class="p">[</span><span class="s2">&quot;state_points&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">intergrator</span> <span class="o">=</span> <span class="n">openmc_compatible</span><span class="o">.</span><span class="n">get_depletion_integrator</span><span class="p">(</span><span class="n">geometry</span><span class="p">,</span> <span class="n">settings</span><span class="p">,</span> <span class="n">depletion_states</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">intergrator</span><span class="o">.</span><span class="n">intergrate</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Processing-the-Outputs">
+<h2>Processing the Outputs<a class="headerlink" href="#Processing-the-Outputs" title="Permalink to this headline">¶</a></h2>
+<p>ROBIN3’s OpenMC Compatibility module has also provided methods for processing and compare results between ROBIN3 and OpenMC.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Load ROBIN3 and OpenMC depletion results</span>
+<span class="n">robin3_result</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">ResultProcessor</span><span class="p">(</span><span class="s2">&quot;single_hexagonal_assembly.h5&quot;</span><span class="p">)</span>
+<span class="n">openmc_result</span> <span class="o">=</span> <span class="n">openmc</span><span class="o">.</span><span class="n">deplete</span><span class="o">.</span><span class="n">ResultsList</span><span class="o">.</span><span class="n">from_hdf5</span><span class="p">(</span><span class="s2">&quot;depletion_results.h5&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">openmc_compatible.process_eigenvalues</span></code> method compares evolution of keff in depletion calculated by ROBIN3 and OpenMC. We can see from the figure below that the results are in good agreement.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">openmc_compatible</span><span class="o">.</span><span class="n">process_eigenvalues</span><span class="p">(</span><span class="n">openmc_result</span><span class="p">,</span><span class="n">robin3_result</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_openmc_hex_assemb_23_0.svg" src="../_images/examples_openmc_hex_assemb_23_0.svg" /></div>
+</div>
+<p>Then we use <code class="docutils literal notranslate"><span class="pre">openmc_compatible.process_pin_power</span></code> method to plot pin power distribution difference between OpenMC and ROBIN3. We can see that all the pin power are in good agreement except the pins containing gadolinium. Because ROBIN3 will count energy release by (n,γ) reaction in gadolinium while OpenMC only tally power from fission reaction.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">statepoint</span> <span class="o">=</span> <span class="n">openmc</span><span class="o">.</span><span class="n">StatePoint</span><span class="p">(</span><span class="s2">&quot;openmc_simulation_n0.h5&quot;</span><span class="p">)</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">openmc_compatible</span><span class="o">.</span><span class="n">process_pin_power</span><span class="p">(</span><span class="n">statepoint</span><span class="p">,</span><span class="n">robin3_result</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_openmc_hex_assemb_25_0.svg" src="../_images/examples_openmc_hex_assemb_25_0.svg" /></div>
+</div>
+<p>Finally, <code class="docutils literal notranslate"><span class="pre">openmc_compatible.generate_xs_library</span></code> can create a two-group cross-section library with homogenized cross sections of the assembly.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">xs_lib</span> <span class="o">=</span> <span class="n">openmc_compatible</span><span class="o">.</span><span class="n">generate_xs_library</span><span class="p">(</span><span class="n">statepoint</span><span class="o">=</span><span class="n">statepoint</span><span class="p">)</span>
+<span class="n">root</span> <span class="o">=</span> <span class="n">statepoint</span><span class="o">.</span><span class="n">summary</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">root_universe</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fission_xs</span> <span class="o">=</span> <span class="n">xs_lib</span><span class="o">.</span><span class="n">get_mgxs</span><span class="p">(</span><span class="n">root</span><span class="p">,</span><span class="s1">&#39;fission&#39;</span><span class="p">)</span>
+<span class="n">fission_xs</span><span class="o">.</span><span class="n">get_pandas_dataframe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>universe</th>
+      <th>group in</th>
+      <th>nuclide</th>
+      <th>mean</th>
+      <th>std. dev.</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>106</td>
+      <td>1</td>
+      <td>total</td>
+      <td>0.002954</td>
+      <td>0.000002</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>106</td>
+      <td>2</td>
+      <td>total</td>
+      <td>0.063329</td>
+      <td>0.000070</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">scatter_xs</span> <span class="o">=</span> <span class="n">xs_lib</span><span class="o">.</span><span class="n">get_mgxs</span><span class="p">(</span><span class="n">root</span><span class="p">,</span><span class="s1">&#39;scatter matrix&#39;</span><span class="p">)</span>
+<span class="n">scatter_xs</span><span class="o">.</span><span class="n">get_pandas_dataframe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>universe</th>
+      <th>group in</th>
+      <th>group out</th>
+      <th>nuclide</th>
+      <th>mean</th>
+      <th>std. dev.</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>3</th>
+      <td>106</td>
+      <td>1</td>
+      <td>1</td>
+      <td>total</td>
+      <td>0.278466</td>
+      <td>0.000256</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>106</td>
+      <td>1</td>
+      <td>2</td>
+      <td>total</td>
+      <td>0.015938</td>
+      <td>0.000015</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>106</td>
+      <td>2</td>
+      <td>1</td>
+      <td>total</td>
+      <td>0.001837</td>
+      <td>0.000011</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>106</td>
+      <td>2</td>
+      <td>2</td>
+      <td>total</td>
+      <td>0.825945</td>
+      <td>0.002247</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="openmc_hfter.html" class="btn btn-neutral float-right" title="Flux Spectrum in 2D-HFTER Full Core" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="_idyll_table_case.html" class="btn btn-neutral float-left" title="Making an IDYLL Table for a Square Assembly" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020-, ShangHai NuStar Nuclear Power Technology Co.Ltd.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+ 
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-30411614-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+</body>
+</html>

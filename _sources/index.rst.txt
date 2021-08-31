@@ -1,0 +1,47 @@
+.. ROBIN3 documentation master file, created by
+   sphinx-quickstart on Fri Jul 10 14:51:14 2020.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to ROBIN3's documentation!
+==================================
+
+ROBIN3 is a GPU-based 2D neutron transport code for reactor physics criticality calculations,
+it is capable of simulating 2D assembly and full-core reactor models with high-performance 
+based on its GPU solver. Features and methodology of ROBIN3 are:  
+
+.. figure:: _images/ap1000_vver.png
+    :align: center
+    :figclass: align-center
+    :width: 800px
+
+    AP1000 and VVER simulation
+    
+Cross section library:
+    - 69 or 172 groups library mainly processed from ENDF/B-VII.0.
+Resonance treatment:
+    - Two-term rational approximation to generate the effective cross sections for infinite lattice;
+    - The enhanced neutron current method to generate the position dependent Dacoff factor;
+    - Pre-tabulated resonance interference factor table to account for the resonance interference effect among multiple resonance nuclides.
+MOC transport calculation:
+    - Able to model both square and hexagonal fuel assemblies;
+    - Assembly-based modular ray generation;
+    - GPU-based parallel ray tracing;
+Fuel depletion calculation:
+    - Linear rate (LR) method for normal fuel pins;
+    - Logarithmic linear reaction rate (LLR) method for gadolinium-bearing fuel pins.
+
+
+.. toctree::
+    :maxdepth: 1
+    :caption: Contents:
+    
+    install
+    releasenotes/index
+    usersguide/index
+    examples/index
+    methods/index
+    pythonapi/index
+    command
+    io_formats/index
+    license

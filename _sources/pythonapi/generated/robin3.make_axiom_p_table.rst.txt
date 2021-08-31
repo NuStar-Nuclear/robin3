@@ -1,0 +1,6 @@
+robin3.make_axiom_p_table
+=========================
+
+.. currentmodule:: robin3
+
+.. autofunction:: make_axiom_p_table

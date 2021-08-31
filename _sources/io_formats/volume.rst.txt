@@ -1,0 +1,82 @@
+.. _io_openmc_volume:
+
+=============================
+Volumes Result -- volume.yaml
+=============================
+
+ROBIN3 simulation results contain pin power distribution and neutron flux spectrum which require
+volumes to calculate. OpenMC model created by :mod:`robin3.openmc_compatible` module will contain
+related tallies. Addtional volumes info are required to convert the scores tallied to pin power
+and flux that users are commonly interested in.
+If user chooses to use ROBIN3 to calculate volumes when converting the model
+(by calling :meth:`robin3.openmc_compatible.get_model` or :meth:`robin3.openmc_compatible.robin3_to_openmc` with 
+``r3_vol`` argument assigned ``True``),
+this ``volume.yaml`` file will be generated and be read during post process.
+
+
+.. note:: Currently, ROBIN3 calculates volumes before preprocess of geometry. Therefore,
+        the volumes in the result file may not correspond to the real volume value of the preprocessed model.
+        User can manually calculate and then modified volumes in this file.
+
+.. note:: If user chooses OpenMC instead of ROBIN3 to calculate volumes, :ref:`volume.h5 <openmc:io_volume>` will be generated
+        instead of ``volume.yaml`` introduced in this page. However, the process of volume calculation
+        can be very long depending on the ratio of the smallest cell volume to the total volume of the model.
+
+-----------------------------
+``<cell_volumes>`` Dictionary
+-----------------------------
+
+The value of ``<cell_volumes>`` is an associative array containing items with cell id as key and cell's
+volume as value. All the cells presented are those which contains fissionable materials.
+The volumes in the array are used to calculate pin power density in post process.
+For example::
+
+    # A dictionary of fuel cell volumes
+    cell_volumes:
+      22: 6.73794
+      25: 9.156839999999999
+      28: 11.57552
+      31: 13.994419999999998
+      34: 16.4131
+      37: 18.832
+      378: 0.52676
+      381: 0.52676
+      384: 0.52676
+      387: 0.52676
+      390: 0.50891
+      393: 0.52676
+      396: 0.52676
+      399: 0.50891
+      402: 0.50891
+      405: 0.52676
+      408: 0.52676
+      411: 0.52676
+
+----------------------------
+``<tag_volumes>`` Dictionary
+----------------------------
+
+The value of ``<tag_volumes>`` is an associative array containing items with tag 
+name as key and tagged cell's volume as value. All the cells presented are those
+corresponding to tagged :ref:`region <region>` in ROBIN3 model.
+The volumes in the array are used to normalize flux in post process.
+For example::
+
+    # A dictionary of tagged cell volumes
+    tag_volumes:
+      fuel_1: 0.52676
+      fuel_10: 0.52676
+      fuel_11: 0.52676
+      fuel_12: 0.52676
+      fuel_2: 0.52676
+      fuel_3: 0.52676
+      fuel_4: 0.52676
+      fuel_5: 0.50891
+      fuel_6: 0.52676
+      fuel_7: 0.52676
+      fuel_8: 0.50891
+      fuel_9: 0.50891
+      loop_1: 254.44346
+      loop_2: 254.44346
+      loop_3: 78.53193
+      loop_4: 78.5319

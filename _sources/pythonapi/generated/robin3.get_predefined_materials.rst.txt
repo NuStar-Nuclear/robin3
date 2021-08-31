@@ -1,0 +1,6 @@
+robin3.get_predefined_materials
+===============================
+
+.. currentmodule:: robin3
+
+.. autofunction:: get_predefined_materials

@@ -1,0 +1,8 @@
+.. _examples_square_mini_core:
+
+===========================
+Modeling a Square Mini Core
+===========================
+
+.. literalinclude:: ../../../examples/core/square_mini_core.yaml
+    :language: yaml

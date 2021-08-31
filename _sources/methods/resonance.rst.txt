@@ -1,0 +1,5 @@
+.. _methods_resonance:
+
+===================
+Resonance Treatment
+===================

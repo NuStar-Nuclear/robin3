@@ -1,0 +1,7 @@
+﻿robin3.openmc_compatible.depletion_integrator_from_xml
+======================================================
+
+.. currentmodule:: robin3.openmc_compatible
+
+.. autoclass:: depletion_integrator_from_xml
+    :members:

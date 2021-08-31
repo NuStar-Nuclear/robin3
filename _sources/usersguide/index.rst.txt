@@ -1,0 +1,32 @@
+.. _usersguide:
+
+============
+User's Guide
+============
+
+ROBIN3 is an easy-to-use code for reactor physics simulation, it mainly include 
+three procedures:
+
+    1.  Defining the input model;
+    2.  Running ROBIN3 scripts;
+    3.  Result processing and visualization.
+
+ROBIN3 construct everything by json object, that means everything in ROBIN3 can be
+build from a python dict, a json file or a yaml file, etc.
+
+.. toctree::
+    :numbered:
+    :maxdepth: 1
+
+    beginners
+    materials
+    geometry
+    depletion
+    casematrix
+    others
+    result
+    troubleshoot
+    openmc
+    
+    
+    

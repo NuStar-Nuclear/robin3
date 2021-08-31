@@ -1,0 +1,25 @@
+===================
+What's New in 0.3.2
+===================
+
+------------
+New Features
+------------
+
+- Combined restart cases with same model geometry to improve the performance, this 
+  optimization reduced about 40% total time consuming in single-assembly case matrix 
+  calculation.
+- Applyed OpenMP multi-threads parallelization for CPU-side MOC tracking, which can 
+  significantly reduce the transport calculation time consuming if GPU is not 
+  available. 
+- Added Python API to get properties of moderator material.
+
+|
+
+---------
+Bug Fixes
+---------
+- Fixed uninitialized variables bug which can cause segmentfault sometimes in 
+  release version.
+- Fixed some compiling warnings such as unused varible.
+- Fixed bug about memeory error when using openMP to re-allocate material's macro-xs.

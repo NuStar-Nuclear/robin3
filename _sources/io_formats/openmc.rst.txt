@@ -1,0 +1,80 @@
+.. _io_file_formats_openmc:
+
+
+==========================
+``openmc_compatible`` dict
+==========================
+``openmc_compatible`` dictionary contains parameters used in conversion from ROBIN3 
+model to OpenMC model. This dictionary should be added to :ref:`ROBIN3 input model 
+<io_file_formats_input>` with its key named "openmc_compatible" in input model dictionary.
+For example::
+
+    materials:
+      ...
+
+    assemblies:
+      ...
+    
+    structures:
+      ...
+
+    state_points:
+      ...
+
+    openmc_compatible:
+      volume: robin3
+      tallies:
+      - current
+      - assembly-kappa
+      optimize: true
+      nuclide_density: openmc
+
+----------------
+``tallies`` list
+----------------
+``tallies`` is a list indicating which tallies should be generated in OpenMC model. 
+``tallies`` can contain following members:
+    
+    :pin-power:
+        If this string is contained in ``tallies`` list, ``'kappa-fission'`` of every pin cell
+        will be tallied. Volumes of all cells filled by fissionable material will be calculated
+        to deduce power density.
+    :flux:
+        If this string is contained in ``tallies`` list, ``'flux'`` of every tagged cell (converted
+        from tagged region in ROBIN3 model) and ``'heating-local'`` accumulated in the whole model
+        will be tallied. Volumes of all fissionable materials will be calculated, along with ``'heating-local'``
+        tallied, to deduce the :ref:`normalization factor <openmc:usersguide_tally_normalization>` for obtaining 
+        absolute flux.
+    :current:
+        If this string is contained in ``tallies`` list, ``'current'`` and ``'flux'`` on each
+        surface of every square assembly in the core model will be tallied. Do not support 
+        hexgonal core because OpenMC has not implemented this functionality.
+    :assembly-kappa:
+        If this string is contained in ``tallies`` list, ``'kappa-fission'`` of each assembly
+        will be tallied. Currently only works when the model is a square core. Hexgaonal core
+        kappa fission will be implemented soon.
+
+Default to empty (no tallies if no member in the ``tallies`` list).
+
+-------------------
+``optimize`` option
+-------------------
+``optimize`` option is a boolean. If this option is on, ROBIN3's OpenMC Compatibility module 
+will try to remove redundant boundaries and regions in conversion of geometry. Default to true.
+
+-----------------
+``volume`` option
+-----------------
+``volume`` option has either ``'robin3'`` or ``'openmc'`` as its value. It decides whether use
+OpenMC or ROBIN3 to calculate volumes. ROBIN3's volume calculation is much faster and more precise
+than OpenMC. However, currently ROBIN3 can only calculate volumes before geometry pre-processing
+which may lead to totally wrong results because regions may be divided in pre-processing if crossing
+cell boundaries. Default to ``'openmc'``.
+
+--------------------------
+``nuclide_density`` option
+--------------------------
+``nuclide_density`` option has whether ``'robin3'`` or ``'openmc'`` as its value. It decides whether
+use OpenMC data library or ROBIN3 data library to calculate nuclide densities of materials.
+If a ROBIN3 material contains sub material with S(α,β), this option must be assigned ``'robin3'``, because
+:meth:`openmc:openmc.Material.mix_materials` currently does not support mix materials with S(α,β).

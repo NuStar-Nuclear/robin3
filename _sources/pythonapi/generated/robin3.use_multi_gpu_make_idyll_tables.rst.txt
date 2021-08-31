@@ -1,0 +1,6 @@
+robin3.use_multi_gpu_make_idyll_tables
+======================================
+
+.. currentmodule:: robin3
+
+.. autofunction:: use_multi_gpu_make_idyll_tables

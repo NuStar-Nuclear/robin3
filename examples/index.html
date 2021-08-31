@@ -1,0 +1,347 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Examples &mdash; ROBIN3 0.1.0-dev documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+    <link rel="canonical" href="/robin3/examples/index.html" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Modeling a Pin-Cell" href="pincell.html" />
+    <link rel="prev" title="9. OpenMC Compatibility" href="../usersguide/openmc.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ROBIN3
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Install Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releasenotes/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usersguide/index.html">User’s Guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#by-pythonapi">By <span class="xref std std-ref">pythonapi</span></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pincell.html">Modeling a Pin-Cell</a></li>
+<li class="toctree-l3"><a class="reference internal" href="square_assembly.html">Modeling a Single Square Assembly</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hexagonal_assembly.html">Modeling a Single Hexagonal Assembly</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hc_assembly.html">Modeling a Helical-Cruciform Fuel Rod Assembly</a></li>
+<li class="toctree-l3"><a class="reference internal" href="c5g7.html">Modeling 2-D C5G7 Mini Core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="square_mini_core.html">Modeling a Square Mini Core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="vver.html">Modeling VVER 1/6 Core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hfter.html">Modeling HFTER Full Core</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#by-command-line">By <span class="xref std std-ref">Command Line</span></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="_pincell.html">Modeling a Pin-Cell</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_square_assembly.html">Modeling a Single Square Assembly</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_hexagonal_assembly.html">Modeling a Single Hexagonal Assembly</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_c5g7.html">Modeling 2-D C5G7 Mini Core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_square_mini_core.html">Modeling a Square Mini Core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_vver.html">Modeling VVER 1/6 Core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_ap1000.html">Modeling AP1000 1/8 Core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_idyll_table_case.html">Making an IDYLL Table for a Square Assembly</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#openmc-compatibility">OpenMC Compatibility</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="openmc_hex_assemb.html">Depletion of a Hexagonal Assembly</a></li>
+<li class="toctree-l3"><a class="reference internal" href="openmc_hfter.html">Flux Spectrum in 2D-HFTER Full Core</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../methods/index.html">Theory and Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pythonapi/index.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../command.html">Run in Command Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../io_formats/index.html">File Format Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License Agreement</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ROBIN3</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Examples</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/examples/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="examples">
+<span id="id1"></span><h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
+<dl class="simple">
+<dt>There are 2 ways to use ROBIN3:</dt><dd><ol class="arabic simple">
+<li><p>Use ROBIN3 directly by <a class="reference internal" href="../pythonapi/index.html#pythonapi"><span class="std std-ref">Python API</span></a>;</p></li>
+<li><p>Define <a class="reference internal" href="../io_formats/input.html#io-file-formats-input"><span class="std std-ref">Input Model File</span></a> and then <a class="reference internal" href="../command.html#command"><span class="std std-ref">Run in Command Line</span></a>.</p></li>
+</ol>
+</dd>
+</dl>
+<div class="section" id="by-pythonapi">
+<h2>By <a class="reference internal" href="../pythonapi/index.html#pythonapi"><span class="std std-ref">Python API</span></a><a class="headerlink" href="#by-pythonapi" title="Permalink to this headline">¶</a></h2>
+<p>The following series of <a class="reference external" href="https://jupyter.org/">Jupyter</a> Notebooks provide examples
+for how to use ROBIN3 by <a class="reference internal" href="../pythonapi/index.html#pythonapi"><span class="std std-ref">Python API</span></a>.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pincell.html">Modeling a Pin-Cell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="square_assembly.html">Modeling a Single Square Assembly</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hexagonal_assembly.html">Modeling a Single Hexagonal Assembly</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hc_assembly.html">Modeling a Helical-Cruciform Fuel Rod Assembly</a></li>
+<li class="toctree-l1"><a class="reference internal" href="c5g7.html">Modeling 2-D C5G7 Mini Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="square_mini_core.html">Modeling a Square Mini Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vver.html">Modeling VVER 1/6 Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hfter.html">Modeling HFTER Full Core</a></li>
+</ul>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="by-command-line">
+<h2>By <a class="reference internal" href="../command.html#command"><span class="std std-ref">Command Line</span></a><a class="headerlink" href="#by-command-line" title="Permalink to this headline">¶</a></h2>
+<p>The following series of <a class="reference external" href="https://yaml.org/">YAML</a> <a class="reference internal" href="../io_formats/input.html#io-file-formats-input"><span class="std std-ref">input model</span></a> files
+provide examples which use ROBIN3 by <a class="reference internal" href="../command.html#command"><span class="std std-ref">Command Line</span></a>.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="_pincell.html">Modeling a Pin-Cell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_square_assembly.html">Modeling a Single Square Assembly</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_hexagonal_assembly.html">Modeling a Single Hexagonal Assembly</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_c5g7.html">Modeling 2-D C5G7 Mini Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_square_mini_core.html">Modeling a Square Mini Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_vver.html">Modeling VVER 1/6 Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_ap1000.html">Modeling AP1000 1/8 Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_idyll_table_case.html">Making an IDYLL Table for a Square Assembly</a></li>
+</ul>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="openmc-compatibility">
+<h2>OpenMC Compatibility<a class="headerlink" href="#openmc-compatibility" title="Permalink to this headline">¶</a></h2>
+<p>The following series of <a class="reference external" href="https://jupyter.org/">Jupyter</a> Notebooks provide examples
+for how to use ROBIN3’s <a class="reference internal" href="../usersguide/openmc.html#usersguide-openmc"><span class="std std-ref">OpenMC Compatibility Module</span></a>.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="openmc_hex_assemb.html">Depletion of a Hexagonal Assembly</a></li>
+<li class="toctree-l1"><a class="reference internal" href="openmc_hfter.html">Flux Spectrum in 2D-HFTER Full Core</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="pincell.html" class="btn btn-neutral float-right" title="Modeling a Pin-Cell" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../usersguide/openmc.html" class="btn btn-neutral float-left" title="9. OpenMC Compatibility" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020-, ShangHai NuStar Nuclear Power Technology Co.Ltd.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+ 
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-30411614-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,498 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Python API &mdash; ROBIN3 0.1.0-dev documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+    <link rel="canonical" href="/robin3/pythonapi/index.html" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="robin3.get_predefined_materials" href="generated/robin3.get_predefined_materials.html" />
+    <link rel="prev" title="8. Editing" href="../methods/editing.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ROBIN3
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Install Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releasenotes/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usersguide/index.html">User’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../methods/index.html">Theory and Methodology</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Python API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#material-specification">Material specification</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/robin3.get_predefined_materials.html">robin3.get_predefined_materials</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/robin3.Material.html">robin3.Material</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/robin3.Moderator.html">robin3.Moderator</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#run-simulation">Run Simulation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/robin3.run.html">robin3.run</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#make-idyll-table">Make IDYLL Table</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/robin3.make_idyll_table.html">robin3.make_idyll_table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/robin3.use_multi_gpu_make_idyll_tables.html">robin3.use_multi_gpu_make_idyll_tables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#make-axiom-p-table">Make AXIOM-P Table</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/robin3.make_axiom_p_table.html">robin3.make_axiom_p_table</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#result-data-processing">Result Data Processing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/robin3.ResultProcessor.html">robin3.ResultProcessor</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#input-model-and-result-visualization">Input Model and Result Visualization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/robin3.Plotter.html">robin3.Plotter</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#openmc-compatibility">OpenMC Compatibility</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/robin3.openmc_compatible.get_material.html">robin3.openmc_compatible.get_material</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/robin3.openmc_compatible.get_XSdata.html">robin3.openmc_compatible.get_XSdata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/robin3.openmc_compatible.get_mgxs_materials.html">robin3.openmc_compatible.get_mgxs_materials</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/robin3.openmc_compatible.get_region.html">robin3.openmc_compatible.get_region</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/robin3.openmc_compatible.get_cell.html">robin3.openmc_compatible.get_cell</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/robin3.openmc_compatible.get_pin_universe.html">robin3.openmc_compatible.get_pin_universe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/robin3.openmc_compatible.get_assembly_universe.html">robin3.openmc_compatible.get_assembly_universe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/robin3.openmc_compatible.get_core_universe.html">robin3.openmc_compatible.get_core_universe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/robin3.openmc_compatible.get_model.html">robin3.openmc_compatible.get_model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/robin3.openmc_compatible.get_moderator.html">robin3.openmc_compatible.get_moderator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/robin3.openmc_compatible.get_depletion_integrator.html">robin3.openmc_compatible.get_depletion_integrator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/robin3.openmc_compatible.set_robin3_material_databank.html">robin3.openmc_compatible.set_robin3_material_databank</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/robin3.openmc_compatible.robin3_to_openmc.html">robin3.openmc_compatible.robin3_to_openmc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/robin3.openmc_compatible.depletion_integrator_from_xml.html">robin3.openmc_compatible.depletion_integrator_from_xml</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/robin3.openmc_compatible.generate_xs_library.html">robin3.openmc_compatible.generate_xs_library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/robin3.openmc_compatible.process_pin_power.html">robin3.openmc_compatible.process_pin_power</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/robin3.openmc_compatible.process_flux.html">robin3.openmc_compatible.process_flux</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#others">Others</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/robin3.query_GPU.html">robin3.query_GPU</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../command.html">Run in Command Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../io_formats/index.html">File Format Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License Agreement</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ROBIN3</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Python API</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/pythonapi/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="python-api">
+<span id="pythonapi"></span><h1>Python API<a class="headerlink" href="#python-api" title="Permalink to this headline">¶</a></h1>
+<p>ROBIN3 offers not only command line user interface but also Python API that
+enables programmatic pre- and post-processing. The easiest way to begin
+using the API is to take a look at the <a class="reference internal" href="../examples/index.html#examples"><span class="std std-ref">Examples</span></a>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Users are strongly encouraged to use the Python API to generate input
+files and analyze results.</p>
+</div>
+<div class="section" id="material-specification">
+<h2>Material specification<a class="headerlink" href="#material-specification" title="Permalink to this headline">¶</a></h2>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/robin3.get_predefined_materials.html#robin3.get_predefined_materials" title="robin3.get_predefined_materials"><code class="xref py py-obj docutils literal notranslate"><span class="pre">robin3.get_predefined_materials</span></code></a></p></td>
+<td><p>Get a list of materials that are predefined in material_db.yaml file</p></td>
+</tr>
+</tbody>
+</table>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/robin3.Material.html#robin3.Material" title="robin3.Material"><code class="xref py py-obj docutils literal notranslate"><span class="pre">robin3.Material</span></code></a></p></td>
+<td><p>A material composed by elements.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/robin3.Moderator.html#robin3.Moderator" title="robin3.Moderator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">robin3.Moderator</span></code></a></p></td>
+<td><p>Water used as moderator material.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="run-simulation">
+<h2>Run Simulation<a class="headerlink" href="#run-simulation" title="Permalink to this headline">¶</a></h2>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/robin3.run.html#robin3.run" title="robin3.run"><code class="xref py py-obj docutils literal notranslate"><span class="pre">robin3.run</span></code></a></p></td>
+<td><p>Run a ROBIN3 simulation.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="make-idyll-table">
+<h2>Make IDYLL Table<a class="headerlink" href="#make-idyll-table" title="Permalink to this headline">¶</a></h2>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/robin3.make_idyll_table.html#robin3.make_idyll_table" title="robin3.make_idyll_table"><code class="xref py py-obj docutils literal notranslate"><span class="pre">robin3.make_idyll_table</span></code></a></p></td>
+<td><p>Perform a single assembly case matrix calculation and then use IDYLL to make a cross section table.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/robin3.use_multi_gpu_make_idyll_tables.html#robin3.use_multi_gpu_make_idyll_tables" title="robin3.use_multi_gpu_make_idyll_tables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">robin3.use_multi_gpu_make_idyll_tables</span></code></a></p></td>
+<td><p>Use multi-GPU and multi-processing to make idyll tables.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="make-axiom-p-table">
+<h2>Make AXIOM-P Table<a class="headerlink" href="#make-axiom-p-table" title="Permalink to this headline">¶</a></h2>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/robin3.make_axiom_p_table.html#robin3.make_axiom_p_table" title="robin3.make_axiom_p_table"><code class="xref py py-obj docutils literal notranslate"><span class="pre">robin3.make_axiom_p_table</span></code></a></p></td>
+<td><p>Make table for AXIOM-P.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="result-data-processing">
+<h2>Result Data Processing<a class="headerlink" href="#result-data-processing" title="Permalink to this headline">¶</a></h2>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/robin3.ResultProcessor.html#robin3.ResultProcessor" title="robin3.ResultProcessor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">robin3.ResultProcessor</span></code></a></p></td>
+<td><p>A result processor used to collecting result data and doing some processing.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="input-model-and-result-visualization">
+<h2>Input Model and Result Visualization<a class="headerlink" href="#input-model-and-result-visualization" title="Permalink to this headline">¶</a></h2>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/robin3.Plotter.html#robin3.Plotter" title="robin3.Plotter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">robin3.Plotter</span></code></a></p></td>
+<td><p>A plotter used to generate visualization data.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="openmc-compatibility">
+<h2>OpenMC Compatibility<a class="headerlink" href="#openmc-compatibility" title="Permalink to this headline">¶</a></h2>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/robin3.openmc_compatible.get_material.html#robin3.openmc_compatible.get_material" title="robin3.openmc_compatible.get_material"><code class="xref py py-obj docutils literal notranslate"><span class="pre">robin3.openmc_compatible.get_material</span></code></a></p></td>
+<td><p>Return an OpenMC material corresponding to a ROBIN3 material.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/robin3.openmc_compatible.get_XSdata.html#robin3.openmc_compatible.get_XSdata" title="robin3.openmc_compatible.get_XSdata"><code class="xref py py-obj docutils literal notranslate"><span class="pre">robin3.openmc_compatible.get_XSdata</span></code></a></p></td>
+<td><p>Return an OpenMC XSdata corresponding to a ROBIN3 cross section dictionary and an OpenMC material using this XSdata.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/robin3.openmc_compatible.get_mgxs_materials.html#robin3.openmc_compatible.get_mgxs_materials" title="robin3.openmc_compatible.get_mgxs_materials"><code class="xref py py-obj docutils literal notranslate"><span class="pre">robin3.openmc_compatible.get_mgxs_materials</span></code></a></p></td>
+<td><p>Create an OpenMC MGXS library file containing the cross sections defined in ROBIN3’s cross sections dictionary.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/robin3.openmc_compatible.get_region.html#robin3.openmc_compatible.get_region" title="robin3.openmc_compatible.get_region"><code class="xref py py-obj docutils literal notranslate"><span class="pre">robin3.openmc_compatible.get_region</span></code></a></p></td>
+<td><p>Return an OpenMC region corresponding to ROBIN3 primitive.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/robin3.openmc_compatible.get_cell.html#robin3.openmc_compatible.get_cell" title="robin3.openmc_compatible.get_cell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">robin3.openmc_compatible.get_cell</span></code></a></p></td>
+<td><p>Return an OpenMC cell corresponding to ROBIN3 region.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/robin3.openmc_compatible.get_pin_universe.html#robin3.openmc_compatible.get_pin_universe" title="robin3.openmc_compatible.get_pin_universe"><code class="xref py py-obj docutils literal notranslate"><span class="pre">robin3.openmc_compatible.get_pin_universe</span></code></a></p></td>
+<td><p>Return an OpenMC universe corresponding to ROBIN3 pin universe.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/robin3.openmc_compatible.get_assembly_universe.html#robin3.openmc_compatible.get_assembly_universe" title="robin3.openmc_compatible.get_assembly_universe"><code class="xref py py-obj docutils literal notranslate"><span class="pre">robin3.openmc_compatible.get_assembly_universe</span></code></a></p></td>
+<td><p>Return an OpenMC universe corresponding to ROBIN3 assembly universe.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/robin3.openmc_compatible.get_core_universe.html#robin3.openmc_compatible.get_core_universe" title="robin3.openmc_compatible.get_core_universe"><code class="xref py py-obj docutils literal notranslate"><span class="pre">robin3.openmc_compatible.get_core_universe</span></code></a></p></td>
+<td><p>Return an OpenMC universe corresponding to ROBIN3 core universe.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/robin3.openmc_compatible.get_model.html#robin3.openmc_compatible.get_model" title="robin3.openmc_compatible.get_model"><code class="xref py py-obj docutils literal notranslate"><span class="pre">robin3.openmc_compatible.get_model</span></code></a></p></td>
+<td><p>Return an OpenMC model corresponding to a ROBIN3 model.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/robin3.openmc_compatible.get_moderator.html#robin3.openmc_compatible.get_moderator" title="robin3.openmc_compatible.get_moderator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">robin3.openmc_compatible.get_moderator</span></code></a></p></td>
+<td><p>Return an OpenMC moderator corresponding to ROBIN3’s depletion states.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/robin3.openmc_compatible.get_depletion_integrator.html#robin3.openmc_compatible.get_depletion_integrator" title="robin3.openmc_compatible.get_depletion_integrator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">robin3.openmc_compatible.get_depletion_integrator</span></code></a></p></td>
+<td><p>Return an OpenMC depletion integrator corresponding to ROBIN3’s depletion states.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/robin3.openmc_compatible.set_robin3_material_databank.html#robin3.openmc_compatible.set_robin3_material_databank" title="robin3.openmc_compatible.set_robin3_material_databank"><code class="xref py py-obj docutils literal notranslate"><span class="pre">robin3.openmc_compatible.set_robin3_material_databank</span></code></a></p></td>
+<td><p>Set the ROBIN3 material databank used to get corresponding OpenMC Material.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/robin3.openmc_compatible.robin3_to_openmc.html#robin3.openmc_compatible.robin3_to_openmc" title="robin3.openmc_compatible.robin3_to_openmc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">robin3.openmc_compatible.robin3_to_openmc</span></code></a></p></td>
+<td><p>Parse a ROBIN3 .yaml input file into OpenMC xml input files.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/robin3.openmc_compatible.depletion_integrator_from_xml.html#robin3.openmc_compatible.depletion_integrator_from_xml" title="robin3.openmc_compatible.depletion_integrator_from_xml"><code class="xref py py-obj docutils literal notranslate"><span class="pre">robin3.openmc_compatible.depletion_integrator_from_xml</span></code></a></p></td>
+<td><p>Generate OpenMC depletion integrator from XML file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/robin3.openmc_compatible.generate_xs_library.html#robin3.openmc_compatible.generate_xs_library" title="robin3.openmc_compatible.generate_xs_library"><code class="xref py py-obj docutils literal notranslate"><span class="pre">robin3.openmc_compatible.generate_xs_library</span></code></a></p></td>
+<td><p>Return a two-group cross-section library with homogenized cross sections of the given geometry.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/robin3.openmc_compatible.process_pin_power.html#robin3.openmc_compatible.process_pin_power" title="robin3.openmc_compatible.process_pin_power"><code class="xref py py-obj docutils literal notranslate"><span class="pre">robin3.openmc_compatible.process_pin_power</span></code></a></p></td>
+<td><p>Process OpenMC statepoint and ROBIN3 result file of the same model, show and return a matplotlib.pyplot.Figure which presents comparison of pin power distribution between two models.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/robin3.openmc_compatible.process_flux.html#robin3.openmc_compatible.process_flux" title="robin3.openmc_compatible.process_flux"><code class="xref py py-obj docutils literal notranslate"><span class="pre">robin3.openmc_compatible.process_flux</span></code></a></p></td>
+<td><p>Process OpenMC’s statepoint and show a step-plot, which is a matplotlib.Figure, of neutron flux spectrums in tagged regions</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="others">
+<h2>Others<a class="headerlink" href="#others" title="Permalink to this headline">¶</a></h2>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/robin3.query_GPU.html#robin3.query_GPU" title="robin3.query_GPU"><code class="xref py py-obj docutils literal notranslate"><span class="pre">robin3.query_GPU</span></code></a></p></td>
+<td><p>Query GPU and print GPU info if exists.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="generated/robin3.get_predefined_materials.html" class="btn btn-neutral float-right" title="robin3.get_predefined_materials" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../methods/editing.html" class="btn btn-neutral float-left" title="8. Editing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020-, ShangHai NuStar Nuclear Power Technology Co.Ltd.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+ 
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-30411614-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+</body>
+</html>

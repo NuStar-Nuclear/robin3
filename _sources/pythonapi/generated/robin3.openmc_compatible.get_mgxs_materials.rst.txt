@@ -1,0 +1,7 @@
+﻿robin3.openmc_compatible.get_mgxs_materials
+===========================================
+
+.. currentmodule:: robin3.openmc_compatible
+
+.. autoclass:: get_mgxs_materials
+    :members:

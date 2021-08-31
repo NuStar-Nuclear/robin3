@@ -1,0 +1,9 @@
+.. _io_file_formats_nuclearlib:
+
+
+=========================
+Nuclear Data Library File
+=========================
+
+ROBIN3 use nuclear data library from 
+`The WIMS Library Update Project(WLUP) <https://www-pub.iaea.org/MTCD/publications/PDF/Pub1264_web.pdf>`_.

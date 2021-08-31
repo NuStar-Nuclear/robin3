@@ -1,0 +1,7 @@
+﻿robin3.openmc_compatible.get_core_universe
+==========================================
+
+.. currentmodule:: robin3.openmc_compatible
+
+.. autoclass:: get_core_universe
+    :members:

@@ -1,0 +1,7 @@
+robin3.ResultProcessor
+======================
+
+.. currentmodule:: robin3
+
+.. autoclass:: ResultProcessor
+    :members:

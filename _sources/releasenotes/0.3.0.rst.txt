@@ -1,0 +1,27 @@
+===================
+What's New in 0.3.0
+===================
+
+------------
+New Features
+------------
+
+- Integrated IDYLL to make single assembly idyll tables by one command.
+- Ability to check input geometry overlapping.
+- Supportted regions of interest editting and visualization.
+
+|
+
+---------
+Bug Fixes
+---------
+- Fixed bug deleting MOCSolver before doing editing.
+- Fixed bug updating assembly boundary flux using wrong group index.
+- Fixed bug generating incorrect assembly numbers.
+- Fixed bug that containsPoint will include points on the primitive and is 
+  not always wanted for clipByContainer.
+- Fixed bug that sector centers not moved while use method applyOffset for 
+  whole core cases.
+- Fixed bug that key of mesh_idx_map repeated when mesh_idx larger than 100.
+- Fixed bug that resolution is too small to plot big circles.
+- Fixed bug that key error of _mesh_idx_map occurred when multi-quadrature used.

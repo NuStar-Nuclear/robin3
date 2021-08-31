@@ -1,0 +1,8 @@
+.. _examples_c5g7:
+
+===========================
+Modeling 2-D C5G7 Mini Core
+===========================
+
+.. literalinclude:: ../../../examples/C5G7/C5G7.yaml
+    :language: yaml

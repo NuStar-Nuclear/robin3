@@ -1,0 +1,1183 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Modeling a Single Hexagonal Assembly &mdash; ROBIN3 0.1.0-dev documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+    <link rel="canonical" href="/robin3/examples/hexagonal_assembly.html" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Modeling a Helical-Cruciform Fuel Rod Assembly" href="hc_assembly.html" />
+    <link rel="prev" title="Modeling a Single Square Assembly" href="square_assembly.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ROBIN3
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Install Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releasenotes/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usersguide/index.html">User’s Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Examples</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#by-pythonapi">By <span class="xref std std-ref">pythonapi</span></a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="pincell.html">Modeling a Pin-Cell</a></li>
+<li class="toctree-l3"><a class="reference internal" href="square_assembly.html">Modeling a Single Square Assembly</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Modeling a Single Hexagonal Assembly</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Defining-Materials">Defining Materials</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Defining-Pin-Structures">Defining Pin Structures</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Defining-Assembly">Defining Assembly</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Defining-State-Points">Defining State Points</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Composing-a-Input-Model">Composing a Input Model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Visualizing-Input-Model">Visualizing Input Model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Run-ROBIN3">Run ROBIN3</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Result-Visualization">Result Visualization</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="hc_assembly.html">Modeling a Helical-Cruciform Fuel Rod Assembly</a></li>
+<li class="toctree-l3"><a class="reference internal" href="c5g7.html">Modeling 2-D C5G7 Mini Core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="square_mini_core.html">Modeling a Square Mini Core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="vver.html">Modeling VVER 1/6 Core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hfter.html">Modeling HFTER Full Core</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#by-command-line">By <span class="xref std std-ref">Command Line</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#openmc-compatibility">OpenMC Compatibility</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../methods/index.html">Theory and Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pythonapi/index.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../command.html">Run in Command Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../io_formats/index.html">File Format Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License Agreement</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ROBIN3</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Examples</a> &raquo;</li>
+        
+      <li>Modeling a Single Hexagonal Assembly</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/examples/hexagonal_assembly.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container,
+div.nbinput.container div.prompt,
+div.nbinput.container div.input_area,
+div.nbinput.container div[class*=highlight],
+div.nbinput.container div[class*=highlight] pre,
+div.nboutput.container,
+div.nboutput.container div.prompt,
+div.nboutput.container div.output_area,
+div.nboutput.container div[class*=highlight],
+div.nboutput.container div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="Modeling-a-Single-Hexagonal-Assembly">
+<h1>Modeling a Single Hexagonal Assembly<a class="headerlink" href="#Modeling-a-Single-Hexagonal-Assembly" title="Permalink to this headline">¶</a></h1>
+<p>This notebook is intended to demonstrate how to use ROBIN3’s <a class="reference internal" href="../pythonapi/index.html"><span class="doc">Python API</span></a> to simulate a single hexagonal assembly.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">robin3</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<span class="n">robin3</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">USE_TQDM_NOTEBOOK</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="Defining-Materials">
+<h2>Defining Materials<a class="headerlink" href="#Defining-Materials" title="Permalink to this headline">¶</a></h2>
+<p>Here we create a <a class="reference internal" href="../io_formats/input.html#material-object"><span class="std std-ref">material</span></a> list containing 3 kinds of material: 1. Normal 3.6% enriched UO2 fuel material; 1. Normal 4.0% enriched UO2 fuel material; 2. Gd-bearing fuel material composed by 5% Gd2O3 and 95% 3.3%-enriched UO2. Note “GD2O3” is pre-defined in the <a class="reference internal" href="../io_formats/materialdb.html"><span class="doc">material databank file</span></a>, which can be inspected by <a class="reference internal" href="../pythonapi/generated/robin3.get_predefined_materials.html"><span class="doc">robin3.get_predefined_materials</span></a> as well.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">materials</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;UO2_400&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;elements&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;UO2_4.0&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;weight_percents&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">],</span>
+        <span class="s2">&quot;density&quot;</span><span class="p">:</span> <span class="mf">10.3</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;UO2_360&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;elements&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;UO2_3.6&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;weight_percents&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">],</span>
+        <span class="s2">&quot;density&quot;</span><span class="p">:</span> <span class="mf">10.3</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Gd_bearing_fuel&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;elements&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;UO2_3.3&quot;</span><span class="p">,</span> <span class="s2">&quot;GD2O3&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;weight_percents&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">],</span>
+        <span class="s2">&quot;density&quot;</span><span class="p">:</span> <span class="mf">9.4</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Defining-Pin-Structures">
+<h2>Defining Pin Structures<a class="headerlink" href="#Defining-Pin-Structures" title="Permalink to this headline">¶</a></h2>
+<p>First we use <a class="reference internal" href="../io_formats/input.html#structure-object"><span class="std std-ref">structure</span></a> to define 2 normal fuel pins with different enrichment and a guide tube.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fuel_pin_36</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;F36&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;primitives&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CIRCLE&quot;</span><span class="p">,</span> <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="mf">0.3785</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CIRCLE&quot;</span><span class="p">,</span> <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="mf">0.3865</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CIRCLE&quot;</span><span class="p">,</span> <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="mf">0.4550</span><span class="p">},</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;regions&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="s2">&quot;UO2_360&quot;</span><span class="p">,</span> <span class="s2">&quot;space&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="s2">&quot;HE&quot;</span><span class="p">,</span> <span class="s2">&quot;space&quot;</span><span class="p">:</span> <span class="s2">&quot;2-1&quot;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="s2">&quot;ZIRLO&quot;</span><span class="p">,</span> <span class="s2">&quot;space&quot;</span><span class="p">:</span> <span class="s2">&quot;3-2&quot;</span><span class="p">},</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+<span class="n">fuel_pin_40</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;F40&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;primitives&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CIRCLE&quot;</span><span class="p">,</span> <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="mf">0.3785</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CIRCLE&quot;</span><span class="p">,</span> <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="mf">0.3865</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CIRCLE&quot;</span><span class="p">,</span> <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="mf">0.4550</span><span class="p">},</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;regions&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="s2">&quot;UO2_400&quot;</span><span class="p">,</span> <span class="s2">&quot;space&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="s2">&quot;HE&quot;</span><span class="p">,</span> <span class="s2">&quot;space&quot;</span><span class="p">:</span> <span class="s2">&quot;2-1&quot;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="s2">&quot;ZIRLO&quot;</span><span class="p">,</span> <span class="s2">&quot;space&quot;</span><span class="p">:</span> <span class="s2">&quot;3-2&quot;</span><span class="p">},</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+<span class="n">guide_tube</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;GT&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;primitives&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CIRCLE&quot;</span><span class="p">,</span> <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="mf">0.55</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CIRCLE&quot;</span><span class="p">,</span> <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="mf">0.65</span><span class="p">},</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;regions&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="s2">&quot;MOD&quot;</span><span class="p">,</span> <span class="s2">&quot;space&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="s2">&quot;ZIRLO&quot;</span><span class="p">,</span> <span class="s2">&quot;space&quot;</span><span class="p">:</span> <span class="s2">&quot;2-1&quot;</span><span class="p">},</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>Note here material “MOD” is a build-in material, and material “HE” and “ZIRLO” are pre-defined in ROBIN3’s <a class="reference internal" href="../io_formats/materialdb.html"><span class="doc">material databank file</span></a>, which can be inspected by <a class="reference internal" href="../pythonapi/generated/robin3.get_predefined_materials.html"><span class="doc">robin3.get_predefined_materials</span></a> as well.</p>
+<p>Second we define the Gd-bearing fuel pin, Gd-bearing fuel pin is same as the normal fuel pin except the material in the inner fuel region, so we can copy from the normal fuel pin and override the inner regions definition. Due to the large absorption cross section of Gd isotopes, Gd-bearing pin should be take special consideration for <a class="reference internal" href="../io_formats/input.html#meshing-object"><span class="std std-ref">meshing</span></a>. Instead of using the default <a class="reference internal" href="../io_formats/input.html#meshing-object"><span class="std std-ref">meshing</span></a>, we redefine the
+<a class="reference internal" href="../io_formats/input.html#meshing-object"><span class="std std-ref">meshing</span></a> with 10 equal-area rings divided by the radii of meshing.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">pprint</span>
+<span class="n">gd_pin</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">fuel_pin_36</span><span class="p">)</span>
+<span class="n">gd_pin</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;B33&quot;</span>
+<span class="n">gd_pin</span><span class="p">[</span><span class="s2">&quot;regions&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;material&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Gd_bearing_fuel&quot;</span>
+<span class="n">gd_pin</span><span class="p">[</span><span class="s2">&quot;meshing&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;SECTORS&quot;</span><span class="p">,</span>
+                     <span class="s2">&quot;num_azimuths&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+                     <span class="s2">&quot;radii&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">0.3785</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="mi">10</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">)]}</span>
+<span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">gd_pin</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;meshing&#39;: {&#39;num_azimuths&#39;: 6,
+             &#39;radii&#39;: [0.11969220943737316,
+                       0.1692703458967341,
+                       0.20731298801570539,
+                       0.23938441887474632,
+                       0.26763991667910825,
+                       0.2931848393079015,
+                       0.3166758200431476,
+                       0.3385406917934682,
+                       0.3590766283121195],
+             &#39;type&#39;: &#39;SECTORS&#39;},
+ &#39;name&#39;: &#39;B33&#39;,
+ &#39;primitives&#39;: [{&#39;radius&#39;: 0.3785, &#39;type&#39;: &#39;CIRCLE&#39;},
+                {&#39;radius&#39;: 0.3865, &#39;type&#39;: &#39;CIRCLE&#39;},
+                {&#39;radius&#39;: 0.455, &#39;type&#39;: &#39;CIRCLE&#39;}],
+ &#39;regions&#39;: [{&#39;material&#39;: &#39;Gd_bearing_fuel&#39;, &#39;space&#39;: &#39;1&#39;},
+             {&#39;material&#39;: &#39;HE&#39;, &#39;space&#39;: &#39;2-1&#39;},
+             {&#39;material&#39;: &#39;ZIRLO&#39;, &#39;space&#39;: &#39;3-2&#39;}]}
+</pre></div></div>
+</div>
+<p>The hexagonal assembly we are modeling has stiffening plates in the corner edges, demonstrate <img alt="stiffening plates" src="../_images/vver_stiffening_plates.png" /></p>
+<p>In order to model this geometry we can create a plate structure then put it to the assembly, here we define the plate <a class="reference internal" href="../io_formats/input.html#structure-object"><span class="std std-ref">structure</span></a>:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">plate</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;plate&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;primitives&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;POLYGON&quot;</span><span class="p">,</span>
+         <span class="s2">&quot;vertexes&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">13.5100</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>  <span class="mf">0.0</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span>  <span class="mf">13.5100</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>  <span class="mf">0.0</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span>  <span class="o">-</span><span class="mf">6.7550</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>  <span class="mf">11.7000</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span>   <span class="mf">6.7550</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>  <span class="mf">11.7000</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span>  <span class="o">-</span><span class="mf">6.7550</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">11.7000</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span>   <span class="mf">6.7550</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">11.7000</span><span class="p">},</span>
+        <span class="p">]},</span>
+        <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;POLYGON&quot;</span><span class="p">,</span>
+         <span class="s2">&quot;vertexes&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">13.3945</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>  <span class="mf">0.0</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span>  <span class="mf">13.3945</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>  <span class="mf">0.0</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span>  <span class="o">-</span><span class="mf">6.6973</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>  <span class="mf">11.6000</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span>   <span class="mf">6.6973</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>  <span class="mf">11.6000</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span>  <span class="o">-</span><span class="mf">6.6973</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">11.6000</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span>   <span class="mf">6.6973</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">11.6000</span><span class="p">},</span>
+        <span class="p">]},</span>
+        <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;POLYGON&quot;</span><span class="p">,</span>
+         <span class="s2">&quot;vertexes&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">12.1316</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>  <span class="mf">2.5875</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span>  <span class="o">-</span><span class="mf">8.3066</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>  <span class="mf">9.2125</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span>  <span class="mf">12.1316</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">2.5875</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span>   <span class="mf">8.3066</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">9.2125</span><span class="p">},</span>
+        <span class="p">]},</span>
+        <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;POLYGON&quot;</span><span class="p">,</span>
+         <span class="s2">&quot;vertexes&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span>  <span class="mf">12.1316</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>  <span class="mf">2.5875</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span>   <span class="mf">8.3066</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>  <span class="mf">9.2125</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">12.1316</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">2.5875</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span>  <span class="o">-</span><span class="mf">8.3066</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">9.2125</span><span class="p">},</span>
+        <span class="p">]},</span>
+        <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;POLYGON&quot;</span><span class="p">,</span>
+         <span class="s2">&quot;vertexes&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">3.8250</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>  <span class="mf">11.8000</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span>  <span class="mf">3.8250</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>  <span class="mf">11.8000</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">3.8250</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">11.8000</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span>  <span class="mf">3.8250</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">11.8000</span><span class="p">},</span>
+        <span class="p">]},</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;regions&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="s2">&quot;ZIRLO&quot;</span><span class="p">,</span> <span class="s2">&quot;space&quot;</span><span class="p">:</span> <span class="s1">&#39;1-2-3-4-5&#39;</span><span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Defining-Assembly">
+<h2>Defining Assembly<a class="headerlink" href="#Defining-Assembly" title="Permalink to this headline">¶</a></h2>
+<p>Defining the hexagonal <a class="reference internal" href="../io_formats/input.html#assembly-object"><span class="std std-ref">assembly</span></a>. This assembly has 243 4.0% enrichment fuel pins, 60 3.6% enrichment fuel pins and 9 Gd-bearing fuel pins. Note that we put the plate structure by defining structure locations.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">assembly</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;single_hexagonal_assembly&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;HEXAGON&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;symmetry&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;pitch&quot;</span><span class="p">:</span> <span class="mf">23.6</span><span class="p">,</span>
+    <span class="s2">&quot;cell_pitch&quot;</span><span class="p">:</span> <span class="mf">1.275</span><span class="p">,</span>
+    <span class="s2">&quot;cell_map&quot;</span><span class="p">:</span> <span class="p">[</span>
+                                  <span class="s2">&quot;F36&quot;</span><span class="p">,</span><span class="s2">&quot;F36&quot;</span><span class="p">,</span><span class="s2">&quot;F36&quot;</span><span class="p">,</span><span class="s2">&quot;F36&quot;</span><span class="p">,</span><span class="s2">&quot;F36&quot;</span><span class="p">,</span><span class="s2">&quot;F36&quot;</span><span class="p">,</span><span class="s2">&quot;F36&quot;</span><span class="p">,</span><span class="s2">&quot;F36&quot;</span><span class="p">,</span><span class="s2">&quot;F36&quot;</span><span class="p">,</span><span class="s2">&quot;F36&quot;</span><span class="p">,</span><span class="s2">&quot;F36&quot;</span><span class="p">,</span>
+                               <span class="s2">&quot;F36&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F36&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;F36&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;B33&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;B33&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F36&quot;</span><span class="p">,</span>
+                         <span class="s2">&quot;F36&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F36&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;F36&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;GT&quot;</span><span class="p">,</span> <span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F36&quot;</span><span class="p">,</span>
+                   <span class="s2">&quot;F36&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;GT&quot;</span><span class="p">,</span> <span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;GT&quot;</span><span class="p">,</span> <span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F36&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;F36&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;B33&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F36&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;F36&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;GT&quot;</span><span class="p">,</span> <span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;GT&quot;</span><span class="p">,</span> <span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;GT&quot;</span><span class="p">,</span> <span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F36&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;F36&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;GT&quot;</span><span class="p">,</span> <span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F36&quot;</span><span class="p">,</span>
+       <span class="s2">&quot;F36&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;GT&quot;</span><span class="p">,</span> <span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F36&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;F36&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;B33&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;GT&quot;</span><span class="p">,</span> <span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;GT&quot;</span><span class="p">,</span> <span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;GT&quot;</span><span class="p">,</span> <span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;B33&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F36&quot;</span><span class="p">,</span>
+       <span class="s2">&quot;F36&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;B33&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;GT&quot;</span><span class="p">,</span> <span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F36&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;F36&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;GT&quot;</span><span class="p">,</span> <span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F36&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;F36&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;GT&quot;</span><span class="p">,</span> <span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;GT&quot;</span><span class="p">,</span> <span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;B33&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;GT&quot;</span><span class="p">,</span> <span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F36&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;F36&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F36&quot;</span><span class="p">,</span>
+                   <span class="s2">&quot;F36&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;GT&quot;</span><span class="p">,</span> <span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;GT&quot;</span><span class="p">,</span> <span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F36&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;F36&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;GT&quot;</span><span class="p">,</span> <span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F36&quot;</span><span class="p">,</span>
+                         <span class="s2">&quot;F36&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F36&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;F36&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;B33&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;B33&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F36&quot;</span><span class="p">,</span>
+                               <span class="s2">&quot;F36&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F40&quot;</span><span class="p">,</span><span class="s2">&quot;F36&quot;</span><span class="p">,</span>
+                                  <span class="s2">&quot;F36&quot;</span><span class="p">,</span><span class="s2">&quot;F36&quot;</span><span class="p">,</span><span class="s2">&quot;F36&quot;</span><span class="p">,</span><span class="s2">&quot;F36&quot;</span><span class="p">,</span><span class="s2">&quot;F36&quot;</span><span class="p">,</span><span class="s2">&quot;F36&quot;</span><span class="p">,</span><span class="s2">&quot;F36&quot;</span><span class="p">,</span><span class="s2">&quot;F36&quot;</span><span class="p">,</span><span class="s2">&quot;F36&quot;</span><span class="p">,</span><span class="s2">&quot;F36&quot;</span><span class="p">,</span><span class="s2">&quot;F36&quot;</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;structure_location&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;structure&quot;</span><span class="p">:</span> <span class="s2">&quot;plate&quot;</span><span class="p">,</span> <span class="s2">&quot;location&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">}}]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Defining-State-Points">
+<h2>Defining State Points<a class="headerlink" href="#Defining-State-Points" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="../io_formats/input.html#state-points-object"><span class="std std-ref">State points</span></a> is required for micro xs cases, here we provides burnup points and power density to perform single assembly depletion calculation:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">state_points</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;boron_concentration&quot;</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
+    <span class="s2">&quot;moderator_temperature&quot;</span><span class="p">:</span> <span class="mi">577</span><span class="p">,</span>
+    <span class="s2">&quot;fuel_temperature&quot;</span><span class="p">:</span> <span class="mi">903</span><span class="p">,</span>
+    <span class="s2">&quot;system_pressure&quot;</span><span class="p">:</span> <span class="mf">15.51</span><span class="p">,</span>
+    <span class="s2">&quot;burnup_points&quot;</span><span class="p">:[</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.03</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">14</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span>
+                     <span class="mi">22</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">26</span><span class="p">,</span><span class="mi">28</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">32</span><span class="p">,</span><span class="mi">34</span><span class="p">,</span><span class="mi">36</span><span class="p">,</span><span class="mi">38</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">42</span><span class="p">,</span><span class="mi">44</span><span class="p">,</span><span class="mi">46</span><span class="p">,</span><span class="mi">48</span><span class="p">,</span><span class="mi">50</span><span class="p">],</span>
+    <span class="s2">&quot;power_density&quot;</span><span class="p">:</span> <span class="mf">40.0</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Composing-a-Input-Model">
+<h2>Composing a Input Model<a class="headerlink" href="#Composing-a-Input-Model" title="Permalink to this headline">¶</a></h2>
+<p>The full <a class="reference internal" href="../io_formats/input.html"><span class="doc">input model</span></a> for a typical single assembly depletion calculation includes following parts: 1. <a class="reference internal" href="../io_formats/input.html#materials-array"><span class="std std-ref">materials</span></a>; 2. <a class="reference internal" href="../io_formats/input.html#structures-array"><span class="std std-ref">structures</span></a>; 3. <a class="reference internal" href="../io_formats/input.html#assemblies-array"><span class="std std-ref">assemblies</span></a>; 4. <a class="reference internal" href="../io_formats/input.html#state-points-object"><span class="std std-ref">state points</span></a>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">model</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;materials&quot;</span><span class="p">:</span> <span class="n">materials</span><span class="p">,</span>
+    <span class="s2">&quot;structures&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">fuel_pin_36</span><span class="p">,</span> <span class="n">fuel_pin_40</span><span class="p">,</span> <span class="n">guide_tube</span><span class="p">,</span> <span class="n">gd_pin</span><span class="p">,</span> <span class="n">plate</span><span class="p">],</span>
+    <span class="s2">&quot;assemblies&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">assembly</span><span class="p">],</span>
+    <span class="s2">&quot;state_points&quot;</span><span class="p">:</span> <span class="n">state_points</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Visualizing-Input-Model">
+<h2>Visualizing Input Model<a class="headerlink" href="#Visualizing-Input-Model" title="Permalink to this headline">¶</a></h2>
+<p>Instantiates a <a class="reference internal" href="../pythonapi/generated/robin3.Plotter.html"><span class="doc">robin3.Plotter</span></a> to visualize the model</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">plotter</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">Plotter</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Display our single assembly by plot_geometry method:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plotter</span><span class="o">.</span><span class="n">plot_geometry</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "4a8ac637059a4ac6b2cd821158c33b16", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_hexagonal_assembly_28_2.png" src="../_images/examples_hexagonal_assembly_28_2.png" />
+</div>
+</div>
+<p>Display our single pin cell assembly with MOC meshing, here we can see the Gd-bearing pins are finely divided.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plotter</span><span class="o">.</span><span class="n">plot_geometry</span><span class="p">(</span><span class="n">show_meshes</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "f0e9853b523a48ab843b11fc40805739", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "0460acdef29d46ef858c0dbb1709bab5", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_hexagonal_assembly_30_3.png" src="../_images/examples_hexagonal_assembly_30_3.png" />
+</div>
+</div>
+<p>Display flat source regions:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plotter</span><span class="o">.</span><span class="n">plot_flat_source_regions</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_hexagonal_assembly_32_0.png" src="../_images/examples_hexagonal_assembly_32_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Run-ROBIN3">
+<h2>Run ROBIN3<a class="headerlink" href="#Run-ROBIN3" title="Permalink to this headline">¶</a></h2>
+<p>Running ROBIN3 from Python can be done using the <a class="reference internal" href="../pythonapi/generated/robin3.run.html"><span class="doc">robin3.run()</span></a> function. This function allows you to use GPU by setting use_GPU=True if it needed, GPU will significantly reduce the running time.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">result</span> <span class="o">=</span> <span class="n">robin3</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">use_gpu</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;robin3.result_process.ResultProcessor object at 0x7f64ec45c400&gt;
+</pre></div></div>
+</div>
+<p>The <a class="reference internal" href="../pythonapi/generated/robin3.run.html"><span class="doc">robin3.run()</span></a> function return a <a class="reference internal" href="../pythonapi/generated/robin3.ResultProcessor.html"><span class="doc">robin3.ResultProcessor</span></a> instance. All the result data can be accessed by the result_data attribute, and the result data are saved by a HDF5 file named by result_file attribute, summary result data such as keff can be inspected by method summary which return a pandas DataFrame.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">result_file</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+/home/ghchen/Nustar/projects/robin3/docs/source/examples/single_hexagonal_assembly.h5
+    burnup    tmo    tfu    bor      keff      kinf  keff_apply_buckling  \
+0     0.00  577.0  903.0  500.0  1.225599  1.225571             1.225439
+1     0.03  577.0  903.0  500.0  1.197515  1.197298             1.197158
+2     0.10  577.0  903.0  500.0  1.187905  1.187720             1.187568
+3     0.50  577.0  903.0  500.0  1.181392  1.181509             1.181339
+4     1.00  577.0  903.0  500.0  1.178635  1.178902             1.178730
+5     2.00  577.0  903.0  500.0  1.176167  1.176539             1.176367
+6     3.00  577.0  903.0  500.0  1.173328  1.173846             1.173671
+7     4.00  577.0  903.0  500.0  1.170285  1.170874             1.170697
+8     5.00  577.0  903.0  500.0  1.167357  1.167967             1.167788
+9     6.00  577.0  903.0  500.0  1.164761  1.165349             1.165166
+10    7.00  577.0  903.0  500.0  1.162551  1.163140             1.162953
+11    8.00  577.0  903.0  500.0  1.160375  1.160949             1.160756
+12    9.00  577.0  903.0  500.0  1.157049  1.157608             1.157409
+13   10.00  577.0  903.0  500.0  1.151867  1.152338             1.152131
+14   12.00  577.0  903.0  500.0  1.136371  1.136737             1.136512
+15   14.00  577.0  903.0  500.0  1.118419  1.118779             1.118531
+16   16.00  577.0  903.0  500.0  1.100743  1.101069             1.100792
+17   18.00  577.0  903.0  500.0  1.083672  1.083980             1.083670
+18   20.00  577.0  903.0  500.0  1.067164  1.067456             1.067108
+19   22.00  577.0  903.0  500.0  1.051386  1.051406             1.051015
+20   24.00  577.0  903.0  500.0  1.035780  1.035824             1.035386
+21   26.00  577.0  903.0  500.0  1.020554  1.020650             1.020162
+22   28.00  577.0  903.0  500.0  1.005704  1.005860             1.005317
+23   30.00  577.0  903.0  500.0  0.991191  0.991391             0.990792
+24   32.00  577.0  903.0  500.0  0.977009  0.977257             0.976598
+25   34.00  577.0  903.0  500.0  0.963144  0.963446             0.962726
+26   36.00  577.0  903.0  500.0  0.949608  0.949961             0.949178
+27   38.00  577.0  903.0  500.0  0.936402  0.936813             0.935965
+28   40.00  577.0  903.0  500.0  0.923531  0.924017             0.923104
+29   42.00  577.0  903.0  500.0  0.911030  0.911590             0.910611
+30   44.00  577.0  903.0  500.0  0.898905  0.899548             0.898502
+31   46.00  577.0  903.0  500.0  0.887175  0.887897             0.886785
+32   48.00  577.0  903.0  500.0  0.875848  0.876644             0.875466
+33   50.00  577.0  903.0  500.0  0.864932  0.865814             0.864567
+
+    buckling  peak_pin_power  std_pin_power
+0        0.0        1.099531       0.421661
+1        0.0        1.098600       0.421411
+2        0.0        1.098336       0.421287
+3        0.0        1.097035       0.420863
+4        0.0        1.095499       0.420319
+5        0.0        1.092124       0.419193
+6        0.0        1.088565       0.418062
+7        0.0        1.084828       0.416940
+8        0.0        1.080925       0.415851
+9        0.0        1.076809       0.414821
+10       0.0        1.072535       0.413885
+11       0.0        1.068124       0.413080
+12       0.0        1.064068       0.412472
+13       0.0        1.060911       0.412076
+14       0.0        1.058353       0.411730
+15       0.0        1.056826       0.411627
+16       0.0        1.055342       0.411566
+17       0.0        1.053831       0.411510
+18       0.0        1.052208       0.411453
+19       0.0        1.050485       0.411394
+20       0.0        1.048845       0.411338
+21       0.0        1.047171       0.411284
+22       0.0        1.045481       0.411231
+23       0.0        1.043772       0.411180
+24       0.0        1.042019       0.411130
+25       0.0        1.040257       0.411082
+26       0.0        1.038541       0.411036
+27       0.0        1.036872       0.410992
+28       0.0        1.035232       0.410951
+29       0.0        1.033649       0.410914
+30       0.0        1.032133       0.410879
+31       0.0        1.030648       0.410846
+32       0.0        1.029260       0.410816
+33       0.0        1.027987       0.410790
+</pre></div></div>
+</div>
+<p>We can conveniently plot k-effective and peak pin power changes with burnup by using pandas:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;burnup&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;keff&quot;</span><span class="p">,</span> <span class="s2">&quot;peak_pin_power&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f64f419a208&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_hexagonal_assembly_40_1.png" src="../_images/examples_hexagonal_assembly_40_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Result-Visualization">
+<h2>Result Visualization<a class="headerlink" href="#Result-Visualization" title="Permalink to this headline">¶</a></h2>
+<p>Result visualization from Python can be done using a <a class="reference internal" href="../pythonapi/generated/robin3.Plotter.html"><span class="doc">robin3.Plotter</span></a> instance generate by <a class="reference internal" href="../pythonapi/generated/robin3.ResultProcessor.html"><span class="doc">ResultProcessor</span></a>’s method generate_plotter.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">plotter</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">generate_plotter</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Here we can plot input model as well:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plotter</span><span class="o">.</span><span class="n">plot_geometry</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "56f072d905f24da2bf5ab896a9fda6f6", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_hexagonal_assembly_45_1.png" src="../_images/examples_hexagonal_assembly_45_1.png" />
+</div>
+</div>
+<p>Display depletion and resonance regions:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plotter</span><span class="o">.</span><span class="n">plot_depletion_regions</span><span class="p">()</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plotter</span><span class="o">.</span><span class="n">plot_resonance_regions</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "c5965c90bb0649e5ace1afc9f14e165d", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "90d1df8ef4674bd6a39a21ba4ca54468", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_hexagonal_assembly_47_2.png" src="../_images/examples_hexagonal_assembly_47_2.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_hexagonal_assembly_47_3.png" src="../_images/examples_hexagonal_assembly_47_3.png" />
+</div>
+</div>
+<p>Unlike normal fuel pin, the fine flat source region will be used as depletion regions for Gd-bearing fuel pins to precisely modeling Gd burning. So we can see different region division in above figures in the Gd-bearing fuel pin.</p>
+<p>From the output file, many result items can be displayed by the <a class="reference internal" href="../pythonapi/generated/robin3.Plotter.html"><span class="doc">robin3.Plotter</span></a> Class. For example, we can plot the pin power distribution at any burnup points that we calculated by plot_pin_power method, here we display power distribution at the begining and the end.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plotter</span><span class="o">.</span><span class="n">plot_pin_power</span><span class="p">(</span><span class="n">burnup</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plotter</span><span class="o">.</span><span class="n">plot_pin_power</span><span class="p">(</span><span class="n">burnup</span><span class="o">=</span><span class="mf">50.0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_hexagonal_assembly_50_0.png" src="../_images/examples_hexagonal_assembly_50_0.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_hexagonal_assembly_50_1.png" src="../_images/examples_hexagonal_assembly_50_1.png" />
+</div>
+</div>
+<p>Visualize the mesh flux distribution of energy group 1 (fast group) and 2 (thermal group) at burnup 0.0 and 50.0 GWd/tU, here we can find sigificant different between 0.0 GWd/tU and 50.0 GWd/tU cause the Gd isotopes have totally burned out at the 50.0GWd/tU point.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]:</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plotter</span><span class="o">.</span><span class="n">plot_mesh_flux</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">g</span><span class="p">,</span> <span class="n">burnup</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plotter</span><span class="o">.</span><span class="n">plot_mesh_flux</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">g</span><span class="p">,</span> <span class="n">burnup</span><span class="o">=</span><span class="mf">50.0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_hexagonal_assembly_52_0.png" src="../_images/examples_hexagonal_assembly_52_0.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_hexagonal_assembly_52_1.png" src="../_images/examples_hexagonal_assembly_52_1.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_hexagonal_assembly_52_2.png" src="../_images/examples_hexagonal_assembly_52_2.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_hexagonal_assembly_52_3.png" src="../_images/examples_hexagonal_assembly_52_3.png" />
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="hc_assembly.html" class="btn btn-neutral float-right" title="Modeling a Helical-Cruciform Fuel Rod Assembly" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="square_assembly.html" class="btn btn-neutral float-left" title="Modeling a Single Square Assembly" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020-, ShangHai NuStar Nuclear Power Technology Co.Ltd.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+ 
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-30411614-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+</body>
+</html>

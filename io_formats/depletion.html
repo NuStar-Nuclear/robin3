@@ -1,0 +1,336 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>3. Depletion Specification – depletion.xml &mdash; ROBIN3 0.1.0-dev documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+    <link rel="canonical" href="/robin3/io_formats/depletion.html" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="License Agreement" href="../license.html" />
+    <link rel="prev" title="2. Volumes Result – volume.yaml" href="volume.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ROBIN3
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Install Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releasenotes/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usersguide/index.html">User’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../methods/index.html">Theory and Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pythonapi/index.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../command.html">Run in Command Line</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">File Format Specifications</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#robin3-files">ROBIN3 Files</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#openmc-compatibility-module-files">OpenMC Compatibility Module Files</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="openmc.html">1. <code class="docutils literal notranslate"><span class="pre">openmc_compatible</span></code> dict</a></li>
+<li class="toctree-l3"><a class="reference internal" href="volume.html">2. Volumes Result – volume.yaml</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">3. Depletion Specification – depletion.xml</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#algorithm-element">3.1. <code class="docutils literal notranslate"><span class="pre">&lt;algorithm&gt;</span></code> Element</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#timesteps-element">3.2. <code class="docutils literal notranslate"><span class="pre">&lt;timesteps&gt;</span></code> Element</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#timeteps-units-element">3.3. <code class="docutils literal notranslate"><span class="pre">&lt;timeteps_units&gt;</span></code> Element</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#power-density-element">3.4. <code class="docutils literal notranslate"><span class="pre">&lt;power_density&gt;</span></code> Element</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#solver-element">3.5. <code class="docutils literal notranslate"><span class="pre">&lt;solver&gt;</span></code> Element</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#operator-element">3.6. <code class="docutils literal notranslate"><span class="pre">&lt;operator&gt;</span></code> Element</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License Agreement</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ROBIN3</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">File Format Specifications</a> &raquo;</li>
+        
+      <li><span class="section-number">3. </span>Depletion Specification – depletion.xml</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/io_formats/depletion.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="depletion-specification-depletion-xml">
+<span id="io-openmc-depletion"></span><h1><span class="section-number">3. </span>Depletion Specification – depletion.xml<a class="headerlink" href="#depletion-specification-depletion-xml" title="Permalink to this headline">¶</a></h1>
+<p>Parameters of OpenMC depletion integrator are specified in the depletion.xml file.
+Designed for commandline users who are not familiar with Python API.</p>
+<div class="section" id="algorithm-element">
+<h2><span class="section-number">3.1. </span><code class="docutils literal notranslate"><span class="pre">&lt;algorithm&gt;</span></code> Element<a class="headerlink" href="#algorithm-element" title="Permalink to this headline">¶</a></h2>
+<p>The algorithm of depletion.</p>
+<blockquote>
+<div><p><em>Default</em>: CECM</p>
+</div></blockquote>
+</div>
+<div class="section" id="timesteps-element">
+<h2><span class="section-number">3.2. </span><code class="docutils literal notranslate"><span class="pre">&lt;timesteps&gt;</span></code> Element<a class="headerlink" href="#timesteps-element" title="Permalink to this headline">¶</a></h2>
+<p>Time steps of depletion.</p>
+</div>
+<div class="section" id="timeteps-units-element">
+<h2><span class="section-number">3.3. </span><code class="docutils literal notranslate"><span class="pre">&lt;timeteps_units&gt;</span></code> Element<a class="headerlink" href="#timeteps-units-element" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p><em>Default</em>: MWd/kg</p>
+</div></blockquote>
+</div>
+<div class="section" id="power-density-element">
+<h2><span class="section-number">3.4. </span><code class="docutils literal notranslate"><span class="pre">&lt;power_density&gt;</span></code> Element<a class="headerlink" href="#power-density-element" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">&lt;power_density&gt;</span></code> element indicate power density of the model that is used
+for normalizing reaction rate of depletable materials.</p>
+<blockquote>
+<div><p><em>Default</em>: 40</p>
+</div></blockquote>
+</div>
+<div class="section" id="solver-element">
+<h2><span class="section-number">3.5. </span><code class="docutils literal notranslate"><span class="pre">&lt;solver&gt;</span></code> Element<a class="headerlink" href="#solver-element" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p><em>Default</em>: cram48</p>
+</div></blockquote>
+</div>
+<div class="section" id="operator-element">
+<h2><span class="section-number">3.6. </span><code class="docutils literal notranslate"><span class="pre">&lt;operator&gt;</span></code> Element<a class="headerlink" href="#operator-element" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">&lt;operator&gt;</span></code> element indicates the parameters of transport operator used to
+perform depletion using OpenMC. It has the following attributes:</p>
+<blockquote>
+<div><dl class="field-list">
+<dt class="field-odd">chain_file</dt>
+<dd class="field-odd"><p>Path to the depletion chain XML file.</p>
+</dd>
+<dt class="field-even">normalization_mode</dt>
+<dd class="field-even"><p>Indicate how tally results should be normalized. <cite>energy-deposition</cite>
+computes the total energy deposited in the system and uses the ratio of
+the power to the energy produced as a normalization factor.
+<cite>fission-q</cite> uses the fission Q values from the depletion chain to
+compute the total energy deposited.</p>
+<p><em>Default</em>: energy-deposition</p>
+</dd>
+<dt class="field-odd">diff_burnable_mats</dt>
+<dd class="field-odd"><p>Whether to differentiate burnable materials with multiple instances.</p>
+<p><em>Default</em>: true</p>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../license.html" class="btn btn-neutral float-right" title="License Agreement" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="volume.html" class="btn btn-neutral float-left" title="2. Volumes Result – volume.yaml" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020-, ShangHai NuStar Nuclear Power Technology Co.Ltd.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+ 
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-30411614-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+</body>
+</html>
