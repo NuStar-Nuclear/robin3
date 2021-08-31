@@ -34,6 +34,7 @@ Fuel depletion calculation:
 
 .. toctree::
     :maxdepth: 1
+    :caption: Contents:
     
     install
     releasenotes/index
